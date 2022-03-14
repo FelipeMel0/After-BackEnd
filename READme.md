@@ -1,4 +1,4 @@
-<h1>After - Rede Social de Evento</h1>
+<h1>After - Rede Social de Eventos</h1>
 
 Integrantes:<br>
 Ana Beatriz Pereira de Brito <br>
