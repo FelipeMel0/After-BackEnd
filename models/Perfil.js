@@ -1,8 +1,12 @@
 const db = require("./db")
+const UsuarioComum = require("./UsuarioComum")
 
 const Perfil = db.sequelize.define('tblPerfil', {
-    nome: {
-        type: db.Sequelize.STRING(45)
+    idPerfil: {
+        type: db.Sequelize.INTEGER, 
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
     },
     nickname: {
         type: db.Sequelize.STRING(45)
@@ -19,10 +23,14 @@ const Perfil = db.sequelize.define('tblPerfil', {
     imagemFundo: {
         type: db.Sequelize.STRING(45)
     },
-    verificacao: {
-        type: db.Sequelize.BOOLEAN
+    tblUsuarioComum_idUsuarioComum: {
+        type: db.Sequelize.INTEGER,
+        references: 'tblUsuarioComum', //Nome da tabela no banco
+        referencesKey: 'idUsuarioComum' //Nome da coluna no banco
     }
 })
+
+UsuarioComum.hasMany(Perfil)
 
 Perfil.sync({
     force: true
