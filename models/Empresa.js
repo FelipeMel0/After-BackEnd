@@ -31,9 +31,9 @@ Empresa.belongsTo(Perfil)
 
 /*Exemplo de edição de dados */
 
-Empresa.update(
-    { cnpj: '98.902.856/0001-57' },
-    { where: { idEmpresa: 2 } }
- )
+// Empresa.update(
+//     { cnpj: '98.902.856/0001-57' },
+//     { where: { idEmpresa: 2 } }
+//  )
 
 module.export = Empresa
