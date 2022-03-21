@@ -18,6 +18,7 @@ const UsuarioComum = db.sequelize.define('tblUsuarioComum', {
         allowNull: false
     }
 })
+
 Perfil.hasMany(UsuarioComum)
 
 UsuarioComum.belongsTo(Perfil)
@@ -26,10 +27,10 @@ UsuarioComum.belongsTo(Perfil)
 //     force: true
 // })
 
-UsuarioComum.create({
-    nome: "Selma Guimarães Rebotim",
-    dataNasc: '1955-09-06',
-    tblPerfilIdPerfil: '1'
-})
+// UsuarioComum.create({
+//     nome: "Selma Guimarães Rebotim",
+//     dataNasc: '1955-09-06',
+//     tblPerfilIdPerfil: '1'
+// })
 
 module.exports = UsuarioComum

@@ -3,6 +3,7 @@ const app = express()
 
 const perfil = require('./models/Perfil')
 const usuarioComum = require('./models/UsuarioComum')
+const empresa = require('./models/Empresa')
 
 // app.get("/createAccount", function(req, res){
 //     res.send()

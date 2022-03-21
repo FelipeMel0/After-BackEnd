@@ -46,4 +46,13 @@ const Perfil = db.sequelize.define('tblPerfil', {
 
 //Exemplo de criação de perfil pelo próprio Node
 
+//  Perfil.create({
+//     nickname: "Clumsy Mouse" ,
+//     email: "clumsy@mouse.com",
+//     senha: "123",
+//     imagemPerfil: "imgclumsy.png",
+//     imagemFundo: "imgmouse.jpeg"
+//  }) 
+
+
 module.exports = Perfil
