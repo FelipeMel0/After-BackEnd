@@ -1,6 +1,8 @@
 const db = require("./db")
 
-const UsuarioComum = db.Sequelize.define('tblUsuarioComum', {
+const Perfil = require("./Perfil")
+
+const UsuarioComum = db.sequelize.define('tblUsuarioComum', {
     idUsuarioComum: {
         type: db.Sequelize.INTEGER, 
         primaryKey: true,
@@ -8,12 +10,17 @@ const UsuarioComum = db.Sequelize.define('tblUsuarioComum', {
         allowNull: false
     },
     nome: {
-        type: db.Sequelize.STRING(45)
+        type: db.Sequelize.STRING(45),
+        allowNull: false
     },
     dataNasc: {
-        type: db.Sequelize.DATE
+        type: db.Sequelize.DATE,
+        allowNull: false
     }
 })
+Perfil.hasMany(UsuarioComum)
+
+UsuarioComum.belongsTo(Perfil)
 
 UsuarioComum.sync({
     force: true

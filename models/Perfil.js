@@ -1,5 +1,5 @@
 const db = require("./db")
-const UsuarioComum = require("./UsuarioComum")
+// const UsuarioComum = require("./UsuarioComum")
 
 const Perfil = db.sequelize.define('tblPerfil', {
     idPerfil: {
@@ -9,42 +9,41 @@ const Perfil = db.sequelize.define('tblPerfil', {
         allowNull: false
     },
     nickname: {
-        type: db.Sequelize.STRING(45)
+        type: db.Sequelize.STRING(45),
+        allowNull: false
     },
     email: {
-        type: db.Sequelize.STRING(45)
+        type: db.Sequelize.STRING(45),
+        allowNull: false
     },
     senha: {
-        type: db.Sequelize.STRING(45)
+        type: db.Sequelize.STRING(45),
+        allowNull: false
     },
     imagemPerfil: {
-        type: db.Sequelize.STRING(45)
+        type: db.Sequelize.TEXT
     },
     imagemFundo: {
-        type: db.Sequelize.STRING(45)
-    },
-    tblUsuarioComum_idUsuarioComum: {
-        type: db.Sequelize.INTEGER,
-        references: 'tblUsuarioComum', //Nome da tabela no banco
-        referencesKey: 'idUsuarioComum' //Nome da coluna no banco
+        type: db.Sequelize.TEXT
     }
+
 })
 
-UsuarioComum.hasMany(Perfil)
 
-Perfil.sync({
-    force: true
-}) //Depois de executado, comentar essa linha. 
-   //Caso contrário, irá criar várias tabelas iguais toda vez.
+// Perfil.sync({
+//     force: true
+// }) 
+    //Depois de executado, comentar essa linha. 
+    //Caso contrário, irá criar várias tabelas iguais toda vez.
 
-Perfil.create({
-    nome: "Selma Rebotim",
-    nickname: "Selmolas" ,
-    email: "rebolma@email.com",
-    senha: "123",
-    imagemPerfil: "imgperfil.png",
-    imagemFundo: "imgfundo.jpeg",
-    verificacao: false
-}) //Exemplo de criação de postagem pelo próprio Node
+// Perfil.create({
+//     nome: "Selma Rebotim",
+//     nickname: "Selmolas" ,
+//     email: "rebolma@email.com",
+//     senha: "123",
+//     imagemPerfil: "imgperfil.png",
+//     imagemFundo: "imgfundo.jpeg",
+//     verificacao: false
+// }) //Exemplo de criação de perfil pelo próprio Node
 
 module.exports = Perfil
