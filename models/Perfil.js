@@ -1,5 +1,4 @@
 const db = require("./db")
-// const UsuarioComum = require("./UsuarioComum")
 
 const Perfil = db.sequelize.define('tblPerfil', {
     idPerfil: {
@@ -36,6 +35,7 @@ const Perfil = db.sequelize.define('tblPerfil', {
     //Depois de executado, comentar essa linha. 
     //Caso contrário, irá criar várias tabelas iguais toda vez.
 
+
 // Perfil.create({
 //     nickname: "Selmolas" ,
 //     email: "rebolma@email.com",
@@ -44,7 +44,7 @@ const Perfil = db.sequelize.define('tblPerfil', {
 //     imagemFundo: "imgfundo.jpeg"
 // }) 
 
-//Exemplo de criação de perfil pelo próprio Node
+/*Exemplo de criação de perfil pelo próprio Node*/
 
 //  Perfil.create({
 //     nickname: "Clumsy Mouse" ,
@@ -54,5 +54,12 @@ const Perfil = db.sequelize.define('tblPerfil', {
 //     imagemFundo: "imgmouse.jpeg"
 //  }) 
 
+
+/*Exemplo de edição de dados*/
+
+// Perfil.update(
+//     { nickname: 'Selmolonolas' },
+//     { where: { idPerfil: 1 } }
+// )
 
 module.exports = Perfil

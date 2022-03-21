@@ -33,4 +33,12 @@ UsuarioComum.belongsTo(Perfil)
 //     tblPerfilIdPerfil: '1'
 // })
 
+
+/* Exemplo de edição de dados */
+
+//  UsuarioComum.update(
+//     { nome: 'Selma Guimarães Rebotim Jr.' },
+//     { where: { idUsuarioComum: 2 } }
+//  )
+
 module.exports = UsuarioComum
