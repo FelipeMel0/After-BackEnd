@@ -37,13 +37,13 @@ const Perfil = db.sequelize.define('tblPerfil', {
     //Caso contrário, irá criar várias tabelas iguais toda vez.
 
 // Perfil.create({
-//     nome: "Selma Rebotim",
 //     nickname: "Selmolas" ,
 //     email: "rebolma@email.com",
 //     senha: "123",
 //     imagemPerfil: "imgperfil.png",
-//     imagemFundo: "imgfundo.jpeg",
-//     verificacao: false
-// }) //Exemplo de criação de perfil pelo próprio Node
+//     imagemFundo: "imgfundo.jpeg"
+// }) 
+
+//Exemplo de criação de perfil pelo próprio Node
 
 module.exports = Perfil

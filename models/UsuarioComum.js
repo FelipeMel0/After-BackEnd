@@ -22,8 +22,14 @@ Perfil.hasMany(UsuarioComum)
 
 UsuarioComum.belongsTo(Perfil)
 
-UsuarioComum.sync({
-    force: true
+// UsuarioComum.sync({
+//     force: true
+// })
+
+UsuarioComum.create({
+    nome: "Selma Guimarães Rebotim",
+    dataNasc: '1955-09-06',
+    tblPerfilIdPerfil: '1'
 })
 
 module.exports = UsuarioComum
