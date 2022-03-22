@@ -5,9 +5,8 @@ const perfil = require('./models/Perfil')
 const usuarioComum = require('./models/UsuarioComum')
 const empresa = require('./models/Empresa')
 
-// app.get("/createAccount", function(req, res){
-//     res.send()
-// })
+const perfilController = require('./controllers/PerfilController');
+app.use('/', perfilController);
 
 app.listen(4000, function(){
     console.log("Servidor rodando na url http://localhost:4000")
