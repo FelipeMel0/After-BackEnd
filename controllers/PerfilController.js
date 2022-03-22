@@ -13,16 +13,31 @@ class PerfilController {
             senha,
             imagemPerfil,
             imagemFundo
-        });
+        })
 
-        return res.json(perfil);
+        return res.json(perfil)
     }
 
     async index(req, res) {
-        const perfil = await Perfil.findAll();
+        const perfil = await Perfil.findAll()
 
-        return res.json(perfil);
+        return res.json(perfil)
     }
+
+    async deletar(req, res) {
+
+        const {idPerfil} = req.body
+
+        Perfil.destroy(
+            {where: {idPerfil}}
+        ).then(
+            () => {
+                res.send('Perfil excluído')
+            }
+        )
+
+    }
+
 }
 
 module.exports = new PerfilController();
