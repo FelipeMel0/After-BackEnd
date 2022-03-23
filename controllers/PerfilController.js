@@ -38,6 +38,21 @@ class PerfilController {
 
     }
 
+    async editar(req, res) {
+
+        const {idPerfil, nickname, email, senha, imagemPerfil, imagemFundo} = req.body
+
+        Perfil.update(
+            {nickname},
+            {email},
+            {senha},
+            {imagemPerfil},
+            {imagemFundo},
+            {where: idPerfil}
+        )
+
+    }
+
 }
 
 module.exports = new PerfilController();

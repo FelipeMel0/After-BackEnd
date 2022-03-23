@@ -7,6 +7,7 @@ const PerfilController = require('./controllers/PerfilController')
 routes.post('/perfil', PerfilController.cadastro)
 routes.get('/perfil', PerfilController.index)
 routes.delete('/perfil', PerfilController.deletar)
+routes.put('/perfil', PerfilController.editar)
 
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})
