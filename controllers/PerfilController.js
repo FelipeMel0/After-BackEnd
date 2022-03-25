@@ -15,10 +15,10 @@ class PerfilController {
             imagemFundo
         })
 
-        return res.json(perfil)
+        return res.status(201).json(perfil)
     }
 
-    async index(req, res) {
+    async listar(req, res) {
         const perfil = await Perfil.findAll()
 
         return res.json(perfil)
@@ -40,16 +40,21 @@ class PerfilController {
 
     async editar(req, res) {
 
-        const {idPerfil, nickname, email, senha, imagemPerfil, imagemFundo} = req.body
+        const idPerfil = req.params.idPerfil
 
-        Perfil.update(
-            {nickname},
-            {email},
-            {senha},
-            {imagemPerfil},
-            {imagemFundo},
-            {where: idPerfil}
-        )
+        Perfil.update(req.body, {
+            where: {idPerfil: idPerfil}
+        }).then(num => {
+            if (num == 1) {
+              res.send({
+                message: "Update funcionou"
+              });
+            } else {
+              res.send({
+                message: `Erro ao dar update no Perfil com id=${idPerfil}.`
+              });
+            }
+          })
 
     }
 
