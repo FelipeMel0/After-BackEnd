@@ -26,10 +26,10 @@ class PerfilController {
 
     async deletar(req, res) {
 
-        const {idPerfil} = req.body
+        const idPerfil = req.params.idPerfil
 
         Perfil.destroy(
-            {where: {idPerfil}}
+            {where: {idPerfil: idPerfil}}
         ).then(
             () => {
                 res.send('Perfil excluído')
