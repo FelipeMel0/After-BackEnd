@@ -15,6 +15,9 @@ routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
 const UsuarioComum = require('./controllers/UsuarioComumController')
 
 routes.post("/usuarioComum/cadastrarUsuario/:tblPerfilIdPerfil", UsuarioComum.cadastro)
+routes.get("/usuarioComum/listarUsuarios", UsuarioComum.listar)
+routes.delete("/usuarioComum/deletarUsuario/:idUsuarioComum", UsuarioComum.deletar)
+routes.put("/usuarioComum/editarUsuario/:idUsuarioComum", UsuarioComum.editar)
 
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})
