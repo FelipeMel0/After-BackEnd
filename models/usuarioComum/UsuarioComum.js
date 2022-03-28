@@ -1,6 +1,6 @@
-const db = require("./db")
+const db = require("../database/db")
 
-const Perfil = require("./Perfil")
+const Perfil = require("../perfil/Perfil")
 
 const UsuarioComum = db.sequelize.define('tblUsuarioComum', {
     idUsuarioComum: {

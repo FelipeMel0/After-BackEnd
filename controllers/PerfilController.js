@@ -1,6 +1,6 @@
 //const express = require("express")
 
-const Perfil = require('../models/Perfil')
+const Perfil = require('../models/perfil/Perfil')
 
 class PerfilController {
     async cadastro(req, res) {

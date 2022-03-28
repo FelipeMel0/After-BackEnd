@@ -7,9 +7,9 @@ app.use(express.json())
 
 app.use(routes)
 
-const perfil = require('./models/Perfil')
-const usuarioComum = require('./models/UsuarioComum')
-const empresa = require('./models/Empresa')
+const perfil = require('./models/perfil/Perfil')
+const usuarioComum = require('./models/usuarioComum/UsuarioComum')
+const empresa = require('./models/empresa/Empresa')
 
 // const perfilController = require('./controllers/PerfilController');
 // app.use('/', perfilController);

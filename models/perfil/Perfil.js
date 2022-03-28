@@ -1,4 +1,4 @@
-const db = require("./db")
+const db = require("../database/db")
 
 const Perfil = db.sequelize.define('tblPerfil', {
     idPerfil: {
