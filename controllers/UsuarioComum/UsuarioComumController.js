@@ -1,4 +1,4 @@
-const UsuarioComum = require('../models/usuarioComum/UsuarioComum')
+const UsuarioComum = require('../../models/usuarioComum/UsuarioComum')
 
 class UsuarioComumController{
 

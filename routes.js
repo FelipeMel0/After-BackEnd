@@ -12,12 +12,19 @@ routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
 
 //Rotas de Usuário Comum
-const UsuarioComum = require('./controllers/UsuarioComumController')
+const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController')
 
 routes.post("/usuarioComum/cadastrarUsuario/:tblPerfilIdPerfil", UsuarioComum.cadastro)
 routes.get("/usuarioComum/listarUsuarios", UsuarioComum.listar)
 routes.delete("/usuarioComum/deletarUsuario/:idUsuarioComum", UsuarioComum.deletar)
 routes.put("/usuarioComum/editarUsuario/:idUsuarioComum", UsuarioComum.editar)
+
+const Estado = require('./controllers/UsuarioComum/EstadoController')
+
+routes.post("/estado/cadastrarEstado", Estado.cadastro)
+routes.get("/estado/listarEstados", Estado.listar)
+routes.delete("/estado/deletarEstado/:idEstado", Estado.deletar)
+routes.put("/estado/editarEstado/:idEstado", Estado.editar)
 
 //Rotas de Empresas
 const Empresa = require("./controllers/EmpresaController")

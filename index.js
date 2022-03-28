@@ -8,7 +8,11 @@ app.use(express.json())
 app.use(routes)
 
 const perfil = require('./models/perfil/Perfil')
+
+//Chamadas de Usuário Comum
 const usuarioComum = require('./models/usuarioComum/UsuarioComum')
+const estado = require('./models/usuarioComum/Estado')
+
 const empresa = require('./models/empresa/Empresa')
 
 // const perfilController = require('./controllers/PerfilController');
