@@ -13,6 +13,7 @@ const Empresa = db.sequelize.define('tblEmpresa', {
         type: db.Sequelize.STRING(45),
         allowNull: false
     }
+    
 })
 
 Perfil.hasMany(Empresa)
@@ -36,4 +37,4 @@ Empresa.belongsTo(Perfil)
 //     { where: { idEmpresa: 2 } }
 //  )
 
-module.export = Empresa
+module.exports = Empresa

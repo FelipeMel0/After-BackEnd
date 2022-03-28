@@ -19,6 +19,14 @@ routes.get("/usuarioComum/listarUsuarios", UsuarioComum.listar)
 routes.delete("/usuarioComum/deletarUsuario/:idUsuarioComum", UsuarioComum.deletar)
 routes.put("/usuarioComum/editarUsuario/:idUsuarioComum", UsuarioComum.editar)
 
+//Rotas de Empresas
+const Empresa = require("./controllers/EmpresaController")
+
+routes.post("/empresa/cadastrarEmpresa/:tblPerfilIdPerfil", Empresa.cadastro)
+routes.get("/empresa/listarEmpresas", Empresa.listar)
+routes.delete("/empresa/deletarEmpresa/:idEmpresa", Empresa.deletar)
+routes.put("/empresa/editarEmpresa/:idEmpresa", Empresa.editar)
+
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})
 })
