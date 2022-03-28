@@ -12,6 +12,7 @@ const perfil = require('./models/perfil/Perfil')
 //Chamadas de Usuário Comum
 const usuarioComum = require('./models/usuarioComum/UsuarioComum')
 const estado = require('./models/usuarioComum/Estado')
+const cidade = require('./models/usuarioComum/Cidade')
 
 const empresa = require('./models/empresa/Empresa')
 

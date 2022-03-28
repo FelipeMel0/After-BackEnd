@@ -26,6 +26,13 @@ routes.get("/estado/listarEstados", Estado.listar)
 routes.delete("/estado/deletarEstado/:idEstado", Estado.deletar)
 routes.put("/estado/editarEstado/:idEstado", Estado.editar)
 
+const Cidade = require('./controllers/UsuarioComum/CidadeController')
+
+routes.post("/cidade/cadastrarCidade/:tblEstadoIdEstado", Cidade.cadastro)
+routes.get("/cidade/listarCidades", Cidade.listar)
+routes.delete("/cidade/deletarCidade/:idCidade", Cidade.deletar)
+routes.put("/cidade/editarCidade/:idCidade", Cidade.editar)
+
 //Rotas de Empresas
 const Empresa = require("./controllers/EmpresaController")
 
