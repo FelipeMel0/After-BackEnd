@@ -25,3 +25,9 @@ Endereco.belongsTo(UsuarioComum)
 Cidade.hasMany(Endereco)
 
 Endereco.belongsTo(Cidade)
+
+// Endereco.sync({
+//     force: true
+// })
+
+module.exports = Endereco

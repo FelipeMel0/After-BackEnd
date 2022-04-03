@@ -13,6 +13,7 @@ const perfil = require('./models/perfil/Perfil')
 const usuarioComum = require('./models/usuarioComum/UsuarioComum')
 const estado = require('./models/usuarioComum/Estado')
 const cidade = require('./models/usuarioComum/Cidade')
+const endereco = require('./models/usuarioComum/Endereco')
 
 const empresa = require('./models/empresa/Empresa')
 

@@ -33,6 +33,13 @@ routes.get("/cidade/listarCidades", Cidade.listar)
 routes.delete("/cidade/deletarCidade/:idCidade", Cidade.deletar)
 routes.put("/cidade/editarCidade/:idCidade", Cidade.editar)
 
+const Endereco = require('./controllers/UsuarioComum/EnderecoController')
+
+routes.post("/endereco/cadastrarEndereco/:tblUsuarioComumIdUsuarioComum/:tblCidadeIdCidade", Endereco.cadastro)
+routes.get("/endereco/listarEnderecos", Endereco.listar)
+routes.delete("/endereco/deletarEndereco/:idEndereco", Endereco.deletar)
+routes.put("/endereco/editarEndereco/:idEndereco", Endereco.editar)
+
 //Rotas de Empresas
 const Empresa = require("./controllers/EmpresaController")
 
