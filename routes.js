@@ -54,6 +54,13 @@ routes.post("/verificacao/cadastrarVerificacao/:tblEmpresaIdEmpresa", Verificaca
 routes.get("/verificacao/listarVerificacoes", Verificacao.listar)
 routes.put("/verificacao/responderVerificacao/:idVerificacao", Verificacao.responder)
 
+//Rotas de Evento
+const TipoEvento = require("./controllers/Evento/TipoEventoController")
+
+routes.post("/tipoEvento/cadastrarTipoEvento", TipoEvento.cadastro)
+routes.get("/tipoEvento/listarTipoEvento", TipoEvento.listar)
+routes.delete("/tipoEvento/deletarTipoEvento/:idTipoEvento", TipoEvento.deletar)
+
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})
 })
