@@ -19,6 +19,7 @@ const empresa = require('./models/empresa/Empresa')
 const verificacao = require('./models/empresa/Verificacao')
 
 const tipoEvento = require('./models/evento/TipoEvento')
+const faixaEtaria = require('./models/evento/FaixaEtaria')
 
 // const perfilController = require('./controllers/PerfilController');
 // app.use('/', perfilController);
