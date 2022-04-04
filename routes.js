@@ -67,6 +67,12 @@ routes.post("/faixaEtaria/cadastrarFaixaEtaria", FaixaEtaria.cadastro)
 routes.get("/faixaEtaria/listarFaixaEtaria", FaixaEtaria.listar)
 routes.delete("/faixaEtaria/deletarFaixaEtaria/:idFaixaEtaria", FaixaEtaria.deletar)
 
+const Categoria = require("./controllers/Evento/CategoriaController")
+
+routes.post("/categoria/cadastrarCategoria", Categoria.cadastro)
+routes.get("/categoria/listarCategorias", Categoria.listar)
+routes.delete("/categoria/deletarCategoria/:idCategoria", Categoria.deletar)
+
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})
 })

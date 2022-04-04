@@ -20,9 +20,7 @@ const verificacao = require('./models/empresa/Verificacao')
 
 const tipoEvento = require('./models/evento/TipoEvento')
 const faixaEtaria = require('./models/evento/FaixaEtaria')
-
-// const perfilController = require('./controllers/PerfilController');
-// app.use('/', perfilController);
+const categoria = require('./models/evento/Categoria')
 
 app.listen(4000, function(){
     console.log("Servidor rodando na url http://localhost:4000")
