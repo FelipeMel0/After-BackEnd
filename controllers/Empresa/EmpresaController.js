@@ -1,4 +1,4 @@
-const Empresa = require("../models/empresa/Empresa")
+const Empresa = require("../../models/empresa/Empresa")
 
 class EmpresaController{
 

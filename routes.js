@@ -41,12 +41,18 @@ routes.delete("/endereco/deletarEndereco/:idEndereco", Endereco.deletar)
 routes.put("/endereco/editarEndereco/:idEndereco", Endereco.editar)
 
 //Rotas de Empresas
-const Empresa = require("./controllers/EmpresaController")
+const Empresa = require("./controllers/Empresa/EmpresaController")
 
 routes.post("/empresa/cadastrarEmpresa/:tblPerfilIdPerfil", Empresa.cadastro)
 routes.get("/empresa/listarEmpresas", Empresa.listar)
 routes.delete("/empresa/deletarEmpresa/:idEmpresa", Empresa.deletar)
 routes.put("/empresa/editarEmpresa/:idEmpresa", Empresa.editar)
+
+const Verificacao = require("./controllers/Empresa/VerificacaoController")
+
+routes.post("/verificacao/cadastrarVerificacao/:tblEmpresaIdEmpresa", Verificacao.cadastro)
+routes.get("/verificacao/listarVerificacoes", Verificacao.listar)
+routes.put("/verificacao/responderVerificacao/:idVerificacao", Verificacao.responder)
 
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})

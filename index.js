@@ -16,6 +16,7 @@ const cidade = require('./models/usuarioComum/Cidade')
 const endereco = require('./models/usuarioComum/Endereco')
 
 const empresa = require('./models/empresa/Empresa')
+const verificacao = require('./models/empresa/Verificacao')
 
 // const perfilController = require('./controllers/PerfilController');
 // app.use('/', perfilController);
