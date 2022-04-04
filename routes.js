@@ -54,6 +54,12 @@ routes.post("/verificacao/cadastrarVerificacao/:tblEmpresaIdEmpresa", Verificaca
 routes.get("/verificacao/listarVerificacoes", Verificacao.listar)
 routes.put("/verificacao/responderVerificacao/:idVerificacao", Verificacao.responder)
 
+const BancoConta = require("./controllers/Empresa/contaEmpresaController/BancoContaController")
+
+routes.post("/bancoConta/cadastrarBancoConta", BancoConta.cadastro)
+routes.get("/bancoConta/listarBancoConta", BancoConta.listar)
+routes.delete("/bancoConta/deletarBancoConta/:idBancoConta", BancoConta.deletar)
+
 //Rotas de Evento
 const TipoEvento = require("./controllers/Evento/TipoEventoController")
 
