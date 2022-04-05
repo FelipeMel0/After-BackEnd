@@ -24,6 +24,7 @@ const contaEmpresa = require('./models/empresa/contaEmpresa/ContaEmpresa')
 const tipoEvento = require('./models/evento/TipoEvento')
 const faixaEtaria = require('./models/evento/FaixaEtaria')
 const categoria = require('./models/evento/Categoria')
+const evento = require('./models/evento/Evento')
 
 app.listen(4000, function(){
     console.log("Servidor rodando na url http://localhost:4000")
