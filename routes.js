@@ -60,6 +60,12 @@ routes.post("/bancoConta/cadastrarBancoConta", BancoConta.cadastro)
 routes.get("/bancoConta/listarBancoConta", BancoConta.listar)
 routes.delete("/bancoConta/deletarBancoConta/:idBancoConta", BancoConta.deletar)
 
+const TipoConta = require("./controllers/Empresa/contaEmpresaController/TipoContaController")
+
+routes.post("/tipoConta/cadastrarTipoConta", TipoConta.cadastro)
+routes.get("/tipoConta/listarTiposConta", TipoConta.listar)
+routes.delete("/tipoConta/deletarTipoConta/:idTipoConta", TipoConta.deletar)
+
 //Rotas de Evento
 const TipoEvento = require("./controllers/Evento/TipoEventoController")
 

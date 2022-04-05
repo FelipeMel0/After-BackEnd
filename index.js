@@ -18,6 +18,7 @@ const endereco = require('./models/usuarioComum/Endereco')
 const empresa = require('./models/empresa/Empresa')
 const verificacao = require('./models/empresa/Verificacao')
 const bancoConta = require('./models/empresa/contaEmpresa/BancoConta')
+const tipoConta = require('./models/empresa/contaEmpresa/TipoConta')
 
 const tipoEvento = require('./models/evento/TipoEvento')
 const faixaEtaria = require('./models/evento/FaixaEtaria')
