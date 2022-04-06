@@ -1,11 +1,27 @@
 const express = require("express")
 const app = express()
-
+const cors = require("cors")
 const routes = require('./routes')
 
 app.use(express.json())
 
 app.use(routes)
+
+app.use(cors())
+
+app.use((req, res, next) => {
+    req.header("Access-Control-Allow-Credentials", true)
+    req.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE")
+    req.header("Access-Control-Allow-Header", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
+
+    if(req.method === "OPTIONS") {
+        res.header("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE")
+        return res.status(200).send({})
+    }
+
+    next()
+})
 
 const perfil = require('./models/perfil/Perfil')
 
