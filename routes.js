@@ -10,6 +10,7 @@ routes.post('/perfil/cadastrarPerfil', PerfilController.cadastro)
 routes.get('/perfil/listarPerfis', PerfilController.listar)
 routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
+routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
 
 //Rotas de Usuário Comum
 const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController')

@@ -1,5 +1,6 @@
 //const express = require("express")
 
+const { json } = require('express/lib/response')
 const Perfil = require('../models/perfil/Perfil')
 
 class PerfilController {
@@ -22,6 +23,16 @@ class PerfilController {
         const perfil = await Perfil.findAll()
 
         return res.json(perfil)
+    }
+
+    async acharPorId(req, res){
+        
+        const {idPerfil} = req.params
+
+        const perfil = Perfil.findByPk(idPerfil).then((perfilId)=>{
+            res.send(perfilId)
+        })
+
     }
 
     async deletar(req, res) {

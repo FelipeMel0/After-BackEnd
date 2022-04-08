@@ -41,7 +41,7 @@ const Evento = db.sequelize.define('tblEvento', {
         allowNull: true
     },
     taxaAbsorvida:{
-        type: db.Sequelize.FLOAT,
+        type: db.Sequelize.BOOLEAN,
         allowNull: false
     }
 })
