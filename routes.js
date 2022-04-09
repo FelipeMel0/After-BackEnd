@@ -92,6 +92,13 @@ routes.post("/categoria/cadastrarCategoria", Categoria.cadastro)
 routes.get("/categoria/listarCategorias", Categoria.listar)
 routes.delete("/categoria/deletarCategoria/:idCategoria", Categoria.deletar)
 
+const Evento = require("./controllers/Evento/EventoController")
+
+routes.post("/evento/cadastrarEvento/:tblEmpresaIdEmpresa", Evento.cadastro)
+routes.get("/evento/listarEventos", Evento.listar)
+routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
+routes.put("/evento/editarEvento/:idEvento", Evento.editar)
+
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})
 })
