@@ -2,9 +2,10 @@
 
 const { json } = require('express/lib/response')
 const Perfil = require('../models/perfil/Perfil')
+const UsuarioComum = require('../models/usuarioComum/UsuarioComum')
 
 class PerfilController {
-    async cadastro(req, res) {
+    async cadastroUsuarioComum(req, res) {
 
         const {nickname, email, senha, imagemPerfil, imagemFundo} = req.body
 
@@ -16,7 +17,21 @@ class PerfilController {
             imagemFundo
         })
 
-        return res.status(201).json(perfil)
+        const idPerfil = perfil.idPerfil;
+
+        //GRAVAR USUARIO
+
+        const {nome, dataNasc, biografia} = req.body
+
+        const usuarioComum = await UsuarioComum.create({
+            nome, 
+            dataNasc,
+            biografia,
+            idPerfil
+        })
+
+        return res.status(201).json({message: 'Cadastro realizado com sucesso!'})
+        
     }
 
     async listar(req, res) {
