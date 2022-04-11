@@ -17,7 +17,7 @@ class PerfilController {
             imagemFundo
         })
 
-        const idPerfil = perfil.idPerfil;
+        const tblPerfilIdPerfil = perfil.idPerfil;
 
         //GRAVAR USUARIO
 
@@ -27,7 +27,7 @@ class PerfilController {
             nome, 
             dataNasc,
             biografia,
-            idPerfil
+            tblPerfilIdPerfil
         })
 
         return res.status(201).json({message: 'Cadastro realizado com sucesso!'})
