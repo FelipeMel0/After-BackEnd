@@ -28,7 +28,6 @@ const Perfil = db.sequelize.define('tblPerfils', {
 
 })
 
-
 // Perfil.sync({
 //     force: true
 // }) 

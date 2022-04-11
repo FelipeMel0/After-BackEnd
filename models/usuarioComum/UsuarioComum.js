@@ -30,18 +30,4 @@ UsuarioComum.belongsTo(Perfil)
 //     force: true
 // })
 
-// UsuarioComum.create({
-//     nome: "Selma Guimarães Rebotim",
-//     dataNasc: '1955-09-06',
-//     tblPerfilIdPerfil: '1'
-// })
-
-
-/* Exemplo de edição de dados */
-
-//  UsuarioComum.update(
-//     { nome: 'Selma Guimarães Rebotim Jr.' },
-//     { where: { idUsuarioComum: 2 } }
-//  )
-
 module.exports = UsuarioComum

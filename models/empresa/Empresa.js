@@ -24,17 +24,4 @@ Empresa.belongsTo(Perfil)
 //     force: true
 // })
 
-// Empresa.create({
-//     cnpj: '22.219.009/0001-20',
-//     tblPerfilIdPerfil: 2
-// })
-
-
-/*Exemplo de edição de dados */
-
-// Empresa.update(
-//     { cnpj: '98.902.856/0001-57' },
-//     { where: { idEmpresa: 2 } }
-//  )
-
 module.exports = Empresa
