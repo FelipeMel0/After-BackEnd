@@ -2,12 +2,36 @@ const express = require("express")
 const app = express()
 const cors = require('cors')
 const routes = require('./routes')
+const bodyParser = require('body-parser')
 
 app.use(express.json())
 
 app.use(routes)
 
 app.use(cors())
+
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+
+app.use(bodyParser.json());
+
+// app.post('/evento/cadastrarEvento/:tblEmpresaIdEmpresa', function(req, res){
+//     evento.create({
+//         titulo: req.body.titulo,
+//         descricao: req.body.descricao,
+//         capa: req.body.capa,
+//         dataInicio: req.body.dataInicio,
+//         dataFim: req.body.dataFim,
+//         horaInicio: req.body.horaInicio,
+//         horaFim: req.body.horaFim,
+//         taxaAbsorvida: req.params.radioTaxa,
+//         tblFaixaEtariumIdFaixaEtaria: req.params.faixaSelecionada,
+//         tblTipoEventoIdTipoEvento: req.params.tipoSelecionado,
+//         tblCategoriumIdCategoria: req.params.categoriaSelecionada,
+//         tblContaEmpresaIdContaEmpresa: req.params.contaEmpresaSelecionada
+//     })
+// })
 
 const perfil = require('./models/perfil/Perfil')
 
