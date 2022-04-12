@@ -14,7 +14,7 @@ class EventoController {
             horaFim,
             taxaAbsorvida,
             tblFaixaEtariumIdFaixaEtaria,
-            tblTipoEventoIdEvento,
+            tblTipoEventoIdTipoEvento,
             tblCategoriumIdCategoria,
             tblContaEmpresaIdContaEmpresa
         } = req.body
@@ -31,7 +31,7 @@ class EventoController {
             horaFim,
             taxaAbsorvida,
             tblFaixaEtariumIdFaixaEtaria,
-            tblTipoEventoIdEvento,
+            tblTipoEventoIdTipoEvento,
             tblCategoriumIdCategoria,
             tblContaEmpresaIdContaEmpresa,
             tblEmpresaIdEmpresa

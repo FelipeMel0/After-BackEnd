@@ -75,6 +75,14 @@ routes.get("/contaEmpresa/listarContasEmpresa", ContaEmpresa.listar)
 routes.delete("/contaEmpresa/deletarContaEmpresa/:idContaEmpresa", ContaEmpresa.deletar)
 
 //Rotas de Evento
+
+const Evento = require("./controllers/Evento/EventoController")
+
+routes.post("/evento/cadastrarEvento/:tblEmpresaIdEmpresa", Evento.cadastro)
+routes.get("/evento/listarEvento", Evento.listar)
+routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
+routes.put("/evento/editarEvento/:idEvento", Evento.editar)
+
 const TipoEvento = require("./controllers/Evento/TipoEventoController")
 
 routes.post("/tipoEvento/cadastrarTipoEvento", TipoEvento.cadastro)
