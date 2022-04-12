@@ -7,6 +7,7 @@ const routes = new Router()
 const PerfilController = require('./controllers/PerfilController')
 
 routes.post('/perfil/cadastrarPerfilUsuarioComum', PerfilController.cadastroUsuarioComum)
+routes.post('/perfil/cadastrarPerfilEmpresa', PerfilController.cadastroEmpresa)
 routes.get('/perfil/listarPerfis', PerfilController.listar)
 routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
