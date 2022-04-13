@@ -24,6 +24,9 @@ const Perfil = db.sequelize.define('tblPerfils', {
     },
     imagemFundo: {
         type: db.Sequelize.TEXT
+    },
+    biografia: {
+        type: db.Sequelize.STRING(200)
     }
 
 })

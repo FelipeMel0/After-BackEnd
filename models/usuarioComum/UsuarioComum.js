@@ -16,9 +16,6 @@ const UsuarioComum = db.sequelize.define('tblUsuarioComum', {
     dataNasc: {
         type: db.Sequelize.DATE,
         allowNull: false
-    },
-    biografia: {
-        type: db.Sequelize.TEXT
     }
 })
 

@@ -4,13 +4,12 @@ class UsuarioComumController{
 
     async cadastro(req, res) {
 
-        const {nome, dataNasc, biografia} = req.body
+        const {nome, dataNasc} = req.body
         const tblPerfilIdPerfil = req.params.tblPerfilIdPerfil
 
         const usuarioComum = await UsuarioComum.create({
             nome,
             dataNasc,
-            biografia,
             tblPerfilIdPerfil
         })
 

@@ -9,26 +9,26 @@ const Endereco = require('../models/usuarioComum/Endereco')
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
 
-        const {nickname, email, senha, imagemPerfil, imagemFundo} = req.body
+        const {nickname, email, senha, imagemPerfil, imagemFundo, biografia} = req.body
 
         const perfil = await Perfil.create({
             nickname,
             email,
             senha,
             imagemPerfil,
-            imagemFundo
+            imagemFundo,
+            biografia
         })
 
         const tblPerfilIdPerfil = perfil.idPerfil
 
         //GRAVAR USUARIO
 
-        const {nome, dataNasc, biografia} = req.body
+        const {nome, dataNasc} = req.body
 
         const usuarioComum = await UsuarioComum.create({
             nome, 
             dataNasc,
-            biografia,
             tblPerfilIdPerfil
         })
 
@@ -37,26 +37,26 @@ class PerfilController {
     }
 
     async cadastroUsuarioComumEndereco(req, res) {
-        const {nickname, email, senha, imagemPerfil, imagemFundo} = req.body
+        const {nickname, email, senha, imagemPerfil, imagemFundo, biografia} = req.body
 
         const perfil = await Perfil.create({
             nickname,
             email,
             senha,
             imagemPerfil,
-            imagemFundo
+            imagemFundo,
+            biografia
         })
 
         const tblPerfilIdPerfil = perfil.idPerfil
 
         //Gravar usuário
 
-        const {nome, dataNasc, biografia} = req.body
+        const {nome, dataNasc} = req.body
 
         const usuarioComum = await UsuarioComum.create({
             nome, 
             dataNasc,
-            biografia,
             tblPerfilIdPerfil
         })
 
@@ -78,14 +78,15 @@ class PerfilController {
     }
 
     async cadastroEmpresa (req, res) {
-        const {nickname, email, senha, imagemPerfil, imagemFundo} = req.body
+        const {nickname, email, senha, imagemPerfil, imagemFundo, biografia} = req.body
 
         const perfil = await Perfil.create({
             nickname,
             email,
             senha,
             imagemPerfil,
-            imagemFundo
+            imagemFundo,
+            biografia
         })
 
         const tblPerfilIdPerfil = perfil.idPerfil
