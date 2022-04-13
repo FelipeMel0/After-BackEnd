@@ -11,15 +11,20 @@ class EventoController {
             dataInicio,
             dataFim,
             horaInicio,
-            horaFim
+            horaFim,
+            taxaAbsorvida,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa
         } = req.body
 
-        const taxaAbsorvida = req.params.taxaAbsorvida
+        // const taxaAbsorvida = req.params.taxaAbsorvida
         const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
-        const tblFaixaEtariumIdFaixaEtaria = req.params.tblFaixaEtariumIdFaixaEtaria
-        const tblTipoEventoIdTipoEvento = req.params.tblTipoEventoIdTipoEvento
-        const tblCategoriumIdCategoria = req.params.tblCategoriumIdCategoria
-        const tblContaEmpresaIdContaEmpresa = req.params.tblContaEmpresaIdContaEmpresa
+        // const tblFaixaEtariumIdFaixaEtaria = req.params.tblFaixaEtariumIdFaixaEtaria
+        // const tblTipoEventoIdTipoEvento = req.params.tblTipoEventoIdTipoEvento
+        // const tblCategoriumIdCategoria = req.params.tblCategoriumIdCategoria
+        // const tblContaEmpresaIdContaEmpresa = req.params.tblContaEmpresaIdContaEmpresa
 
         const evento = await Evento.create({
             titulo,
