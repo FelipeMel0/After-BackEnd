@@ -1,7 +1,6 @@
 const db = require("../database/db")
 
 const UsuarioComum = require("./UsuarioComum")
-const Cidade = require("./Cidade")
 
 const Endereco = db.sequelize.define('tblEndereco', {
 
@@ -14,17 +13,21 @@ const Endereco = db.sequelize.define('tblEndereco', {
     cep: {
         type: db.Sequelize.STRING(15),
         allowNull: true
-    } 
+    },
+    cidade: {
+        type: db.Sequelize.STRING(50),
+        allowNull: false
+    },
+    estado: {
+        type: db.Sequelize.STRING(5),
+        allowNull: false
+    }
 
 })
 
 UsuarioComum.hasMany(Endereco)
 
 Endereco.belongsTo(UsuarioComum)
-
-Cidade.hasMany(Endereco)
-
-Endereco.belongsTo(Cidade)
 
 // Endereco.sync({
 //     force: true

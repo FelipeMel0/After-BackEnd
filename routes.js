@@ -7,6 +7,7 @@ const routes = new Router()
 const PerfilController = require('./controllers/PerfilController')
 
 routes.post('/perfil/cadastrarPerfilUsuarioComum', PerfilController.cadastroUsuarioComum)
+routes.post('/perfil/cadastrarPerfilUsuarioComumEndereco', PerfilController.cadastroUsuarioComumEndereco)
 routes.post('/perfil/cadastrarPerfilEmpresa', PerfilController.cadastroEmpresa)
 routes.get('/perfil/listarPerfis', PerfilController.listar)
 routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
@@ -37,7 +38,7 @@ routes.put("/cidade/editarCidade/:idCidade", Cidade.editar)
 
 const Endereco = require('./controllers/UsuarioComum/EnderecoController')
 
-routes.post("/endereco/cadastrarEndereco/:tblUsuarioComumIdUsuarioComum/:tblCidadeIdCidade", Endereco.cadastro)
+routes.post("/endereco/cadastrarEndereco/:tblUsuarioComumIdUsuarioComum", Endereco.cadastro)
 routes.get("/endereco/listarEnderecos", Endereco.listar)
 routes.delete("/endereco/deletarEndereco/:idEndereco", Endereco.deletar)
 routes.put("/endereco/editarEndereco/:idEndereco", Endereco.editar)

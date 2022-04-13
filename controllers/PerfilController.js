@@ -4,6 +4,7 @@ const { json } = require('express/lib/response')
 const Perfil = require('../models/perfil/Perfil')
 const UsuarioComum = require('../models/usuarioComum/UsuarioComum')
 const Empresa = require('../models/empresa/Empresa')
+const Endereco = require('../models/usuarioComum/Endereco')
 
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
@@ -33,6 +34,47 @@ class PerfilController {
 
         return res.status(201).json({message: 'Cadastro realizado com sucesso!'})
         
+    }
+
+    async cadastroUsuarioComumEndereco(req, res) {
+        const {nickname, email, senha, imagemPerfil, imagemFundo} = req.body
+
+        const perfil = await Perfil.create({
+            nickname,
+            email,
+            senha,
+            imagemPerfil,
+            imagemFundo
+        })
+
+        const tblPerfilIdPerfil = perfil.idPerfil
+
+        //Gravar usuário
+
+        const {nome, dataNasc, biografia} = req.body
+
+        const usuarioComum = await UsuarioComum.create({
+            nome, 
+            dataNasc,
+            biografia,
+            tblPerfilIdPerfil
+        })
+
+        const tblUsuarioComumIdUsuarioComum = usuarioComum.idUsuarioComum
+
+        //Gravar endereço
+
+        const {cep, cidade, estado} = req.body
+        
+        const endereco = await Endereco.create({
+            cep,
+            cidade,
+            estado,
+            tblUsuarioComumIdUsuarioComum
+        })
+
+        return res.status(201).json({message: 'Cadastro realizado com sucesso!'})
+
     }
 
     async cadastroEmpresa (req, res) {

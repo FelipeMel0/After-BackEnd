@@ -4,14 +4,14 @@ class EnderecoController{
 
     async cadastro(req, res){
 
-        const {cep} = req.body
+        const {cep, cidade, estado} = req.body
         const tblUsuarioComumIdUsuarioComum = req.params.tblUsuarioComumIdUsuarioComum
-        const tblCidadeIdCidade = req.params.tblCidadeIdCidade
-
+       
         const endereco = await Endereco.create({
             cep,
-            tblUsuarioComumIdUsuarioComum,
-            tblCidadeIdCidade
+            cidade,
+            estado,
+            tblUsuarioComumIdUsuarioComum
         })
 
         return res.status(201).json(endereco)
