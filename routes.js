@@ -43,6 +43,12 @@ routes.get("/endereco/listarEnderecos", Endereco.listar)
 routes.delete("/endereco/deletarEndereco/:idEndereco", Endereco.deletar)
 routes.put("/endereco/editarEndereco/:idEndereco", Endereco.editar)
 
+const VerificacaoUsuario = require("./controllers/UsuarioComum/VerificacaoUsuarioController")
+
+routes.post("/verificacaoUsuario/cadastrarVerificacao/:tblUsuarioComumIdUsuarioComum", VerificacaoUsuario.cadastro)
+routes.get("/verificacaoUsuario/listarVerificacoes", VerificacaoUsuario.listar)
+routes.put("/verificacaoUsuario/responderVerificacao/:idVerificacaoUsuario", VerificacaoUsuario.responder)
+
 //Rotas de Empresas
 const Empresa = require("./controllers/Empresa/EmpresaController")
 

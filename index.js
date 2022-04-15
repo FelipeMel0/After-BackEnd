@@ -16,23 +16,6 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-// app.post('/evento/cadastrarEvento/:tblEmpresaIdEmpresa', function(req, res){
-//     evento.create({
-//         titulo: req.body.titulo,
-//         descricao: req.body.descricao,
-//         capa: req.body.capa,
-//         dataInicio: req.body.dataInicio,
-//         dataFim: req.body.dataFim,
-//         horaInicio: req.body.horaInicio,
-//         horaFim: req.body.horaFim,
-//         taxaAbsorvida: req.params.radioTaxa,
-//         tblFaixaEtariumIdFaixaEtaria: req.params.faixaSelecionada,
-//         tblTipoEventoIdTipoEvento: req.params.tipoSelecionado,
-//         tblCategoriumIdCategoria: req.params.categoriaSelecionada,
-//         tblContaEmpresaIdContaEmpresa: req.params.contaEmpresaSelecionada
-//     })
-// })
-
 const perfil = require('./models/perfil/Perfil')
 
 //Chamadas de Usuário Comum
@@ -40,6 +23,7 @@ const usuarioComum = require('./models/usuarioComum/UsuarioComum')
 const estado = require('./models/usuarioComum/Estado')
 const cidade = require('./models/usuarioComum/Cidade')
 const endereco = require('./models/usuarioComum/Endereco')
+const verificacaoUsuario = require('./models/usuarioComum/VerificacaoUsuario')
 
 const empresa = require('./models/empresa/Empresa')
 const verificacao = require('./models/empresa/Verificacao')
