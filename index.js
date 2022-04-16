@@ -25,12 +25,17 @@ const cidade = require('./models/usuarioComum/Cidade')
 const endereco = require('./models/usuarioComum/Endereco')
 const verificacaoUsuario = require('./models/usuarioComum/VerificacaoUsuario')
 
+//Chamadas de Empresa
 const empresa = require('./models/empresa/Empresa')
 const verificacao = require('./models/empresa/Verificacao')
 const bancoConta = require('./models/empresa/contaEmpresa/BancoConta')
 const tipoConta = require('./models/empresa/contaEmpresa/TipoConta')
 const contaEmpresa = require('./models/empresa/contaEmpresa/ContaEmpresa')
 
+//Chamadas de Celebridade
+const tipoCelebridade = require('./models/celebridade/TipoCelebridade')
+
+//Chamadas de celebridade
 const tipoEvento = require('./models/evento/TipoEvento')
 const faixaEtaria = require('./models/evento/FaixaEtaria')
 const categoria = require('./models/evento/Categoria')

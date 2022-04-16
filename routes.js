@@ -81,6 +81,14 @@ routes.post("/contaEmpresa/cadastrarContaEmpresa/:tblEmpresaIdEmpresa/:tblTipoCo
 routes.get("/contaEmpresa/listarContasEmpresa", ContaEmpresa.listar)
 routes.delete("/contaEmpresa/deletarContaEmpresa/:idContaEmpresa", ContaEmpresa.deletar)
 
+//Rotas de Celebridade
+
+const TipoCelebridade = require("./controllers/Celebridade/TipoCelebridadeController")
+
+routes.post("/tipoCelebridade/cadastrarTipoCelebridade", TipoCelebridade.cadastro)
+routes.get("/tipoCelebridade/listarTiposCelebridade", TipoCelebridade.listar)
+routes.delete("/tipoCelebridade/deletarTipoCelebridade/:idTipoCelebridade", TipoCelebridade.deletar)
+
 //Rotas de Evento
 
 const Evento = require("./controllers/Evento/EventoController")
