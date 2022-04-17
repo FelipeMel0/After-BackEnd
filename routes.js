@@ -89,6 +89,12 @@ routes.post("/tipoCelebridade/cadastrarTipoCelebridade", TipoCelebridade.cadastr
 routes.get("/tipoCelebridade/listarTiposCelebridade", TipoCelebridade.listar)
 routes.delete("/tipoCelebridade/deletarTipoCelebridade/:idTipoCelebridade", TipoCelebridade.deletar)
 
+const Celebridade = require("./controllers/Celebridade/CelebridadeController")
+
+routes.post("/celebridade/cadastrarCelebridade/:tblVerificacaoUsuarioIdVerificacaoUsuario/:tblTipoCelebridadeIdTipoCelebridade", Celebridade.cadastro)
+routes.get("/celebridade/listarCelebridades", Celebridade.listar)
+routes.delete("/celebridade/deletarCelebridade/:idCelebridade", Celebridade.deletar)
+
 //Rotas de Evento
 
 const Evento = require("./controllers/Evento/EventoController")
