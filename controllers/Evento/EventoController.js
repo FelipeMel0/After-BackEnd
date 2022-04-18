@@ -19,12 +19,7 @@ class EventoController {
             tblContaEmpresaIdContaEmpresa
         } = req.body
 
-        // const taxaAbsorvida = req.params.taxaAbsorvida
         const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
-        // const tblFaixaEtariumIdFaixaEtaria = req.params.tblFaixaEtariumIdFaixaEtaria
-        // const tblTipoEventoIdTipoEvento = req.params.tblTipoEventoIdTipoEvento
-        // const tblCategoriumIdCategoria = req.params.tblCategoriumIdCategoria
-        // const tblContaEmpresaIdContaEmpresa = req.params.tblContaEmpresaIdContaEmpresa
 
         const evento = await Evento.create({
             titulo,
@@ -51,6 +46,20 @@ class EventoController {
         const evento = await Evento.findAll()
 
         return res.json(evento)
+
+    }
+
+    async acharPorId(req, res){
+        
+        const {tblEmpresaIdEmpresa} = req.params
+
+        const evento = Evento.findAll({
+            where: {
+                tblEmpresaIdEmpresa: tblEmpresaIdEmpresa
+            }
+        }).then((eventoId)=>{
+            res.send(eventoId)
+        })
 
     }
 

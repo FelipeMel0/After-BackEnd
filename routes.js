@@ -99,8 +99,9 @@ routes.delete("/celebridade/deletarCelebridade/:idCelebridade", Celebridade.dele
 
 const Evento = require("./controllers/Evento/EventoController")
 
-routes.post("/evento/cadastrarEvento/:tblEmpresaIdEmpresa/", Evento.cadastro)
+routes.post("/evento/cadastrarEvento/:tblEmpresaIdEmpresa", Evento.cadastro)
 routes.get("/evento/listarEvento", Evento.listar)
+routes.get("/evento/acharEventoPorId/:tblEmpresaIdEmpresa", Evento.acharPorId)
 routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
 routes.put("/evento/editarEvento/:idEvento", Evento.editar)
 
