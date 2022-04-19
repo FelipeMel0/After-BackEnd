@@ -1,3 +1,4 @@
+const Categoria = require("../../models/evento/Categoria")
 const Evento = require("../../models/evento/Evento")
 
 class EventoController {
@@ -43,7 +44,11 @@ class EventoController {
 
     async listar(req, res) {
 
-        const evento = await Evento.findAll()
+        const evento = await Evento.findAll({
+            include:[{
+                model: Categoria
+            }]
+        })
 
         return res.json(evento)
 
@@ -56,7 +61,10 @@ class EventoController {
         const evento = Evento.findAll({
             where: {
                 tblEmpresaIdEmpresa: tblEmpresaIdEmpresa
-            }
+            },
+            include:[{
+                model: Categoria
+            }]
         }).then((eventoId)=>{
             res.send(eventoId)
         })
