@@ -17,6 +17,10 @@ const VerificacaoUsuario = db.sequelize.define('tblVerificacaoUsuario', {
         type: db.Sequelize.DATE,
         allowNull: false
     },
+    nickname:{
+        type: db.Sequelize.STRING(45),
+        allowNull: false
+    },
     nomeCompleto: {
         type: db.Sequelize.STRING(80),
         allowNull: false
