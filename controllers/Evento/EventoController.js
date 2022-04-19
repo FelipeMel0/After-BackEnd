@@ -1,5 +1,8 @@
 const Categoria = require("../../models/evento/Categoria")
 const Evento = require("../../models/evento/Evento")
+const IntermEventoCelebridade = require("../../models/celebridade/IntermediariaEventoCelebridade")
+const VerificacaoUsuario = require("../../models/usuarioComum/VerificacaoUsuario")
+const Celebridade = require("../../models/celebridade/Celebridade")
 
 class EventoController {
 
@@ -63,7 +66,13 @@ class EventoController {
                 tblEmpresaIdEmpresa: tblEmpresaIdEmpresa
             },
             include:[{
-                model: Categoria
+                model: IntermEventoCelebridade,
+                include: [{
+                    model: Celebridade,
+                    include: [{
+                        model: VerificacaoUsuario
+                    }]
+                }]
             }]
         }).then((eventoId)=>{
             res.send(eventoId)
