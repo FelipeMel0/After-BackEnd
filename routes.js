@@ -95,6 +95,12 @@ routes.post("/celebridade/cadastrarCelebridade/:tblVerificacaoUsuarioIdVerificac
 routes.get("/celebridade/listarCelebridades", Celebridade.listar)
 routes.delete("/celebridade/deletarCelebridade/:idCelebridade", Celebridade.deletar)
 
+const IntermEventoCelebridade = require("./controllers/Celebridade/IntermEventoCelebridade")
+
+routes.post("/intermEventoCelebridade/cadastrarIntermediaria/:tblCelebridadeIdCelebridade/:tblEventoIdEvento", IntermEventoCelebridade.cadastro)
+routes.get("/intermEventoCelebridade/listarIntermediarias", IntermEventoCelebridade.listar)
+routes.delete("/intermEventoCelebridade/deletarIntermediaria/:idIntermEventoCelebridade", IntermEventoCelebridade.deletar)
+
 //Rotas de Evento
 
 const Evento = require("./controllers/Evento/EventoController")

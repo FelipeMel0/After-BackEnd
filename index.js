@@ -35,8 +35,9 @@ const contaEmpresa = require('./models/empresa/contaEmpresa/ContaEmpresa')
 //Chamadas de Celebridade
 const tipoCelebridade = require('./models/celebridade/TipoCelebridade')
 const celebridade = require("./models/celebridade/Celebridade")
+const intermEventoCelebridade = require("./models/celebridade/IntermediariaEventoCelebridade")
 
-//Chamadas de celebridade
+//Chamadas de Evento
 const tipoEvento = require('./models/evento/TipoEvento')
 const faixaEtaria = require('./models/evento/FaixaEtaria')
 const categoria = require('./models/evento/Categoria')

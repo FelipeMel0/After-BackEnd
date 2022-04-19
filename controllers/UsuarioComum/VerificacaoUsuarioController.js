@@ -4,13 +4,14 @@
 
     async cadastro(req, res) {
 
-        const {status, dataHoraSolicitacao, nomeCompleto, arquivoDoc, justificativaSolicitacao} = req.body
+        const {status, dataHoraSolicitacao, nomeCompleto, nickname, arquivoDoc, justificativaSolicitacao} = req.body
         const tblUsuarioComumIdUsuarioComum = req.params.tblUsuarioComumIdUsuarioComum
 
         const verificacaoUsuario = await VerificacaoUsuario.create({
             status,
             dataHoraSolicitacao,
             nomeCompleto,
+            nickname,
             arquivoDoc,
             justificativaSolicitacao,
             tblUsuarioComumIdUsuarioComum
