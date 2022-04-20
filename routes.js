@@ -137,6 +137,13 @@ routes.post("/tipoIngresso/cadastrarTipoIngresso", TipoIngresso.cadastro)
 routes.get("/tipoIngresso/listarTipoIngresso", TipoIngresso.listar)
 routes.delete("/tipoIngresso/deletarTipoIngresso/:idTipoIngresso", TipoIngresso.deletar)
 
+const Lote = require("./controllers/Evento/Ingresso/LoteController")
+
+routes.post("/lote/cadastrarLote/:tblEventoIdEvento", Lote.cadastro)
+routes.get("/lote/listarLote", Lote.listar)
+routes.delete("/lote/deletarLote/:idLote", Lote.deletar)
+routes.put("/lote/editarLote/:idLote")
+
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})
 })
