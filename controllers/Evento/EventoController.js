@@ -47,36 +47,41 @@ class EventoController {
 
     async listar(req, res) {
 
-        const evento = await Evento.findAll({
-            include:[{
-                model: Categoria
-            }]
-        })
+        const evento = await Evento.findAll()
 
         return res.json(evento)
 
     }
 
-    async acharPorId(req, res){
-        
-        const {tblEmpresaIdEmpresa} = req.params
+    async acharPorId(req, res) {
 
-        const evento = Evento.findAll({
+        const {
+            tblEmpresaIdEmpresa
+        } = req.params
+
+        var evento = Evento.findAll({
             where: {
                 tblEmpresaIdEmpresa: tblEmpresaIdEmpresa
             },
-            include:[{
+            include: [{
                 model: IntermEventoCelebridade,
+                as: 'tblIntermEventoCelebridades',
                 include: [{
                     model: Celebridade,
+                    as: 'tblCelebridade',
                     include: [{
-                        model: VerificacaoUsuario
+                        model: VerificacaoUsuario,
+                        as: 'tblVerificacaoUsuario'
                     }]
                 }]
-            }]
-        }).then((eventoId)=>{
+            },{
+                model: Categoria
+            }],
+        })
+        .then((eventoId)=>{
             res.send(eventoId)
         })
+
 
     }
 
@@ -84,9 +89,11 @@ class EventoController {
 
         const idEvento = req.params.idEvento
 
-        Evento.destroy(
-            {where: {idEvento: idEvento}}
-        ).then(
+        Evento.destroy({
+            where: {
+                idEvento: idEvento
+            }
+        }).then(
             () => {
                 res.send('Evento excluído')
             }
@@ -99,16 +106,18 @@ class EventoController {
         const idEvento = req.params.idEvento
 
         Evento.update(req.body, {
-            where: {idEvento: idEvento}
+            where: {
+                idEvento: idEvento
+            }
         }).then(num => {
             if (num == 1) {
-              res.send({
-                message: "Update funcionou"
-              });
+                res.send({
+                    message: "Update funcionou"
+                });
             } else {
-              res.send({
-                message: `Erro ao dar update na Empresa com id=${idEvento}.`
-              });
+                res.send({
+                    message: `Erro ao dar update na Empresa com id=${idEvento}.`
+                });
             }
         })
 
