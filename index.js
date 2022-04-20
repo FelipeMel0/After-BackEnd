@@ -43,6 +43,9 @@ const faixaEtaria = require('./models/evento/FaixaEtaria')
 const categoria = require('./models/evento/Categoria')
 const evento = require('./models/evento/Evento')
 
+//Ingresso
+const tipoIngresso = require('./models/evento/ingresso/TipoIngresso')
+
 app.listen(4000, function(){
     console.log("Servidor rodando na url http://localhost:4000")
 })

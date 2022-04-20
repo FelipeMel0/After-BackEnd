@@ -129,6 +129,14 @@ routes.post("/categoria/cadastrarCategoria", Categoria.cadastro)
 routes.get("/categoria/listarCategorias", Categoria.listar)
 routes.delete("/categoria/deletarCategoria/:idCategoria", Categoria.deletar)
 
+//Ingresso
+
+const TipoIngresso = require("./controllers/Evento/Ingresso/TipoIngressoController")
+
+routes.post("/tipoIngresso/cadastrarTipoIngresso", TipoIngresso.cadastro)
+routes.get("/tipoIngresso/listarTipoIngresso", TipoIngresso.listar)
+routes.delete("/tipoIngresso/deletarTipoIngresso/:idTipoIngresso", TipoIngresso.deletar)
+
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})
 })
