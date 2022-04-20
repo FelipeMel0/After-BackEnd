@@ -39,10 +39,6 @@ const Evento = db.sequelize.define('tblEvento', {
     horaFim: {
         type: db.Sequelize.TIME,
         allowNull: true
-    },
-    taxaAbsorvida:{
-        type: db.Sequelize.BOOLEAN,
-        allowNull: false
     }
 })
 
