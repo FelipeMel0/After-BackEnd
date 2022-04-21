@@ -151,6 +151,16 @@ routes.get("/variedadeIngresso/listarVariedadeIngresso", VariedadeIngressoLote.l
 routes.delete("/variedadeIngresso/deletarVariedadeIngresso/:idVariedadeIngressoLote", VariedadeIngressoLote.deletar)
 routes.put("/variedadeIngresso/editarVariedadeIngresso/:idVariedadeIngressoLote", VariedadeIngressoLote.editar)
 
+const Compra = require("./controllers/Evento/Ingresso/CompraController")
+routes.post("/compra/realizarCompra/:tblUsuarioComumIdUsuarioComum", Compra.cadastro)
+routes.get("/compra/listarCompras", Compra.listar)
+routes.get("/compra/acharComprasFeitas/:tblUsuarioComumIdUsuarioComum", Compra.acharPorId)
+
+const Ingresso = require("./controllers/Evento/Ingresso/IngressoController")
+routes.post("/ingresso/gerarIngresso/:tblVariedadeIngressoLoteIdVariedadeIngressoLote/:tblCompraIdCompra", Ingresso.cadastro)
+routes.get("/ingresso/listarIngressosGerados", Ingresso.listar)
+routes.get("/ingresso/acharIngressoPorCompra/:tblCompraIdCompra", Ingresso.acharPorId)
+
 routes.get('/', (req, res) => {
     res.json({message: 'hello world'})
 })

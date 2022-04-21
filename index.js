@@ -47,6 +47,8 @@ const evento = require('./models/evento/Evento')
 const tipoIngresso = require('./models/evento/ingresso/TipoIngresso')
 const lote = require('./models/evento/ingresso/Lote')
 const variedadeIngressoLote = require('./models/evento/ingresso/VariedadeIngressoLote')
+const ingresso = require('./models/evento/ingresso/Ingresso')
+const compra = require('./models/evento/ingresso/Compra')
 
 app.listen(4000, function(){
     console.log("Servidor rodando na url http://localhost:4000")

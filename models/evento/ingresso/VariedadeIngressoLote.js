@@ -21,7 +21,7 @@ const VariedadeIngressoLote = db.sequelize.define('tblVariedadeIngressoLote', {
         allowNull: false
     },
     valor: {
-        type: db.Sequelize.INTEGER,
+        type: db.Sequelize.FLOAT,
         allowNull: false
     },
 })
