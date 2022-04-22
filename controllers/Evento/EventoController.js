@@ -3,6 +3,7 @@ const Evento = require("../../models/evento/Evento")
 const IntermEventoCelebridade = require("../../models/celebridade/IntermediariaEventoCelebridade")
 const VerificacaoUsuario = require("../../models/usuarioComum/VerificacaoUsuario")
 const Celebridade = require("../../models/celebridade/Celebridade")
+const EnderecoEvento = require("../../models/evento/EnderecoEvento")
 
 class EventoController {
 
@@ -40,6 +41,57 @@ class EventoController {
         })
 
         return res.status(201).json(evento)
+
+    }
+
+    async cadastroEndereco(req, res){
+
+        const {
+            titulo,
+            descricao,
+            capa,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa
+        } = req.body
+
+        const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
+
+        const evento = await Evento.create({
+            titulo,
+            descricao,
+            capa,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa,
+            tblEmpresaIdEmpresa
+        })
+
+        const tblEventoIdEvento = evento.idEvento
+
+        const {cep, logradouro, complemento, bairro, cidade, estado} = req.body
+
+        const enderecoEvento = await EnderecoEvento.create({
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            tblEventoIdEvento
+        })
+
+        return res.status(201).json({"message": "Cadastro feito com sucesso!"})
 
     }
 

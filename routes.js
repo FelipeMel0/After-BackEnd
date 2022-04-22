@@ -111,6 +111,7 @@ routes.get("/evento/listarEvento", Evento.listar)
 routes.get("/evento/acharEventoPorId/:tblEmpresaIdEmpresa", Evento.acharPorId)
 routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
 routes.put("/evento/editarEvento/:idEvento", Evento.editar)
+routes.post("/evento/cadastrarEventoEndereco/:tblEmpresaIdEmpresa", Evento.cadastroEndereco)
 
 const TipoEvento = require("./controllers/Evento/TipoEventoController")
 
