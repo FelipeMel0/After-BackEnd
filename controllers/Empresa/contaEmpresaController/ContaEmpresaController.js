@@ -1,4 +1,6 @@
+const BancoConta = require("../../../models/empresa/contaEmpresa/BancoConta")
 const ContaEmpresa = require("../../../models/empresa/contaEmpresa/ContaEmpresa")
+const TipoConta = require("../../../models/empresa/contaEmpresa/TipoConta")
 
 class ContaEmpresaController {
 
@@ -8,6 +10,42 @@ class ContaEmpresaController {
         const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
         const tblTipoContumIdTipoConta = req.params.tblTipoContumIdTipoConta
         const tblBancoContumIdBancoConta = req.params.tblBancoContumIdBancoConta
+
+        const contaEmpresa = await ContaEmpresa.create({
+            agencia,
+            numeroConta,
+            digito,
+            tblEmpresaIdEmpresa,
+            tblTipoContumIdTipoConta,
+            tblBancoContumIdBancoConta
+        })
+
+        return res.status(201).json(contaEmpresa)
+
+    }
+
+    async cadastroCompleto(req, res){
+
+        const {nomeTipo} = req.body
+
+        const tipoConta = await TipoConta.create({
+            nomeTipo
+        })
+
+        const tblTipoContumIdTipoConta = tipoConta.idTipoConta
+
+
+        const {nomeBanco} = req.body
+
+        const bancoConta = await BancoConta.create({
+            nomeBanco
+        })
+
+        const tblBancoContumIdBancoConta = bancoConta.idBancoConta
+
+
+        const {agencia, numeroConta, digito} = req.body
+        const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
 
         const contaEmpresa = await ContaEmpresa.create({
             agencia,

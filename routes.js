@@ -80,6 +80,7 @@ const ContaEmpresa = require("./controllers/Empresa/contaEmpresaController/Conta
 routes.post("/contaEmpresa/cadastrarContaEmpresa/:tblEmpresaIdEmpresa/:tblTipoContumIdTipoConta/:tblBancoContumIdBancoConta", ContaEmpresa.cadastro)
 routes.get("/contaEmpresa/listarContasEmpresa", ContaEmpresa.listar)
 routes.delete("/contaEmpresa/deletarContaEmpresa/:idContaEmpresa", ContaEmpresa.deletar)
+routes.post("/contaEmpresa/cadastrarContaCompleta/:tblEmpresaIdEmpresa", ContaEmpresa.cadastroCompleto)
 
 //Rotas de Celebridade
 
