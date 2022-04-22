@@ -42,6 +42,7 @@ const tipoEvento = require('./models/evento/TipoEvento')
 const faixaEtaria = require('./models/evento/FaixaEtaria')
 const categoria = require('./models/evento/Categoria')
 const evento = require('./models/evento/Evento')
+const enderecoEvento = require('./models/evento/EnderecoEvento')
 
 //Ingresso
 const tipoIngresso = require('./models/evento/ingresso/TipoIngresso')

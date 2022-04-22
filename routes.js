@@ -130,6 +130,13 @@ routes.post("/categoria/cadastrarCategoria", Categoria.cadastro)
 routes.get("/categoria/listarCategorias", Categoria.listar)
 routes.delete("/categoria/deletarCategoria/:idCategoria", Categoria.deletar)
 
+const EnderecoEvento = require("./controllers/Evento/EnderecoEventoController")
+
+routes.post("/enderecoEvento/cadastrarEnderecoEvento/:tblEventoIdEvento", EnderecoEvento.cadastro)
+routes.get("/enderecoEvento/listarEnderecoEvento", EnderecoEvento.listar)
+routes.delete("/enderecoEvento/deletarEnderecoEvento/:idEnderecoEvento", EnderecoEvento.deletar)
+routes.put("/enderecoEvento/editarEnderecoEvento/:idEnderecoEvento", EnderecoEvento.editar)
+
 //Ingresso
 
 const TipoIngresso = require("./controllers/Evento/Ingresso/TipoIngressoController")
