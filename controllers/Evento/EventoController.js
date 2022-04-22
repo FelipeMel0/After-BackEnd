@@ -63,13 +63,10 @@ class EventoController {
             },
             include: [{
                 model: IntermEventoCelebridade,
-                as: 'tblIntermEventoCelebridades',
                 include: [{
-                    model: Celebridade,
-                    as: 'tblCelebridade',
+                    model: Celebridade,                   
                     include: [{
-                        model: VerificacaoUsuario,
-                        as: 'tblVerificacaoUsuario'
+                        model: VerificacaoUsuario,                       
                     }]
                 }]
             },{
