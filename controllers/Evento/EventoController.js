@@ -129,7 +129,16 @@ class EventoController {
             res.send(eventoId)
         })
 
+    }
 
+    async acharIdEvento(req, res){
+        const {
+            idEvento
+        } = req.params
+
+        const evento = Evento.findByPk(idEvento).then((eventoId)=>{
+            res.send(eventoId)
+        })
     }
 
     async deletar(req, res) {
