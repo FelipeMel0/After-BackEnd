@@ -4,6 +4,8 @@ const IntermEventoCelebridade = require("../../models/celebridade/IntermediariaE
 const VerificacaoUsuario = require("../../models/usuarioComum/VerificacaoUsuario")
 const Celebridade = require("../../models/celebridade/Celebridade")
 const EnderecoEvento = require("../../models/evento/EnderecoEvento")
+const Empresa = require("../../models/empresa/Empresa")
+const Perfil = require("../../models/perfil/Perfil")
 
 class EventoController {
 
@@ -44,7 +46,7 @@ class EventoController {
 
     }
 
-    async cadastroEndereco(req, res){
+    async cadastroEndereco(req, res) {
 
         const {
             titulo,
@@ -79,7 +81,14 @@ class EventoController {
 
         const tblEventoIdEvento = evento.idEvento
 
-        const {cep, logradouro, complemento, bairro, cidade, estado} = req.body
+        const {
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado
+        } = req.body
 
         const enderecoEvento = await EnderecoEvento.create({
             cep,
@@ -91,7 +100,9 @@ class EventoController {
             tblEventoIdEvento
         })
 
-        return res.status(201).json({"message": "Cadastro feito com sucesso!"})
+        return res.status(201).json({
+            "message": "Cadastro feito com sucesso!"
+        })
 
     }
 
@@ -110,33 +121,51 @@ class EventoController {
         } = req.params
 
         var evento = Evento.findAll({
-            where: {
-                tblEmpresaIdEmpresa: tblEmpresaIdEmpresa
-            },
-            include: [{
-                model: IntermEventoCelebridade,
+                where: {
+                    tblEmpresaIdEmpresa: tblEmpresaIdEmpresa
+                },
                 include: [{
-                    model: Celebridade,                   
+                    model: IntermEventoCelebridade,
                     include: [{
-                        model: VerificacaoUsuario,                       
+                        model: Celebridade,
+                        include: [{
+                            model: VerificacaoUsuario,
+                        }]
                     }]
-                }]
-            },{
-                model: Categoria
-            }],
-        })
-        .then((eventoId)=>{
-            res.send(eventoId)
-        })
+                }, {
+                    model: Categoria
+                }],
+            })
+            .then((eventoId) => {
+                res.send(eventoId)
+            })
 
     }
 
-    async acharIdEvento(req, res){
+    async acharIdEvento(req, res) {
         const {
             idEvento
         } = req.params
 
-        const evento = Evento.findByPk(idEvento).then((eventoId)=>{
+        const evento = Evento.findByPk(idEvento, {
+            include: [{
+                model: IntermEventoCelebridade,
+                include: [{
+                    model: Celebridade,
+                    include: [{
+                        model: VerificacaoUsuario,
+                    }]
+                }]
+            }, {
+                model: EnderecoEvento
+            },
+        {
+           model: Empresa,
+           include: [{
+               model: Perfil
+           }]
+        }]
+        }).then((eventoId) => {
             res.send(eventoId)
         })
     }
