@@ -14,7 +14,7 @@ const UsuarioComum = db.sequelize.define('tblUsuarioComum', {
         allowNull: false
     },
     dataNasc: {
-        type: db.Sequelize.DATE,
+        type: db.Sequelize.DATEONLY,
         allowNull: false
     }
 })
