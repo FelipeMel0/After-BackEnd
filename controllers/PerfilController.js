@@ -153,6 +153,24 @@ class PerfilController {
 
     }
 
+    async editarPerfilUsuarioComum(req, res) {
+
+        const idPerfil = req.params.idPerfil
+
+        Perfil.update(req.body, {
+            where: {idPerfil: idPerfil}
+        })
+
+        UsuarioComum.update(req.body, {
+            where: {tblPerfilIdPerfil: idPerfil}
+        }).then(
+            () => {
+                res.send('Perfil editado')
+            }
+        )
+
+    }
+
 }
 
 module.exports = new PerfilController();

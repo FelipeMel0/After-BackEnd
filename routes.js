@@ -12,6 +12,7 @@ routes.post('/perfil/cadastrarPerfilEmpresa', PerfilController.cadastroEmpresa)
 routes.get('/perfil/listarPerfis', PerfilController.listar)
 routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
+routes.put('/perfil/editarPerfilUsuarioComum/:idPerfil', PerfilController.editarPerfilUsuarioComum)
 routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
 
 //Rotas de Usuário Comum
