@@ -1,3 +1,4 @@
+const Perfil = require('../../models/perfil/Perfil')
 const UsuarioComum = require('../../models/usuarioComum/UsuarioComum')
 
 class UsuarioComumController{
@@ -19,6 +20,33 @@ class UsuarioComumController{
     async listar(req, res) {
 
         const usuarioComum = await UsuarioComum.findAll()
+
+        return res.json(usuarioComum)
+
+    }
+
+    async listarUsuarioComumPerfil(req, res) {
+
+        const usuarioComum = await UsuarioComum.findAll({
+            include: [{
+                model: Perfil
+            }]
+        })
+
+        return res.json(usuarioComum)
+
+    }
+
+    async listarUsuarioComumPerfilPorId(req, res) {
+
+        const idUsuarioComum = req.params.idUsuarioComum
+
+        const usuarioComum = await UsuarioComum.findAll({
+            where: {idUsuarioComum: idUsuarioComum},
+            include: [{
+                model: Perfil
+            }]
+        })
 
         return res.json(usuarioComum)
 

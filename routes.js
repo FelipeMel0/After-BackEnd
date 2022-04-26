@@ -1,5 +1,4 @@
 const {Router} = require('express')
-const { route } = require('express/lib/application')
 
 const routes = new Router()
 
@@ -20,6 +19,8 @@ const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController'
 
 routes.post("/usuarioComum/cadastrarUsuario/:tblPerfilIdPerfil", UsuarioComum.cadastro)
 routes.get("/usuarioComum/listarUsuarios", UsuarioComum.listar)
+routes.get("/usuarioComum/listarPerfilUsuarios", UsuarioComum.listarUsuarioComumPerfil)
+routes.get("/usuarioComum/acharPerfilUsuario/:idUsuarioComum", UsuarioComum.listarUsuarioComumPerfilPorId)
 routes.delete("/usuarioComum/deletarUsuario/:idUsuarioComum", UsuarioComum.deletar)
 routes.put("/usuarioComum/editarUsuario/:idUsuarioComum", UsuarioComum.editar)
 
