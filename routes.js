@@ -141,6 +141,13 @@ routes.get("/enderecoEvento/listarEnderecoEvento", EnderecoEvento.listar)
 routes.delete("/enderecoEvento/deletarEnderecoEvento/:idEnderecoEvento", EnderecoEvento.deletar)
 routes.put("/enderecoEvento/editarEnderecoEvento/:idEnderecoEvento", EnderecoEvento.editar)
 
+const Assunto = require("./controllers/Evento/AssuntoController")
+
+routes.post("/assunto/cadastrarAssunto/:tblCategoriumIdCategoria", Assunto.cadastro)
+routes.get("/assunto/listarAssuntos", Assunto.listar)
+routes.get("/assunto/listarPorCategoria/:tblCategoriumIdCategoria", Assunto.listarPorCategoria)
+routes.delete("/assunto/deletarAssunto/:idAssunto", Assunto.deletar)
+
 //Ingresso
 
 const TipoIngresso = require("./controllers/Evento/Ingresso/TipoIngressoController")

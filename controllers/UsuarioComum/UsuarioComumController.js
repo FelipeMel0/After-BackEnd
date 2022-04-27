@@ -1,4 +1,5 @@
 const Perfil = require('../../models/perfil/Perfil')
+const Endereco = require('../../models/usuarioComum/Endereco')
 const UsuarioComum = require('../../models/usuarioComum/UsuarioComum')
 
 class UsuarioComumController{
@@ -45,6 +46,8 @@ class UsuarioComumController{
             where: {idUsuarioComum: idUsuarioComum},
             include: [{
                 model: Perfil
+            }, {
+                model: Endereco
             }]
         })
 
