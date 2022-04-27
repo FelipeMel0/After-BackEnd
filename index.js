@@ -44,6 +44,7 @@ const categoria = require('./models/evento/Categoria')
 const evento = require('./models/evento/Evento')
 const enderecoEvento = require('./models/evento/EnderecoEvento')
 const assunto = require('./models/evento/Assunto')
+const intermEventoAssunto = require('./models/evento/IntermEventoAssunto')
 
 //Ingresso
 const tipoIngresso = require('./models/evento/ingresso/TipoIngresso')

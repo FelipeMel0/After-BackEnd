@@ -148,6 +148,12 @@ routes.get("/assunto/listarAssuntos", Assunto.listar)
 routes.get("/assunto/listarPorCategoria/:tblCategoriumIdCategoria", Assunto.listarPorCategoria)
 routes.delete("/assunto/deletarAssunto/:idAssunto", Assunto.deletar)
 
+const IntermEventoAssunto = require('./controllers/Evento/IntermEventoAssunto')
+
+routes.post("/intermEventoAssunto/cadastrarIntermEventoAssunto/:tblAssuntoIdAssunto/:tblEventoIdEvento", IntermEventoAssunto.cadastro)
+routes.get("/intermEventoAssunto/listarIntermediarias", IntermEventoAssunto.listar)
+routes.delete("/intermEventoAssunto/deletarIntermediaria/:idIntermEventoAssunto", IntermEventoAssunto.deletar)
+
 //Ingresso
 
 const TipoIngresso = require("./controllers/Evento/Ingresso/TipoIngressoController")
