@@ -1,6 +1,6 @@
 //const express = require("express")
 
-const { json } = require('express/lib/response')
+// const { json } = require('express/lib/response')
 const Perfil = require('../models/perfil/Perfil')
 const UsuarioComum = require('../models/usuarioComum/UsuarioComum')
 const Empresa = require('../models/empresa/Empresa')
@@ -9,8 +9,10 @@ const Endereco = require('../models/usuarioComum/Endereco')
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
 
-        const {nickname, email, senha, imagemPerfil, imagemFundo, biografia} = req.body
+        const {nickname, email, senha, imagemFundo, biografia} = req.body
+        const imagemPerfil = req.file.path
 
+        console.log(req.file)
         const perfil = await Perfil.create({
             nickname,
             email,

@@ -10,11 +10,13 @@ app.use(routes)
 
 app.use(cors())
 
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use('/uploads', express.static('uploads'))
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 const perfil = require('./models/perfil/Perfil')
 
