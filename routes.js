@@ -26,7 +26,7 @@ const upload = multer({storage: storage}, {fileFilter: fileFilter})
 //Rotas de Perfil
 const PerfilController = require('./controllers/PerfilController')
 
-routes.post('/perfil/cadastrarPerfilUsuarioComum', upload.single('imagemPerfil'), PerfilController.cadastroUsuarioComum)
+routes.post('/perfil/cadastrarPerfilUsuarioComum', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroUsuarioComum)
 routes.post('/perfil/cadastrarPerfilUsuarioComumEndereco', PerfilController.cadastroUsuarioComumEndereco)
 routes.post('/perfil/cadastrarPerfilEmpresa', PerfilController.cadastroEmpresa)
 routes.get('/perfil/listarPerfis', PerfilController.listar)

@@ -9,8 +9,9 @@ const Endereco = require('../models/usuarioComum/Endereco')
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
 
-        const {nickname, email, senha, imagemFundo, biografia} = req.body
-        const imagemPerfil = req.file.path
+        const {nickname, email, senha, biografia} = req.body
+        const imagemPerfil = req.files.imagemPerfil[0].path
+        const imagemFundo = req.files.imagemFundo[0].path
 
         console.log(req.file)
         const perfil = await Perfil.create({
