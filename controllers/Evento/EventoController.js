@@ -87,7 +87,8 @@ class EventoController {
             complemento,
             bairro,
             cidade,
-            estado
+            estado,
+            numero
         } = req.body
 
         const enderecoEvento = await EnderecoEvento.create({
@@ -97,6 +98,7 @@ class EventoController {
             bairro,
             cidade,
             estado,
+            numero,
             tblEventoIdEvento
         })
 

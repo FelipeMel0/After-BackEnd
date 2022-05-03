@@ -4,7 +4,7 @@ class EnderecoEventoController {
 
     async cadastro(req, res){
 
-        const {cep, logradouro, complemento, bairro, cidade, estado} = req.body
+        const {cep, logradouro, complemento, bairro, cidade, estado, numero} = req.body
 
         const tblEventoIdEvento = req.params.tblEventoIdEvento
 
@@ -15,6 +15,7 @@ class EnderecoEventoController {
             bairro,
             cidade,
             estado,
+            numero,
             tblEventoIdEvento
         })
 

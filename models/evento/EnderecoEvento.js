@@ -31,6 +31,10 @@ const EnderecoEvento = db.sequelize.define('tblEnderecoEvento', {
     estado: {
         type: db.Sequelize.STRING(50),
         allowNull: false
+    },
+    numero: {
+        type: db.Sequelize.STRING(20),
+        allowNull: true
     }
 })
 
