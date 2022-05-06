@@ -104,6 +104,7 @@ routes.post("/contaEmpresa/cadastrarContaEmpresa/:tblEmpresaIdEmpresa/:tblTipoCo
 routes.get("/contaEmpresa/listarContasEmpresa", ContaEmpresa.listar)
 routes.delete("/contaEmpresa/deletarContaEmpresa/:idContaEmpresa", ContaEmpresa.deletar)
 routes.post("/contaEmpresa/cadastrarContaCompleta/:tblEmpresaIdEmpresa", ContaEmpresa.cadastroCompleto)
+routes.get("/contaEmpresa/listarContasPorIdEmpresa/:tblEmpresaIdEmpresa", ContaEmpresa.listarContasDeEmpresa)
 
 //Rotas de Celebridade
 

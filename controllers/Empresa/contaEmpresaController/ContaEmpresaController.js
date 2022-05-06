@@ -68,6 +68,22 @@ class ContaEmpresaController {
 
     }
 
+    async listarContasDeEmpresa(req, res) {
+
+        const {
+            tblEmpresaIdEmpresa
+        } = req.params
+
+        const contaEmpresa = await ContaEmpresa.findAll({
+            where:{
+                tblEmpresaIdEmpresa: tblEmpresaIdEmpresa
+            } 
+        })
+
+        return res.json(contaEmpresa)
+
+    }
+
     async deletar(req, res) {
 
         const idContaEmpresa = req.params.idContaEmpresa
