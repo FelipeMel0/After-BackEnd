@@ -21,7 +21,6 @@ Perfil.hasMany(Empresa)
 Empresa.belongsTo(Perfil)
 
 // Empresa.sync({
-//     force: true
-// })
-
+//         force: true
+//     }) 
 module.exports = Empresa
