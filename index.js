@@ -12,11 +12,18 @@ app.use(cors())
 
 app.use('/uploads', express.static('uploads'))
 
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({
     extended: true
 }))
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 const perfil = require('./models/perfil/Perfil')
 
@@ -58,7 +65,7 @@ const variedadeIngressoLote = require('./models/evento/ingresso/VariedadeIngress
 const ingresso = require('./models/evento/ingresso/Ingresso')
 const compra = require('./models/evento/ingresso/Compra')
 
-app.listen(4000, function(){
+app.listen(4000, function () {
     console.log("Servidor rodando na url http://localhost:4000")
 })
 

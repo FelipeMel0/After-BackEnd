@@ -46,12 +46,11 @@ class EventoController {
 
     }
 
-    async cadastroEndereco(req, res) {
+    async cadastroEventoEndereco(req, res) {
 
         const {
             titulo,
             descricao,
-            capa,
             dataInicio,
             dataFim,
             horaInicio,
@@ -61,6 +60,8 @@ class EventoController {
             tblCategoriumIdCategoria,
             tblContaEmpresaIdContaEmpresa
         } = req.body
+
+        const capa = req.files.capa[0].path
 
         const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
 
