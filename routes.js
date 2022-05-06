@@ -71,6 +71,7 @@ const VerificacaoUsuario = require("./controllers/UsuarioComum/VerificacaoUsuari
 routes.post("/verificacaoUsuario/cadastrarVerificacao/:tblUsuarioComumIdUsuarioComum", VerificacaoUsuario.cadastro)
 routes.get("/verificacaoUsuario/listarVerificacoes", VerificacaoUsuario.listar)
 routes.put("/verificacaoUsuario/responderVerificacao/:idVerificacaoUsuario", VerificacaoUsuario.responder)
+routes.get("/verificacaoUsuario/acharVerificacaoPorId/:idVerificacaoUsuario", VerificacaoUsuario.acharPorId)
 
 //Rotas de Empresas
 const Empresa = require("./controllers/Empresa/EmpresaController")
@@ -175,6 +176,11 @@ const IntermEventoAssunto = require('./controllers/Evento/IntermEventoAssunto')
 routes.post("/intermEventoAssunto/cadastrarIntermEventoAssunto/:tblAssuntoIdAssunto/:tblEventoIdEvento", IntermEventoAssunto.cadastro)
 routes.get("/intermEventoAssunto/listarIntermediarias", IntermEventoAssunto.listar)
 routes.delete("/intermEventoAssunto/deletarIntermediaria/:idIntermEventoAssunto", IntermEventoAssunto.deletar)
+
+const ImagensEvento = require('./controllers/Evento/ImagensEventoController')
+
+routes.post("/imagensEvento/cadastrarImagensEvento/:tblEventoIdEvento", upload.fields([{name: 'imagem', maxCount: 5}]), ImagensEvento.cadastro)
+
 
 //Ingresso
 

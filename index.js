@@ -54,6 +54,7 @@ const evento = require('./models/evento/Evento')
 const enderecoEvento = require('./models/evento/EnderecoEvento')
 const assunto = require('./models/evento/Assunto')
 const intermEventoAssunto = require('./models/evento/IntermEventoAssunto')
+const imagensEvento = require('./models/evento/ImagensEvento')
 
 //Chamadas de interação
 const comentario = require('./models/evento/interação/Comentario')
