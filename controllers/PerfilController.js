@@ -10,8 +10,22 @@ class PerfilController {
     async cadastroUsuarioComum(req, res) {
 
         const {nickname, email, senha, biografia} = req.body
-        const imagemPerfil = req.files.imagemPerfil[0].path
-        const imagemFundo = req.files.imagemFundo[0].path
+        // const imagemPerfil = req.files.imagemPerfil[0].path
+        // const imagemFundo = req.files.imagemFundo[0].path
+        let imagemPerfil 
+        let imagemFundo
+
+        if(req.files.imagemPerfil == undefined){
+            imagemPerfil = null
+        } else {
+            imagemPerfil = req.files.imagemPerfil[0].path
+        }
+
+        if(req.files.imagemFundo == undefined){
+            imagemFundo = null
+        } else {
+            imagemFundo = req.files.imagemFundo[0].path
+        }
 
         console.log(req.file)
         const perfil = await Perfil.create({
@@ -41,8 +55,22 @@ class PerfilController {
 
     async cadastroUsuarioComumEndereco(req, res) {
         const {nickname, email, senha, biografia} = req.body
-        const imagemPerfil = req.files.imagemPerfil[0].path
+        // const imagemPerfil = req.files.imagemPerfil[0].path
         // const imagemFundo = req.files.imagemFundo[0].path
+        let imagemPerfil 
+        let imagemFundo
+
+        if(req.files.imagemPerfil == undefined){
+            imagemPerfil = null
+        } else {
+            imagemPerfil = req.files.imagemPerfil[0].path
+        }
+
+        if(req.files.imagemFundo == undefined){
+            imagemFundo = null
+        } else {
+            imagemFundo = req.files.imagemFundo[0].path
+        }
 
         console.log(req.file)
 
@@ -51,7 +79,7 @@ class PerfilController {
             email,
             senha,
             imagemPerfil,
-            // imagemFundo,
+            imagemFundo,
             biografia
         })
 
