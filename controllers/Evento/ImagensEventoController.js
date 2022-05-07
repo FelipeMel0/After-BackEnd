@@ -5,7 +5,7 @@ class ImagensEventoController {
 
     async cadastro(req, res){
 
-        const imagem = req.files.imagem[0].path + req.files.imagem[1].path
+        const imagem = req.files.imagem[0].path 
 
         const tblEventoIdEvento = req.params.tblEventoIdEvento
 
