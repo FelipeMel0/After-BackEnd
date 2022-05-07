@@ -28,7 +28,7 @@ const PerfilController = require('./controllers/PerfilController')
 
 routes.post('/perfil/cadastrarPerfilUsuarioComum', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroUsuarioComum)
 routes.post('/perfil/cadastrarPerfilUsuarioComumEndereco', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]),PerfilController.cadastroUsuarioComumEndereco)
-routes.post('/perfil/cadastrarPerfilEmpresa', PerfilController.cadastroEmpresa)
+routes.post('/perfil/cadastrarPerfilEmpresa', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresa)
 routes.get('/perfil/listarPerfis', PerfilController.listar)
 routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
