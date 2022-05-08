@@ -32,7 +32,7 @@ routes.post('/perfil/cadastrarPerfilEmpresa', upload.fields([{name: 'imagemPerfi
 routes.get('/perfil/listarPerfis', PerfilController.listar)
 routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
-routes.put('/perfil/editarPerfilUsuarioComum/:idPerfil', PerfilController.editarPerfilUsuarioComum)
+routes.put('/perfil/editarPerfilUsuarioComum/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilUsuarioComum)
 routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
 
 //Rotas de Usuário Comum
