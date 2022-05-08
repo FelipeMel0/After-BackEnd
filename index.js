@@ -58,6 +58,7 @@ const imagensEvento = require('./models/evento/ImagensEvento')
 
 //Chamadas de interação
 const comentario = require('./models/evento/interação/Comentario')
+const eventosCurtidos = require('./models/evento/interação/EventosCurtidos')
 
 //Ingresso
 const tipoIngresso = require('./models/evento/ingresso/TipoIngresso')

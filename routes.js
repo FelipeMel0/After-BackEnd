@@ -181,6 +181,21 @@ const ImagensEvento = require('./controllers/Evento/ImagensEventoController')
 
 routes.post("/imagensEvento/cadastrarImagensEvento/:tblEventoIdEvento", upload.fields([{name: 'imagem', maxCount: 5}]), ImagensEvento.cadastro)
 
+//Rotas de interação 
+
+const Comentario = require('./controllers/Evento/Interação/ComentarioController')
+
+routes.post("/comentario/criarComentario/:tblPerfilIdPerfil/:tblEventoIdEvento", Comentario.cadastro)
+routes.get("/comentario/listarComentarios", Comentario.listar)
+routes.get("/comentario/listarComentarioPorIdEvento/:tblEventoIdEvento", Comentario.listarComentariosPorIdEvento)
+routes.delete("/comentario/deletarComentario/:idComentario", Comentario.deletar)
+
+const EventosCurtidos = require('./controllers/Evento/Interação/EventosCurtidosController')
+
+routes.post("/interacao/curtirEvento/:tblPerfilIdPerfil/:tblEventoIdEvento", EventosCurtidos.curtir)
+routes.get("/interacao/listarCurtidas", EventosCurtidos.listarCurtidas)
+routes.get("/interacao/listarCurtidasPorIdEvento/:tblEventoIdEvento", EventosCurtidos.listarCurtidasPorIdEvento)
+routes.delete("/interacao/deletarCurtida/:idEventosCurtidos", EventosCurtidos.deletarCurtida)
 
 //Ingresso
 

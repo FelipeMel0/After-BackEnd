@@ -32,6 +32,20 @@ class ComentarioController {
 
     }
 
+    async listarComentariosPorIdEvento(req, res){
+
+        const tblEventoIdEvento = req.params.tblEventoIdEvento
+
+        const comentario = await Comentario.findAll({
+            where: {
+                tblEventoIdEvento: tblEventoIdEvento
+            }
+        })
+
+        return res.json(comentario)
+
+    }
+
     async deletar(req, res) {
 
         const idComentario = req.params.idComentario
