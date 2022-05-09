@@ -175,45 +175,44 @@ class EventoController {
             tblEventoIdEvento
         })
 
-        const primeiraImagem = req.files.imagem[0].path 
+        // const primeiraImagem = req.files.imagem[0].path 
 
-        if(primeiraImagem != null){
+        if(req.files.imagem[0]  != null || req.files.imagem[0]  != undefined){
+            const primeiraImagem = req.files.imagem[0].path 
             const imagemEvento = ImagensEvento.create({
                 imagem: primeiraImagem,
                 tblEventoIdEvento
             })
         }
 
-        const segundaImagem = req.files.imagem[1].path
+        // const segundaImagem = req.files.imagem[1].path
 
-        if(segundaImagem != null){
+        if(req.files.imagem[1] != null || req.files.imagem[1] != undefined){
+            const segundaImagem = req.files.imagem[1].path
             const imagemEvento = ImagensEvento.create({
                 imagem: segundaImagem,
                 tblEventoIdEvento
             })
         }
 
-        const terceiraImagem = req.files.imagem[2].path
-
-        if(terceiraImagem != null){
+        if(req.files.imagem[2] != null || req.files.imagem[2] != undefined){
+            const terceiraImagem = req.files.imagem[2].path
             const imagemEvento = ImagensEvento.create({
                 imagem: terceiraImagem,
                 tblEventoIdEvento
             })
         }
 
-        const quartaImagem = req.files.imagem[3].path
-
-        if(quartaImagem != null){
+        if(req.files.imagem[3] != null || req.files.imagem[3] != undefined){
+            const quartaImagem = req.files.imagem[3].path
             const imagemEvento = ImagensEvento.create({
                 imagem: quartaImagem,
                 tblEventoIdEvento
             })
         }
 
-        const quintaImagem = req.files.imagem[4].path
-
-        if(quintaImagem != null){
+        if(req.files.imagem[4] != null || req.files.imagem[4] != undefined){
+            const quintaImagem = req.files.imagem[4].path
             const imagemEvento = ImagensEvento.create({
                 imagem: quintaImagem,
                 tblEventoIdEvento
