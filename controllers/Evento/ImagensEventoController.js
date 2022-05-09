@@ -18,6 +18,28 @@ class ImagensEventoController {
 
     }
 
+    async listar(req, res){
+
+        const imagem = await ImagensEvento.findAll()
+
+        return res.json(imagem)
+
+    }
+
+    async deletar(req, res){
+
+        const idImagensEvento = req.params.idImagensEvento
+
+        ImagensEvento.destroy(
+            {where: {idImagensEvento: idImagensEvento}}
+        ).then(
+            () => {
+                res.send('Imagem de evento excluída')
+            }
+        )
+
+    }
+
 }
 
 module.exports = new ImagensEventoController()

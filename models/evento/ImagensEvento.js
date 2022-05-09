@@ -1,8 +1,8 @@
 const db = require("../database/db")
 const Evento = require("./Evento")
 
-const ImagensFundo = db.sequelize.define('tblImagensEvento', {
-    idImagensFundo: {
+const ImagensEvento = db.sequelize.define('tblImagensEvento', {
+    idImagensEvento: {
         type: db.Sequelize.INTEGER, 
         primaryKey: true,
         autoIncrement: true,
@@ -14,12 +14,12 @@ const ImagensFundo = db.sequelize.define('tblImagensEvento', {
     }
 })
 
-Evento.hasMany(ImagensFundo)
+Evento.hasMany(ImagensEvento)
 
-ImagensFundo.belongsTo(Evento)
+ImagensEvento.belongsTo(Evento)
 
-// ImagensFundo.sync({
+// ImagensEvento.sync({
 //     force: true
 // }) 
 
-module.exports = ImagensFundo
+module.exports = ImagensEvento

@@ -180,6 +180,8 @@ routes.delete("/intermEventoAssunto/deletarIntermediaria/:idIntermEventoAssunto"
 const ImagensEvento = require('./controllers/Evento/ImagensEventoController')
 
 routes.post("/imagensEvento/cadastrarImagensEvento/:tblEventoIdEvento", upload.fields([{name: 'imagem', maxCount: 5}]), ImagensEvento.cadastro)
+routes.get("/imagensEvento/listarImagens", ImagensEvento.listar)
+routes.delete("/imagensEvento/deletarImagemEvento/:idImagensEvento", ImagensEvento.deletar)
 
 //Rotas de interação 
 
