@@ -10,7 +10,7 @@ const ImagensFundo = db.sequelize.define('tblImagensEvento', {
     },
     imagem: {
         type: db.Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     }
 })
 
