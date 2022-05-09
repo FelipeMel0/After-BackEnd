@@ -7,6 +7,7 @@ const EnderecoEvento = require("../../models/evento/EnderecoEvento")
 const Empresa = require("../../models/empresa/Empresa")
 const Perfil = require("../../models/perfil/Perfil")
 const IntermEventoAssunto = require("../../models/evento/IntermEventoAssunto")
+const ImagensEvento = require("../../models/evento/ImagensEvento")
 
 class EventoController {
 
@@ -110,7 +111,7 @@ class EventoController {
 
     }
 
-    async cadastroEventoEnderecoAssunto(req, res) {
+    async cadastroEventoEnderecoAssuntoFotos(req, res) {
 
         const {
             titulo,
@@ -173,6 +174,51 @@ class EventoController {
             tblAssuntoIdAssunto,
             tblEventoIdEvento
         })
+
+        const primeiraImagem = req.files.imagem[0].path 
+
+        if(primeiraImagem != null){
+            const imagemEvento = ImagensEvento.create({
+                imagem: primeiraImagem,
+                tblEventoIdEvento
+            })
+        }
+
+        const segundaImagem = req.files.imagem[1].path
+
+        if(segundaImagem != null){
+            const imagemEvento = ImagensEvento.create({
+                imagem: segundaImagem,
+                tblEventoIdEvento
+            })
+        }
+
+        const terceiraImagem = req.files.imagem[2].path
+
+        if(terceiraImagem != null){
+            const imagemEvento = ImagensEvento.create({
+                imagem: terceiraImagem,
+                tblEventoIdEvento
+            })
+        }
+
+        const quartaImagem = req.files.imagem[3].path
+
+        if(quartaImagem != null){
+            const imagemEvento = ImagensEvento.create({
+                imagem: quartaImagem,
+                tblEventoIdEvento
+            })
+        }
+
+        const quintaImagem = req.files.imagem[4].path
+
+        if(quintaImagem != null){
+            const imagemEvento = ImagensEvento.create({
+                imagem: quintaImagem,
+                tblEventoIdEvento
+            })
+        }
 
         return res.status(201).json({
             "message": "Cadastro feito com sucesso!"
