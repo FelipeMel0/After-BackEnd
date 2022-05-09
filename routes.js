@@ -139,7 +139,7 @@ routes.get("/evento/acharEventoIdEvento/:idEvento", Evento.acharIdEvento)
 routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
 routes.put("/evento/editarEvento/:idEvento", Evento.editar)
 // routes.post("/evento/cadastrarEventoEndereco/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}]), Evento.cadastroEventoEndereco)
-routes.post("/evento/cadastrarEventoEnderecoAssunto/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}]), Evento.cadastroEventoEnderecoAssunto)
+routes.post("/evento/cadastrarEventoEnderecoAssuntoFoto/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}, {name: 'imagem', maxCount: 5}]), Evento.cadastroEventoEnderecoAssuntoFotos)
 
 const TipoEvento = require("./controllers/Evento/TipoEventoController")
 
