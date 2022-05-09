@@ -34,6 +34,7 @@ routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
 routes.put('/perfil/editarPerfilUsuarioComum/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilUsuarioComum)
 routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
+routes.post('/perfil/cadastrarPerfilEmpresaContaBancaria', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaContaBancaria)
 
 //Rotas de Usuário Comum
 const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController')
@@ -131,13 +132,14 @@ routes.delete("/intermEventoCelebridade/deletarIntermediaria/:idIntermEventoCele
 
 const Evento = require("./controllers/Evento/EventoController")
 
-routes.post("/evento/cadastrarEvento/:tblEmpresaIdEmpresa", Evento.cadastro)
+// routes.post("/evento/cadastrarEvento/:tblEmpresaIdEmpresa", Evento.cadastro)
 routes.get("/evento/listarEvento", Evento.listar)
 routes.get("/evento/acharEventoPorId/:tblEmpresaIdEmpresa", Evento.acharPorId)
 routes.get("/evento/acharEventoIdEvento/:idEvento", Evento.acharIdEvento)
 routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
 routes.put("/evento/editarEvento/:idEvento", Evento.editar)
-routes.post("/evento/cadastrarEventoEndereco/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}]), Evento.cadastroEventoEndereco)
+// routes.post("/evento/cadastrarEventoEndereco/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}]), Evento.cadastroEventoEndereco)
+routes.post("/evento/cadastrarEventoEnderecoAssunto/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}]), Evento.cadastroEventoEnderecoAssunto)
 
 const TipoEvento = require("./controllers/Evento/TipoEventoController")
 

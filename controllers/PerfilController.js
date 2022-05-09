@@ -5,6 +5,9 @@ const Perfil = require('../models/perfil/Perfil')
 const UsuarioComum = require('../models/usuarioComum/UsuarioComum')
 const Empresa = require('../models/empresa/Empresa')
 const Endereco = require('../models/usuarioComum/Endereco')
+const BancoConta = require('../models/empresa/contaEmpresa/BancoConta')
+const ContaEmpresa = require('../models/empresa/contaEmpresa/ContaEmpresa')
+const TipoConta = require('../models/empresa/contaEmpresa/TipoConta')
 
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
@@ -179,6 +182,88 @@ class PerfilController {
         const empresa = await Empresa.create({
             cnpj,
             tblPerfilIdPerfil
+        })
+
+        return res.status(201).json({
+            message: 'Cadastro realizado com sucesso!'
+        })
+    }
+
+    async cadastroEmpresaContaBancaria(req, res) {
+        const {
+            nickname,
+            email,
+            senha,
+            biografia
+        } = req.body
+
+        let imagemPerfil
+        let imagemFundo
+
+        if (req.files.imagemPerfil == undefined) {
+            imagemPerfil = null
+        } else {
+            imagemPerfil = req.files.imagemPerfil[0].path
+        }
+
+        if (req.files.imagemFundo == undefined) {
+            imagemFundo = null
+        } else {
+            imagemFundo = req.files.imagemFundo[0].path
+        }
+
+        const perfil = await Perfil.create({
+            nickname,
+            email,
+            senha,
+            imagemPerfil,
+            imagemFundo,
+            biografia
+        })
+
+        const tblPerfilIdPerfil = perfil.idPerfil
+
+        //Gravar empresa
+
+        const {
+            cnpj
+        } = req.body
+
+        const empresa = await Empresa.create({
+            cnpj,
+            tblPerfilIdPerfil
+        })
+
+        //Gravar conta bancária de empresa
+
+        const {nomeTipo} = req.body
+
+        const tipoConta = await TipoConta.create({
+            nomeTipo
+        })
+
+        const tblTipoContumIdTipoConta = tipoConta.idTipoConta
+
+
+        const {nomeBanco} = req.body
+
+        const bancoConta = await BancoConta.create({
+            nomeBanco
+        })
+
+        const tblBancoContumIdBancoConta = bancoConta.idBancoConta
+
+
+        const {agencia, numeroConta, digito} = req.body
+        const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
+
+        const contaEmpresa = await ContaEmpresa.create({
+            agencia,
+            numeroConta,
+            digito,
+            tblEmpresaIdEmpresa,
+            tblTipoContumIdTipoConta,
+            tblBancoContumIdBancoConta
         })
 
         return res.status(201).json({

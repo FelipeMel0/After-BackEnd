@@ -6,6 +6,7 @@ const Celebridade = require("../../models/celebridade/Celebridade")
 const EnderecoEvento = require("../../models/evento/EnderecoEvento")
 const Empresa = require("../../models/empresa/Empresa")
 const Perfil = require("../../models/perfil/Perfil")
+const IntermEventoAssunto = require("../../models/evento/IntermEventoAssunto")
 
 class EventoController {
 
@@ -100,6 +101,76 @@ class EventoController {
             cidade,
             estado,
             numero,
+            tblEventoIdEvento
+        })
+
+        return res.status(201).json({
+            "message": "Cadastro feito com sucesso!"
+        })
+
+    }
+
+    async cadastroEventoEnderecoAssunto(req, res) {
+
+        const {
+            titulo,
+            descricao,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa
+        } = req.body
+
+        const capa = req.files.capa[0].path
+
+        const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
+
+        const evento = await Evento.create({
+            titulo,
+            descricao,
+            capa,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa,
+            tblEmpresaIdEmpresa
+        })
+
+        const tblEventoIdEvento = evento.idEvento
+
+        const {
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            numero
+        } = req.body
+
+        const enderecoEvento = await EnderecoEvento.create({
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            numero,
+            tblEventoIdEvento
+        })
+
+        const tblAssuntoIdAssunto = req.body.tblAssuntoIdAssunto
+
+        const assunto = await IntermEventoAssunto.create({
+            tblAssuntoIdAssunto,
             tblEventoIdEvento
         })
 
