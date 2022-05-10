@@ -177,9 +177,9 @@ class EventoController {
 
         // const primeiraImagem = req.files.imagem[0].path 
 
-        if(req.files.imagem[0]  != null || req.files.imagem[0]  != undefined){
-            const primeiraImagem = req.files.imagem[0].path 
-            const imagemEvento = ImagensEvento.create({
+        if (req.files.imagem != null || req.files.imagem != undefined) {
+            const primeiraImagem = req.files.imagem[0].path
+            const imagemEvento = await ImagensEvento.create({
                 imagem: primeiraImagem,
                 tblEventoIdEvento
             })
@@ -187,33 +187,33 @@ class EventoController {
 
         // const segundaImagem = req.files.imagem[1].path
 
-        if(req.files.imagem[1] != null || req.files.imagem[1] != undefined){
+        if (req.files.imagem != null || req.files.imagem != undefined) {
             const segundaImagem = req.files.imagem[1].path
-            const imagemEvento = ImagensEvento.create({
+            const imagemEvento = await ImagensEvento.create({
                 imagem: segundaImagem,
                 tblEventoIdEvento
             })
         }
 
-        if(req.files.imagem[2] != null || req.files.imagem[2] != undefined){
+        if (req.files.imagem != null || req.files.imagem != undefined) {
             const terceiraImagem = req.files.imagem[2].path
-            const imagemEvento = ImagensEvento.create({
+            const imagemEvento = await ImagensEvento.create({
                 imagem: terceiraImagem,
                 tblEventoIdEvento
             })
         }
 
-        if(req.files.imagem[3] != null || req.files.imagem[3] != undefined){
+        if (req.files.imagem != null || req.files.imagem != undefined) {
             const quartaImagem = req.files.imagem[3].path
-            const imagemEvento = ImagensEvento.create({
+            const imagemEvento = await ImagensEvento.create({
                 imagem: quartaImagem,
                 tblEventoIdEvento
             })
         }
 
-        if(req.files.imagem[4] != null || req.files.imagem[4] != undefined){
+        if (req.files.imagem != null || req.files.imagem != undefined) {
             const quintaImagem = req.files.imagem[4].path
-            const imagemEvento = ImagensEvento.create({
+            const imagemEvento = await ImagensEvento.create({
                 imagem: quintaImagem,
                 tblEventoIdEvento
             })
@@ -221,10 +221,13 @@ class EventoController {
 
         const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
 
-        const celebridade = await IntermEventoCelebridade.create({
-            tblCelebridadeIdCelebridade,
-            tblEventoIdEvento
-        })
+        if (tblCelebridadeIdCelebridade != null || tblCelebridadeIdCelebridade != undefined || tblCelebridadeIdCelebridade != "" || tblCelebridadeIdCelebridade != 0) {
+            // const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
+            const celebridade = await IntermEventoCelebridade.create({
+                tblCelebridadeIdCelebridade,
+                tblEventoIdEvento
+            })
+        }
 
         return res.status(201).json({
             "message": "Cadastro feito com sucesso!"
@@ -287,22 +290,23 @@ class EventoController {
 
         const evento = Evento.findByPk(idEvento, {
             include: [{
-                model: IntermEventoCelebridade,
-                include: [{
-                    model: Celebridade,
+                    model: IntermEventoCelebridade,
                     include: [{
-                        model: VerificacaoUsuario,
+                        model: Celebridade,
+                        include: [{
+                            model: VerificacaoUsuario,
+                        }]
                     }]
-                }]
-            }, {
-                model: EnderecoEvento
-            },
-        {
-           model: Empresa,
-           include: [{
-               model: Perfil
-           }]
-        }]
+                }, {
+                    model: EnderecoEvento
+                },
+                {
+                    model: Empresa,
+                    include: [{
+                        model: Perfil
+                    }]
+                }
+            ]
         }).then((eventoId) => {
             res.send(eventoId)
         })
