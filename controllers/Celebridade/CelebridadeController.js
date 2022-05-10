@@ -19,7 +19,11 @@ class CelebridadeController {
 
     async listar(req, res) {
 
-        const celebridade = await Celebridade.findAll()
+        const celebridade = await Celebridade.findAll({
+            include: [{
+                model: VerificacaoUsuario
+            }]
+        })
 
         return res.json(celebridade)
 

@@ -111,7 +111,7 @@ class EventoController {
 
     }
 
-    async cadastroEventoEnderecoAssuntoFotos(req, res) {
+    async cadastroEventoCompleto(req, res) {
 
         const {
             titulo,
@@ -218,6 +218,13 @@ class EventoController {
                 tblEventoIdEvento
             })
         }
+
+        const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
+
+        const celebridade = await IntermEventoCelebridade.create({
+            tblCelebridadeIdCelebridade,
+            tblEventoIdEvento
+        })
 
         return res.status(201).json({
             "message": "Cadastro feito com sucesso!"
