@@ -8,6 +8,8 @@ const Empresa = require("../../models/empresa/Empresa")
 const Perfil = require("../../models/perfil/Perfil")
 const IntermEventoAssunto = require("../../models/evento/IntermEventoAssunto")
 const ImagensEvento = require("../../models/evento/ImagensEvento")
+const Lote = require("../../models/evento/ingresso/Lote")
+const VariedadeIngressoLote = require("../../models/evento/ingresso/VariedadeIngressoLote")
 
 class EventoController {
 
@@ -304,6 +306,11 @@ class EventoController {
                     model: Empresa,
                     include: [{
                         model: Perfil
+                    }]
+                }, {
+                    model: Lote,
+                    include: [{
+                        model: VariedadeIngressoLote
                     }]
                 }
             ]
