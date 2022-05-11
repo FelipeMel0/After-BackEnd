@@ -9,6 +9,8 @@ const BancoConta = require('../models/empresa/contaEmpresa/BancoConta')
 const ContaEmpresa = require('../models/empresa/contaEmpresa/ContaEmpresa')
 const TipoConta = require('../models/empresa/contaEmpresa/TipoConta')
 
+const fs = require('fs')
+
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
 
@@ -236,7 +238,9 @@ class PerfilController {
 
         //Gravar conta bancária de empresa
 
-        const {nomeTipo} = req.body
+        const {
+            nomeTipo
+        } = req.body
 
         const tipoConta = await TipoConta.create({
             nomeTipo
@@ -245,7 +249,9 @@ class PerfilController {
         const tblTipoContumIdTipoConta = tipoConta.idTipoConta
 
 
-        const {nomeBanco} = req.body
+        const {
+            nomeBanco
+        } = req.body
 
         const bancoConta = await BancoConta.create({
             nomeBanco
@@ -254,7 +260,11 @@ class PerfilController {
         const tblBancoContumIdBancoConta = bancoConta.idBancoConta
 
 
-        const {agencia, numeroConta, digito} = req.body
+        const {
+            agencia,
+            numeroConta,
+            digito
+        } = req.body
         const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
 
         const contaEmpresa = await ContaEmpresa.create({
@@ -320,7 +330,7 @@ class PerfilController {
 
         if (req.files.imagemPerfil != null) {
             imagemPerfil = req.files.imagemPerfil[0].path
-        } 
+        }
 
         if (req.files.imagemFundo != null) {
             imagemFundo = req.files.imagemFundo[0].path
@@ -338,7 +348,7 @@ class PerfilController {
                 idPerfil: idPerfil
             }
         }).then(
-            ()=>{
+            () => {
                 res.send('Dados alterados com sucesso!');
             }
         );
@@ -353,49 +363,103 @@ class PerfilController {
             nickname,
             email,
             senha,
-            biografia,
-            imagemPerfil,
-            imagemFundo
+            biografia
         } = req.body
 
-        if (req.files.imagemPerfil != null) {
-            imagemPerfil = req.files.imagemPerfil[0].path
-        } 
+        if (req.files.imagemPerfil != '' || req.files.imagemFundo != '') {
 
-        if (req.files.imagemFundo != null) {
-            imagemFundo = req.files.imagemFundo[0].path
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemPerfil = Perfil.imagemPerfil
+                let imagemFundo = Perfil.imagemFundo
+
+                fs.unlink(imagemPerfil, (error) => {
+
+                    if (error) {
+                        console.log('ERRO AO EXLCUIR A IMAGEM: ' + error);
+                    } else {
+                        console.log('IMAGEM DE PERFIL EXCLUÍDA COM SUCESSO! ');
+                    }
+
+                })
+
+                fs.unlink(imagemFundo, (error) => {
+
+                    if (error) {
+                        console.log('ERRO AO EXLCUIR A IMAGEM: ' + error);
+                    } else {
+                        console.log('IMAGEM DE FUNDO EXCLUÍDA COM SUCESSO! ');
+                    }
+
+                })
+
+                imagemPerfil = req.files.imagemPerfil[0].path
+
+                imagemFundo = req.files.imagemFundo[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemPerfil,
+                    imagemFundo
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    nome,
+                    dataNasc
+                } = req.body
+        
+                UsuarioComum.update({
+                    nome,
+                    dataNasc
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+
+        } else {
+            Perfil.update({
+                nickname,
+                email,
+                senha,
+                biografia
+            }, {
+                where: {
+                    idPerfil: idPerfil
+                }
+            })
+
+            const {
+                nome,
+                dataNasc
+            } = req.body
+    
+            UsuarioComum.update({
+                nome,
+                dataNasc
+            }, {
+                where: {
+                    tblPerfilIdPerfil: idPerfil
+                }
+            }).then(
+                () => {
+                    res.send('Perfil editado')
+                }
+            )
         }
-
-        Perfil.update({
-            nickname,
-            email,
-            senha,
-            biografia,
-            imagemPerfil,
-            imagemFundo
-        }, {
-            where: {
-                idPerfil: idPerfil
-            }
-        })
-
-        const {
-            nome,
-            dataNasc
-        } = req.body
-
-        UsuarioComum.update({
-            nome,
-            dataNasc
-        }, {
-            where: {
-                tblPerfilIdPerfil: idPerfil
-            }
-        }).then(
-            () => {
-                res.send('Perfil editado')
-            }
-        )
 
     }
 
@@ -414,7 +478,7 @@ class PerfilController {
 
         if (req.files.imagemPerfil != null) {
             imagemPerfil = req.files.imagemPerfil[0].path
-        } 
+        }
 
         if (req.files.imagemFundo != null) {
             imagemFundo = req.files.imagemFundo[0].path
