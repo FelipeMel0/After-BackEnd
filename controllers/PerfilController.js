@@ -366,34 +366,22 @@ class PerfilController {
             biografia
         } = req.body
 
-        if (req.files.imagemPerfil != '' || req.files.imagemFundo != '') {
+        //Caso queira alterar somente a imagem de fundo
+        if (req.files.imagemFundo != undefined) {
 
             Perfil.findByPk(idPerfil).then((Perfil) => {
 
-                let imagemPerfil = Perfil.imagemPerfil
                 let imagemFundo = Perfil.imagemFundo
-
-                fs.unlink(imagemPerfil, (error) => {
-
-                    if (error) {
-                        console.log('ERRO AO EXLCUIR A IMAGEM: ' + error);
-                    } else {
-                        console.log('IMAGEM DE PERFIL EXCLUÍDA COM SUCESSO! ');
-                    }
-
-                })
 
                 fs.unlink(imagemFundo, (error) => {
 
                     if (error) {
-                        console.log('ERRO AO EXLCUIR A IMAGEM: ' + error);
+                        console.log('Erro ao excluir a imagem: ' + error);
                     } else {
-                        console.log('IMAGEM DE FUNDO EXCLUÍDA COM SUCESSO! ');
+                        console.log('Imagem de fundo excluída com sucesso!');
                     }
 
                 })
-
-                imagemPerfil = req.files.imagemPerfil[0].path
 
                 imagemFundo = req.files.imagemFundo[0].path
 
@@ -402,7 +390,6 @@ class PerfilController {
                     email,
                     senha,
                     biografia,
-                    imagemPerfil,
                     imagemFundo
                 }, {
                     where: {
@@ -414,7 +401,7 @@ class PerfilController {
                     nome,
                     dataNasc
                 } = req.body
-        
+
                 UsuarioComum.update({
                     nome,
                     dataNasc
@@ -430,7 +417,60 @@ class PerfilController {
 
             })
 
-        } else {
+        } 
+        //Caso queira alterar somente a foto de perfil
+        else if(req.files.imagemPerfil != undefined){
+
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemPerfil = Perfil.imagemPerfil
+
+                fs.unlink(imagemPerfil, (error) => {
+
+                    if (error) {
+                        console.log('Erro ao excluir a imagem: ' + error);
+                    } else {
+                        console.log('Imagem de fundo excluída com sucesso!');
+                    }
+
+                })
+
+                imagemPerfil = req.files.imagemPerfil[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemPerfil
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    nome,
+                    dataNasc
+                } = req.body
+
+                UsuarioComum.update({
+                    nome,
+                    dataNasc
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+        }
+        //Caso não queira alterar nenhuma imagem
+        else {
             Perfil.update({
                 nickname,
                 email,
@@ -446,7 +486,7 @@ class PerfilController {
                 nome,
                 dataNasc
             } = req.body
-    
+
             UsuarioComum.update({
                 nome,
                 dataNasc
