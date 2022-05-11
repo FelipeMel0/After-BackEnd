@@ -31,8 +31,9 @@ routes.post('/perfil/cadastrarPerfilUsuarioComumEndereco', upload.fields([{name:
 routes.post('/perfil/cadastrarPerfilEmpresa', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresa)
 routes.get('/perfil/listarPerfis', PerfilController.listar)
 routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
-routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
+// routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
 routes.put('/perfil/editarPerfilUsuarioComum/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilUsuarioComum)
+routes.put('/perfil/editarPerfilEmpresa/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilEmpresa)
 routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
 routes.post('/perfil/cadastrarPerfilEmpresaContaBancaria', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaContaBancaria) //
 
@@ -183,6 +184,7 @@ const ImagensEvento = require('./controllers/Evento/ImagensEventoController')
 
 routes.post("/imagensEvento/cadastrarImagensEvento/:tblEventoIdEvento", upload.fields([{name: 'imagem', maxCount: 5}]), ImagensEvento.cadastro)
 routes.get("/imagensEvento/listarImagens", ImagensEvento.listar)
+routes.get("/imagensEvento/listarImagensIdEvento/:tblEventoIdEvento", ImagensEvento.listarPorIdEvento)
 routes.delete("/imagensEvento/deletarImagemEvento/:idImagensEvento", ImagensEvento.deletar)
 
 //Rotas de interação 

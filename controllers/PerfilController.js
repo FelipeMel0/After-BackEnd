@@ -399,6 +399,58 @@ class PerfilController {
 
     }
 
+    async editarPerfilEmpresa(req, res) {
+
+        const idPerfil = req.params.idPerfil
+
+        let {
+            nickname,
+            email,
+            senha,
+            biografia,
+            imagemPerfil,
+            imagemFundo
+        } = req.body
+
+        if (req.files.imagemPerfil != null) {
+            imagemPerfil = req.files.imagemPerfil[0].path
+        } 
+
+        if (req.files.imagemFundo != null) {
+            imagemFundo = req.files.imagemFundo[0].path
+        }
+
+        Perfil.update({
+            nickname,
+            email,
+            senha,
+            biografia,
+            imagemPerfil,
+            imagemFundo
+        }, {
+            where: {
+                idPerfil: idPerfil
+            }
+        })
+
+        const {
+            cnpj
+        } = req.body
+
+        Empresa.update({
+            cnpj
+        }, {
+            where: {
+                tblPerfilIdPerfil: idPerfil
+            }
+        }).then(
+            () => {
+                res.send('Perfil editado')
+            }
+        )
+
+    }
+
 }
 
 module.exports = new PerfilController();

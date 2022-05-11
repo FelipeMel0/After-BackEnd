@@ -26,6 +26,20 @@ class ImagensEventoController {
 
     }
 
+    async listarPorIdEvento(req, res){
+
+        const tblEventoIdEvento = req.params.tblEventoIdEvento
+
+        const imagem = await ImagensEvento.findAll({
+            where: {
+                tblEventoIdEvento: tblEventoIdEvento
+            }
+        })
+
+        return res.json(imagem)
+        
+    }
+
     async deletar(req, res){
 
         const idImagensEvento = req.params.idImagensEvento
