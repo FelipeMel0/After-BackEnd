@@ -59,13 +59,14 @@ class EventoController {
             dataFim,
             horaInicio,
             horaFim,
+            capa,
             tblFaixaEtariumIdFaixaEtaria,
             tblTipoEventoIdTipoEvento,
             tblCategoriumIdCategoria,
             tblContaEmpresaIdContaEmpresa
         } = req.body
 
-        const capa = req.files.capa[0].path
+        // const capa = req.files.capa[0].path
 
         const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
 
