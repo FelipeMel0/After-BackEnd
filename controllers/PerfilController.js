@@ -367,7 +367,7 @@ class PerfilController {
         } = req.body
 
         //Caso queira alterar somente a imagem de fundo
-        if (req.files.imagemFundo != undefined) {
+        if (req.files.imagemFundo != undefined && req.files.imagemPerfil == undefined) {
 
             Perfil.findByPk(idPerfil).then((Perfil) => {
 
@@ -417,9 +417,9 @@ class PerfilController {
 
             })
 
-        } 
+        }
         //Caso queira alterar somente a foto de perfil
-        else if(req.files.imagemPerfil != undefined){
+        else if (req.files.imagemPerfil != undefined && req.files.imagemFundo == undefined) {
 
             Perfil.findByPk(idPerfil).then((Perfil) => {
 
@@ -457,6 +457,68 @@ class PerfilController {
                 UsuarioComum.update({
                     nome,
                     dataNasc
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+        }
+        //Caso queira editar as duas imagens
+        else if(req.files.imagemPerfil != undefined && req.files.imagemFundo != undefined){
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemPerfil = Perfil.imagemPerfil
+                let imagemFundo = Perfil.imagemFundo
+
+                fs.unlink(imagemPerfil, (error) => {
+
+                    if (error) {
+                        console.log('Erro ao excluir a imagem: ' + error);
+                    } else {
+                        console.log('Imagem de perfil excluída com sucesso!');
+                    }
+
+                })
+
+                fs.unlink(imagemFundo, (error) => {
+
+                    if (error) {
+                        console.log('Erro ao excluir a imagem: ' + error);
+                    } else {
+                        console.log('Imagem de fundo excluída com sucesso!');
+                    }
+
+                })
+
+                imagemPerfil = req.files.imagemPerfil[0].path
+
+                imagemFundo = req.files.imagemFundo[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemPerfil,
+                    imagemFundo
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    cnpj
+                } = req.body
+
+                Empresa.update({
+                    cnpj
                 }, {
                     where: {
                         tblPerfilIdPerfil: idPerfil
@@ -511,47 +573,199 @@ class PerfilController {
             nickname,
             email,
             senha,
-            biografia,
-            imagemPerfil,
-            imagemFundo
+            biografia
         } = req.body
 
-        if (req.files.imagemPerfil != null) {
-            imagemPerfil = req.files.imagemPerfil[0].path
+        //Caso queira alterar somente a imagem de fundo
+        if (req.files.imagemFundo != undefined && req.files.imagemPerfil == undefined) {
+
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemFundo = Perfil.imagemFundo
+
+                fs.unlink(imagemFundo, (error) => {
+
+                    if (error) {
+                        console.log('Erro ao excluir a imagem: ' + error);
+                    } else {
+                        console.log('Imagem de fundo excluída com sucesso!');
+                    }
+
+                })
+
+                imagemFundo = req.files.imagemFundo[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemFundo
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    cnpj
+                } = req.body
+
+                Empresa.update({
+                    cnpj
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+
         }
+        //Caso queira alterar somente a foto de perfil
+        else if (req.files.imagemPerfil != undefined && req.files.imagemFundo == undefined) {
 
-        if (req.files.imagemFundo != null) {
-            imagemFundo = req.files.imagemFundo[0].path
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemPerfil = Perfil.imagemPerfil
+
+                fs.unlink(imagemPerfil, (error) => {
+
+                    if (error) {
+                        console.log('Erro ao excluir a imagem: ' + error);
+                    } else {
+                        console.log('Imagem de fundo excluída com sucesso!');
+                    }
+
+                })
+
+                imagemPerfil = req.files.imagemPerfil[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemPerfil
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    cnpj
+                } = req.body
+
+                Empresa.update({
+                    cnpj
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+        } 
+        //Caso queira editar as duas imagens
+        else if (req.files.imagemPerfil != undefined && req.files.imagemFundo != undefined) {
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemPerfil = Perfil.imagemPerfil
+                let imagemFundo = Perfil.imagemFundo
+
+                fs.unlink(imagemPerfil, (error) => {
+
+                    if (error) {
+                        console.log('Erro ao excluir a imagem: ' + error);
+                    } else {
+                        console.log('Imagem de perfil excluída com sucesso!');
+                    }
+
+                })
+
+                fs.unlink(imagemFundo, (error) => {
+
+                    if (error) {
+                        console.log('Erro ao excluir a imagem: ' + error);
+                    } else {
+                        console.log('Imagem de fundo excluída com sucesso!');
+                    }
+
+                })
+
+                imagemPerfil = req.files.imagemPerfil[0].path
+
+                imagemFundo = req.files.imagemFundo[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemPerfil,
+                    imagemFundo
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    cnpj
+                } = req.body
+
+                Empresa.update({
+                    cnpj
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
         }
+        //Caso não queira alterar nenhuma imagem
+        else {
+            Perfil.update({
+                nickname,
+                email,
+                senha,
+                biografia
+            }, {
+                where: {
+                    idPerfil: idPerfil
+                }
+            })
 
-        Perfil.update({
-            nickname,
-            email,
-            senha,
-            biografia,
-            imagemPerfil,
-            imagemFundo
-        }, {
-            where: {
-                idPerfil: idPerfil
-            }
-        })
+            const {
+                cnpj
+            } = req.body
 
-        const {
-            cnpj
-        } = req.body
-
-        Empresa.update({
-            cnpj
-        }, {
-            where: {
-                tblPerfilIdPerfil: idPerfil
-            }
-        }).then(
-            () => {
-                res.send('Perfil editado')
-            }
-        )
+            Empresa.update({
+                cnpj
+            }, {
+                where: {
+                    tblPerfilIdPerfil: idPerfil
+                }
+            }).then(
+                () => {
+                    res.send('Perfil editado')
+                }
+            )
+        }
 
     }
 
