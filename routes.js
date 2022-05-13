@@ -80,6 +80,7 @@ const Empresa = require("./controllers/Empresa/EmpresaController")
 
 routes.post("/empresa/cadastrarEmpresa/:tblPerfilIdPerfil", Empresa.cadastro)
 routes.get("/empresa/listarEmpresas", Empresa.listar)
+routes.get("/empresa/acharEmpresaPorId/:idEmpresa", Empresa.listarEmpresaPorId)
 routes.delete("/empresa/deletarEmpresa/:idEmpresa", Empresa.deletar)
 routes.put("/empresa/editarEmpresa/:idEmpresa", Empresa.editar)
 
