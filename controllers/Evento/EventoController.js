@@ -251,6 +251,11 @@ class EventoController {
                 }]
             }, {
                 model: Categoria
+            }, {
+                model: Empresa,
+                include: [{
+                    model: Perfil
+                }]
             }],
         })
 
@@ -278,6 +283,11 @@ class EventoController {
                     }]
                 }, {
                     model: Categoria
+                }, {
+                    model: Empresa,
+                    include:[{
+                        model: Perfil
+                    }]
                 }],
             })
             .then((eventoId) => {

@@ -17,7 +17,7 @@ const EnderecoEvento = db.sequelize.define('tblEnderecoEvento', {
         allowNull: false
     },
     complemento: {
-        type: db.Sequelize.STRING(50),
+        type: db.Sequelize.STRING(100),
         allowNull: true
     },
     bairro: {
