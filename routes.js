@@ -204,6 +204,14 @@ routes.get("/interacao/listarCurtidas", EventosCurtidos.listarCurtidas)
 routes.get("/interacao/listarCurtidasPorIdEvento/:tblEventoIdEvento", EventosCurtidos.listarCurtidasPorIdEvento)
 routes.delete("/interacao/deletarCurtida/:idEventosCurtidos", EventosCurtidos.deletarCurtida)
 
+
+const SeguirEmpresaUsuario = require('./controllers/Evento/Interação/Seguir/SeguirEmpresaUsuarioController')
+
+routes.post("/seguirEmpresaUsuario/comecarSeguir/:tblEmpresaIdEmpresa/:tblUsuarioComumIdUsuarioComum", SeguirEmpresaUsuario.seguir)
+routes.get("/seguirEmpresaUsuario/listarSeguidoresEmpresa/:tblEmpresaIdEmpresa", SeguirEmpresaUsuario.listarSeguidoresEmpresa)
+routes.get("/seguirEmpresaUsuario/listarSeguidoresUsuarioComum/:tblUsuarioComumIdUsuarioComum", SeguirEmpresaUsuario.listarSeguidoresUsuarioComum)
+routes.delete("/seguirEmpresaUsuario/deixarDeSeguir/:idSeguirEmpresaUsuario", SeguirEmpresaUsuario.deixarDeSeguir)
+
 //Ingresso
 
 const TipoIngresso = require("./controllers/Evento/Ingresso/TipoIngressoController")

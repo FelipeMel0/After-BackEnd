@@ -60,6 +60,8 @@ const imagensEvento = require('./models/evento/ImagensEvento')
 const comentario = require('./models/evento/interação/Comentario')
 const eventosCurtidos = require('./models/evento/interação/EventosCurtidos')
 
+const seguirEmpresaUsuario = require('./models/evento/interação/Seguir/SeguirEmpresaUsuario')
+
 //Ingresso
 const tipoIngresso = require('./models/evento/ingresso/TipoIngresso')
 const lote = require('./models/evento/ingresso/Lote')
