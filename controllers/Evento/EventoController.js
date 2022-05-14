@@ -180,7 +180,7 @@ class EventoController {
 
         // const primeiraImagem = req.files.imagem[0].path 
 
-        if (req.files.imagem != null || req.files.imagem != undefined) {
+        if (req.files.imagem[0] != null || req.files.imagem[0] != undefined) {
             const primeiraImagem = req.files.imagem[0].path
             const imagemEvento = await ImagensEvento.create({
                 imagem: primeiraImagem,
@@ -190,7 +190,7 @@ class EventoController {
 
         // const segundaImagem = req.files.imagem[1].path
 
-        if (req.files.imagem != null || req.files.imagem != undefined) {
+        if (req.files.imagem[1] != null || req.files.imagem[1] != undefined) {
             const segundaImagem = req.files.imagem[1].path
             const imagemEvento = await ImagensEvento.create({
                 imagem: segundaImagem,
@@ -198,7 +198,7 @@ class EventoController {
             })
         }
 
-        if (req.files.imagem != null || req.files.imagem != undefined) {
+        if (req.files.imagem[2] != null || req.files.imagem[2] != undefined) {
             const terceiraImagem = req.files.imagem[2].path
             const imagemEvento = await ImagensEvento.create({
                 imagem: terceiraImagem,
@@ -206,7 +206,7 @@ class EventoController {
             })
         }
 
-        if (req.files.imagem != null || req.files.imagem != undefined) {
+        if (req.files.imagem[3] != null || req.files.imagem[3] != undefined) {
             const quartaImagem = req.files.imagem[3].path
             const imagemEvento = await ImagensEvento.create({
                 imagem: quartaImagem,
@@ -214,7 +214,7 @@ class EventoController {
             })
         }
 
-        if (req.files.imagem != null || req.files.imagem != undefined) {
+        if (req.files.imagem[4] != null || req.files.imagem[4] != undefined) {
             const quintaImagem = req.files.imagem[4].path
             const imagemEvento = await ImagensEvento.create({
                 imagem: quintaImagem,
