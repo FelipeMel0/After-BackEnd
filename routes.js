@@ -205,19 +205,27 @@ routes.get("/interacao/listarCurtidasPorIdEvento/:tblEventoIdEvento", EventosCur
 routes.delete("/interacao/deletarCurtida/:idEventosCurtidos", EventosCurtidos.deletarCurtida)
 
 
-const SeguirEmpresaUsuario = require('./controllers/Evento/Interação/Seguir/SeguirEmpresaUsuarioController')
+const SeguirEmpresaUsuario = require('./controllers/Seguir/SeguirEmpresaUsuarioController')
 
 routes.post("/seguirEmpresaUsuario/comecarSeguir/:tblEmpresaIdEmpresa/:tblUsuarioComumIdUsuarioComum", SeguirEmpresaUsuario.seguir)
 routes.get("/seguirEmpresaUsuario/listarSeguidoresEmpresa/:tblEmpresaIdEmpresa", SeguirEmpresaUsuario.listarSeguidoresEmpresa)
 routes.get("/seguirEmpresaUsuario/listarSeguidoresUsuarioComum/:tblUsuarioComumIdUsuarioComum", SeguirEmpresaUsuario.listarSeguidoresUsuarioComum)
 routes.delete("/seguirEmpresaUsuario/deixarDeSeguir/:idSeguirEmpresaUsuario", SeguirEmpresaUsuario.deixarDeSeguir)
 
-const SeguirUsuarioCelebridade = require('./controllers/Evento/Interação/Seguir/SeguirUsuarioCelebridadeController')
+const SeguirUsuarioCelebridade = require('./controllers/Seguir/SeguirUsuarioCelebridadeController')
 
 routes.post("/seguirUsuarioCelebridade/comecarSeguir/:tblCelebridadeIdCelebridade/:tblUsuarioComumIdUsuarioComum", SeguirUsuarioCelebridade.seguir)
 routes.get("/seguirUsuarioCelebridade/listarSeguidoresCelebridade/:tblCelebridadeIdCelebridade", SeguirUsuarioCelebridade.listarSeguidoresCelebridade)
 routes.get("/seguirUsuarioCelebridade/listarSeguidoresUsuarioComum/:tblUsuarioComumIdUsuarioComum", SeguirUsuarioCelebridade.listarSeguidoresUsuarioComum)
 routes.delete("/seguirUsuarioCelebridade/deixarDeSeguir/:idSeguirUsuarioCelebridade", SeguirUsuarioCelebridade.deixarDeSeguir)
+
+
+const SeguirEmpresaCelebridade = require('./controllers/Seguir/SeguirEmpresaCelebridadeController')
+
+routes.post("/seguirEmpresaCelebridade/comecarSeguir/:tblEmpresaIdEmpresa/:tblCelebridadeIdCelebridade", SeguirEmpresaCelebridade.seguir)
+routes.get("/seguirEmpresaCelebridade/listarSeguidoresEmpresa/:tblEmpresaIdEmpresa", SeguirEmpresaCelebridade.listarSeguidoresEmpresa)
+routes.get("/seguirEmpresaCelebridade/listarSeguidoresCelebridade/:tblCelebridadeIdCelebridade", SeguirEmpresaCelebridade.listarSeguidoresCelebridade)
+routes.delete("/seguirEmpresaCelebridade/deixarDeSeguir/:idSeguirEmpresaCelebridade", SeguirEmpresaCelebridade.deixarDeSeguir)
 
 //Ingresso
 

@@ -1,4 +1,4 @@
-const SeguirEmpresaUsuario = require("../../../../models/evento/interação/Seguir/SeguirEmpresaUsuario")
+const SeguirEmpresaUsuario = require("../../models/evento/interação/Seguir/SeguirEmpresaUsuario")
 
 class SeguirEmpresaUsuarioController {
 
