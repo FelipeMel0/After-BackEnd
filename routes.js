@@ -212,6 +212,13 @@ routes.get("/seguirEmpresaUsuario/listarSeguidoresEmpresa/:tblEmpresaIdEmpresa",
 routes.get("/seguirEmpresaUsuario/listarSeguidoresUsuarioComum/:tblUsuarioComumIdUsuarioComum", SeguirEmpresaUsuario.listarSeguidoresUsuarioComum)
 routes.delete("/seguirEmpresaUsuario/deixarDeSeguir/:idSeguirEmpresaUsuario", SeguirEmpresaUsuario.deixarDeSeguir)
 
+const SeguirUsuarioCelebridade = require('./controllers/Evento/Interação/Seguir/SeguirUsuarioCelebridadeController')
+
+routes.post("/seguirUsuarioCelebridade/comecarSeguir/:tblCelebridadeIdCelebridade/:tblUsuarioComumIdUsuarioComum", SeguirUsuarioCelebridade.seguir)
+routes.get("/seguirUsuarioCelebridade/listarSeguidoresCelebridade/:tblCelebridadeIdCelebridade", SeguirUsuarioCelebridade.listarSeguidoresCelebridade)
+routes.get("/seguirUsuarioCelebridade/listarSeguidoresUsuarioComum/:tblUsuarioComumIdUsuarioComum", SeguirUsuarioCelebridade.listarSeguidoresUsuarioComum)
+routes.delete("/seguirUsuarioCelebridade/deixarDeSeguir/:idSeguirUsuarioCelebridade", SeguirUsuarioCelebridade.deixarDeSeguir)
+
 //Ingresso
 
 const TipoIngresso = require("./controllers/Evento/Ingresso/TipoIngressoController")

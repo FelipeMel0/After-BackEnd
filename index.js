@@ -61,6 +61,7 @@ const comentario = require('./models/evento/interação/Comentario')
 const eventosCurtidos = require('./models/evento/interação/EventosCurtidos')
 
 const seguirEmpresaUsuario = require('./models/evento/interação/Seguir/SeguirEmpresaUsuario')
+const seguirUsuarioCelebridade = require('./models/evento/interação/Seguir/SeguirUsuarioCelebridade')
 
 //Ingresso
 const tipoIngresso = require('./models/evento/ingresso/TipoIngresso')

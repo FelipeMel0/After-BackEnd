@@ -20,8 +20,8 @@ UsuarioComum.hasMany(SeguirEmpresaUsuario)
 
 SeguirEmpresaUsuario.belongsTo(UsuarioComum)
 
-SeguirEmpresaUsuario.sync({
-    force: true
-})
+// SeguirEmpresaUsuario.sync({
+//     force: true
+// })
 
 module.exports = SeguirEmpresaUsuario
