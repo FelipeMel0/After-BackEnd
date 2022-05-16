@@ -1,5 +1,11 @@
+const Celebridade = require("../../../models/celebridade/Celebridade")
+const IntermEventoCelebridade = require("../../../models/celebridade/IntermediariaEventoCelebridade")
+const Empresa = require("../../../models/empresa/Empresa")
+const Categoria = require("../../../models/evento/Categoria")
+const Evento = require("../../../models/evento/Evento")
 const EventosCurtidos = require("../../../models/evento/interação/EventosCurtidos")
 const Perfil = require("../../../models/perfil/Perfil")
+const VerificacaoUsuario = require("../../../models/usuarioComum/VerificacaoUsuario")
 
 class EventosCurtidosController {
 
@@ -51,7 +57,27 @@ class EventosCurtidosController {
         const eventosCurtidos = await EventosCurtidos.findAll({
             where: {
                 tblPerfilIdPerfil: tblPerfilIdPerfil
-            }
+            },
+            include: [{
+                model: Evento,
+                    include: [{
+                        model: IntermEventoCelebridade,
+                        include: [{
+                            model: Celebridade,
+                            include: [{
+                                model: VerificacaoUsuario,
+                            }]
+                        }]
+                    }, {
+                        model: Categoria
+                    }, {
+                        model: Empresa,
+                        include: [{
+                            model: Perfil
+                        }]
+                    }]
+                
+            }]
         })
 
         return res.json(eventosCurtidos)
