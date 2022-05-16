@@ -44,6 +44,20 @@ class EventosCurtidosController {
 
     }
 
+    async listarCurtidasPorIdPerfil(req, res){
+
+        const tblPerfilIdPerfil = req.params.tblPerfilIdPerfil
+
+        const eventosCurtidos = await EventosCurtidos.findAll({
+            where: {
+                tblPerfilIdPerfil: tblPerfilIdPerfil
+            }
+        })
+
+        return res.json(eventosCurtidos)
+
+    }
+
     async deletarCurtida(req, res) {
 
         const idEventosCurtidos = req.params.idEventosCurtidos

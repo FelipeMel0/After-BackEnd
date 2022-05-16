@@ -202,6 +202,7 @@ const EventosCurtidos = require('./controllers/Evento/Interação/EventosCurtido
 routes.post("/interacao/curtirEvento/:tblPerfilIdPerfil/:tblEventoIdEvento", EventosCurtidos.curtir)
 routes.get("/interacao/listarCurtidas", EventosCurtidos.listarCurtidas)
 routes.get("/interacao/listarCurtidasPorIdEvento/:tblEventoIdEvento", EventosCurtidos.listarCurtidasPorIdEvento)
+routes.get("/interacao/listarCurtidasPorIdPerfil/:tblPerfilIdPerfil", EventosCurtidos.listarCurtidasPorIdPerfil)
 routes.delete("/interacao/deletarCurtida/:idEventosCurtidos", EventosCurtidos.deletarCurtida)
 
 
