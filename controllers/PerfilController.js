@@ -373,16 +373,18 @@ class PerfilController {
 
                 let imagemFundo = Perfil.imagemFundo
 
-                fs.unlink(imagemFundo, (error) => {
+                if(imagemFundo != null){
+                    fs.unlink(imagemFundo, (error) => {
 
-                    if (error) {
-                        console.log('Erro ao excluir a imagem: ' + error);
-                    } else {
-                        console.log('Imagem de fundo excluída com sucesso!');
-                    }
-
-                })
-
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
                 imagemFundo = req.files.imagemFundo[0].path
 
                 Perfil.update({
@@ -425,16 +427,18 @@ class PerfilController {
 
                 let imagemPerfil = Perfil.imagemPerfil
 
-                fs.unlink(imagemPerfil, (error) => {
+                if(imagemPerfil != null){
+                    fs.unlink(imagemPerfil, (error) => {
 
-                    if (error) {
-                        console.log('Erro ao excluir a imagem: ' + error);
-                    } else {
-                        console.log('Imagem de fundo excluída com sucesso!');
-                    }
-
-                })
-
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
                 imagemPerfil = req.files.imagemPerfil[0].path
 
                 Perfil.update({
@@ -476,25 +480,30 @@ class PerfilController {
                 let imagemPerfil = Perfil.imagemPerfil
                 let imagemFundo = Perfil.imagemFundo
 
-                fs.unlink(imagemPerfil, (error) => {
+                if(imagemPerfil != null){
+                    fs.unlink(imagemPerfil, (error) => {
 
-                    if (error) {
-                        console.log('Erro ao excluir a imagem: ' + error);
-                    } else {
-                        console.log('Imagem de perfil excluída com sucesso!');
-                    }
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de perfil excluída com sucesso!');
+                        }
+    
+                    })
+                }              
 
-                })
+                if(imagemFundo != null){
+                    fs.unlink(imagemFundo, (error) => {
 
-                fs.unlink(imagemFundo, (error) => {
-
-                    if (error) {
-                        console.log('Erro ao excluir a imagem: ' + error);
-                    } else {
-                        console.log('Imagem de fundo excluída com sucesso!');
-                    }
-
-                })
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
 
                 imagemPerfil = req.files.imagemPerfil[0].path
 
@@ -583,16 +592,18 @@ class PerfilController {
 
                 let imagemFundo = Perfil.imagemFundo
 
-                fs.unlink(imagemFundo, (error) => {
+                if(imagemFundo != null){
+                    fs.unlink(imagemFundo, (error) => {
 
-                    if (error) {
-                        console.log('Erro ao excluir a imagem: ' + error);
-                    } else {
-                        console.log('Imagem de fundo excluída com sucesso!');
-                    }
-
-                })
-
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
                 imagemFundo = req.files.imagemFundo[0].path
 
                 Perfil.update({
@@ -633,16 +644,18 @@ class PerfilController {
 
                 let imagemPerfil = Perfil.imagemPerfil
 
-                fs.unlink(imagemPerfil, (error) => {
+                if(imagemPerfil != null){
+                    fs.unlink(imagemPerfil, (error) => {
 
-                    if (error) {
-                        console.log('Erro ao excluir a imagem: ' + error);
-                    } else {
-                        console.log('Imagem de fundo excluída com sucesso!');
-                    }
-
-                })
-
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
                 imagemPerfil = req.files.imagemPerfil[0].path
 
                 Perfil.update({
@@ -682,26 +695,30 @@ class PerfilController {
                 let imagemPerfil = Perfil.imagemPerfil
                 let imagemFundo = Perfil.imagemFundo
 
-                fs.unlink(imagemPerfil, (error) => {
+                if(imagemPerfil != null){
+                    fs.unlink(imagemPerfil, (error) => {
 
-                    if (error) {
-                        console.log('Erro ao excluir a imagem: ' + error);
-                    } else {
-                        console.log('Imagem de perfil excluída com sucesso!');
-                    }
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de perfil excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
+                if(imagemFundo != null){
+                    fs.unlink(imagemFundo, (error) => {
 
-                })
-
-                fs.unlink(imagemFundo, (error) => {
-
-                    if (error) {
-                        console.log('Erro ao excluir a imagem: ' + error);
-                    } else {
-                        console.log('Imagem de fundo excluída com sucesso!');
-                    }
-
-                })
-
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
                 imagemPerfil = req.files.imagemPerfil[0].path
 
                 imagemFundo = req.files.imagemFundo[0].path
