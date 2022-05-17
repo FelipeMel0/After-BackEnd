@@ -240,6 +240,10 @@ class EventoController {
 
     async listar(req, res) {
 
+        // const evento = await evento.findAll()
+
+        // return res.json(evento)
+
         const evento = await Evento.findAll({
             include: [{
                 model: IntermEventoCelebridade,
