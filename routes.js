@@ -35,11 +35,13 @@ routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 routes.put('/perfil/editarPerfilUsuarioComum/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilUsuarioComum)
 routes.put('/perfil/editarPerfilEmpresa/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilEmpresa)
 routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
-routes.post('/perfil/cadastrarPerfilEmpresaContaBancaria', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaContaBancaria) //
+routes.post('/perfil/cadastrarPerfilEmpresaContaBancaria', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaContaBancaria)
 
 routes.post('/perfil/cadastrarPerfilUsuarioComumEnderecoSemFoto', PerfilController.cadastroUsuarioComumEnderecoSemFoto)
 routes.post('/perfil/cadastrarEmpresaContaBancariaSemFoto', PerfilController.cadastroEmpresaContaBancariaSemFoto)
 routes.post('/perfil/cadastrarEmpresaSemFoto', PerfilController.cadastroEmpresaSemFoto)
+
+routes.post('/perfil/cadastrarPerfilEmpresaComConta', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaConta)
 
 //Rotas de Usuário Comum
 const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController')
@@ -113,6 +115,7 @@ routes.get("/contaEmpresa/listarContasEmpresa", ContaEmpresa.listar)
 routes.delete("/contaEmpresa/deletarContaEmpresa/:idContaEmpresa", ContaEmpresa.deletar)
 routes.post("/contaEmpresa/cadastrarContaCompleta/:tblEmpresaIdEmpresa", ContaEmpresa.cadastroCompleto)
 routes.get("/contaEmpresa/listarContasPorIdEmpresa/:tblEmpresaIdEmpresa", ContaEmpresa.listarContasDeEmpresa)
+routes.post("/contaEmpresa/criarContaEmpresa/:tblEmpresaIdEmpresa", ContaEmpresa.cadastrarConta)
 
 //Rotas de Celebridade
 

@@ -379,6 +379,78 @@ class PerfilController {
         })
     }
 
+    //Cadastrando conta bancária passando tipo e banco no body da requisição
+    async cadastroEmpresaConta(req, res) {
+        const {
+            nickname,
+            email,
+            senha,
+            biografia
+        } = req.body
+
+        let imagemPerfil
+        let imagemFundo
+
+        if (req.files.imagemPerfil == undefined) {
+            imagemPerfil = null
+        } else {
+            imagemPerfil = req.files.imagemPerfil[0].path
+        }
+
+        if (req.files.imagemFundo == undefined) {
+            imagemFundo = null
+        } else {
+            imagemFundo = req.files.imagemFundo[0].path
+        }
+
+        const perfil = await Perfil.create({
+            nickname,
+            email,
+            senha,
+            imagemPerfil,
+            imagemFundo,
+            biografia
+        })
+
+        const tblPerfilIdPerfil = perfil.idPerfil
+
+        //Gravar empresa
+
+        const {
+            cnpj
+        } = req.body
+
+        const empresa = await Empresa.create({
+            cnpj,
+            tblPerfilIdPerfil
+        })
+
+        const tblEmpresaIdEmpresa = empresa.idEmpresa
+
+        //Gravar conta bancária de empresa
+
+        const {
+            agencia,
+            numeroConta,
+            digito,
+            tblTipoContumIdTipoConta,
+            tblBancoContumIdBancoConta
+        } = req.body
+
+        const contaEmpresa = await ContaEmpresa.create({
+            agencia,
+            numeroConta,
+            digito,
+            tblEmpresaIdEmpresa,
+            tblTipoContumIdTipoConta,
+            tblBancoContumIdBancoConta
+        })
+
+        return res.status(201).json({
+            message: 'Cadastro realizado com sucesso!'
+        })
+    }
+
     async cadastroEmpresaContaBancariaSemFoto(req, res) {
         const {
             nickname,
