@@ -6,6 +6,10 @@ const Celebridade = require("../../models/celebridade/Celebridade")
 const EnderecoEvento = require("../../models/evento/EnderecoEvento")
 const Empresa = require("../../models/empresa/Empresa")
 const Perfil = require("../../models/perfil/Perfil")
+const IntermEventoAssunto = require("../../models/evento/IntermEventoAssunto")
+const ImagensEvento = require("../../models/evento/ImagensEvento")
+const Lote = require("../../models/evento/ingresso/Lote")
+const VariedadeIngressoLote = require("../../models/evento/ingresso/VariedadeIngressoLote")
 
 class EventoController {
 
@@ -47,6 +51,70 @@ class EventoController {
     }
 
     async cadastroEventoEndereco(req, res) {
+
+        const {
+            titulo,
+            descricao,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            capa,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa
+        } = req.body
+
+        // const capa = req.files.capa[0].path
+
+        const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
+
+        const evento = await Evento.create({
+            titulo,
+            descricao,
+            capa,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa,
+            tblEmpresaIdEmpresa
+        })
+
+        const tblEventoIdEvento = evento.idEvento
+
+        const {
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            numero
+        } = req.body
+
+        const enderecoEvento = await EnderecoEvento.create({
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            numero,
+            tblEventoIdEvento
+        })
+
+        return res.status(201).json({
+            "message": "Cadastro feito com sucesso!"
+        })
+
+    }
+
+    async cadastroEventoCompleto(req, res) {
 
         const {
             titulo,
@@ -103,6 +171,67 @@ class EventoController {
             tblEventoIdEvento
         })
 
+        const tblAssuntoIdAssunto = req.body.tblAssuntoIdAssunto
+
+        const assunto = await IntermEventoAssunto.create({
+            tblAssuntoIdAssunto,
+            tblEventoIdEvento
+        })
+
+        // const primeiraImagem = req.files.imagem[0].path 
+
+        if (req.files.imagem != null || req.files.imagem != undefined) {
+            const primeiraImagem = req.files.imagem[0].path
+            const imagemEvento = await ImagensEvento.create({
+                imagem: primeiraImagem,
+                tblEventoIdEvento
+            })
+        }
+
+        // const segundaImagem = req.files.imagem[1].path
+
+        if (req.files.imagem != null || req.files.imagem != undefined) {
+            const segundaImagem = req.files.imagem[1].path
+            const imagemEvento = await ImagensEvento.create({
+                imagem: segundaImagem,
+                tblEventoIdEvento
+            })
+        }
+
+        if (req.files.imagem != null || req.files.imagem != undefined) {
+            const terceiraImagem = req.files.imagem[2].path
+            const imagemEvento = await ImagensEvento.create({
+                imagem: terceiraImagem,
+                tblEventoIdEvento
+            })
+        }
+
+        if (req.files.imagem != null || req.files.imagem != undefined) {
+            const quartaImagem = req.files.imagem[3].path
+            const imagemEvento = await ImagensEvento.create({
+                imagem: quartaImagem,
+                tblEventoIdEvento
+            })
+        }
+
+        if (req.files.imagem != null || req.files.imagem != undefined) {
+            const quintaImagem = req.files.imagem[4].path
+            const imagemEvento = await ImagensEvento.create({
+                imagem: quintaImagem,
+                tblEventoIdEvento
+            })
+        }
+
+        const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
+
+        if (tblCelebridadeIdCelebridade != null || tblCelebridadeIdCelebridade != undefined || tblCelebridadeIdCelebridade != "" || tblCelebridadeIdCelebridade != 0) {
+            // const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
+            const celebridade = await IntermEventoCelebridade.create({
+                tblCelebridadeIdCelebridade,
+                tblEventoIdEvento
+            })
+        }
+
         return res.status(201).json({
             "message": "Cadastro feito com sucesso!"
         })
@@ -122,6 +251,11 @@ class EventoController {
                 }]
             }, {
                 model: Categoria
+            }, {
+                model: Empresa,
+                include: [{
+                    model: Perfil
+                }]
             }],
         })
 
@@ -149,6 +283,11 @@ class EventoController {
                     }]
                 }, {
                     model: Categoria
+                }, {
+                    model: Empresa,
+                    include:[{
+                        model: Perfil
+                    }]
                 }],
             })
             .then((eventoId) => {
@@ -164,22 +303,28 @@ class EventoController {
 
         const evento = Evento.findByPk(idEvento, {
             include: [{
-                model: IntermEventoCelebridade,
-                include: [{
-                    model: Celebridade,
+                    model: IntermEventoCelebridade,
                     include: [{
-                        model: VerificacaoUsuario,
+                        model: Celebridade,
+                        include: [{
+                            model: VerificacaoUsuario,
+                        }]
                     }]
-                }]
-            }, {
-                model: EnderecoEvento
-            },
-        {
-           model: Empresa,
-           include: [{
-               model: Perfil
-           }]
-        }]
+                }, {
+                    model: EnderecoEvento
+                },
+                {
+                    model: Empresa,
+                    include: [{
+                        model: Perfil
+                    }]
+                }, {
+                    model: Lote,
+                    include: [{
+                        model: VariedadeIngressoLote
+                    }]
+                }
+            ]
         }).then((eventoId) => {
             res.send(eventoId)
         })

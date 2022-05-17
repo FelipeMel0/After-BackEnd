@@ -1,4 +1,5 @@
 const Empresa = require("../../models/empresa/Empresa")
+const Perfil = require("../../models/perfil/Perfil")
 
 class EmpresaController{
 
@@ -21,6 +22,19 @@ class EmpresaController{
 
         return res.json(empresa)
 
+    }
+
+    async listarEmpresaPorId(req, res){
+        const idEmpresa = req.params.idEmpresa
+
+        const empresa = await Empresa.findAll({
+            where: {idEmpresa: idEmpresa},
+            include: [{
+                model: Perfil
+            }]
+        })
+
+        return res.json(empresa)
     }
 
     async deletar(req, res) {

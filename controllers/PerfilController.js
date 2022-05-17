@@ -5,6 +5,11 @@ const Perfil = require('../models/perfil/Perfil')
 const UsuarioComum = require('../models/usuarioComum/UsuarioComum')
 const Empresa = require('../models/empresa/Empresa')
 const Endereco = require('../models/usuarioComum/Endereco')
+const BancoConta = require('../models/empresa/contaEmpresa/BancoConta')
+const ContaEmpresa = require('../models/empresa/contaEmpresa/ContaEmpresa')
+const TipoConta = require('../models/empresa/contaEmpresa/TipoConta')
+
+const fs = require('fs')
 
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
@@ -186,6 +191,96 @@ class PerfilController {
         })
     }
 
+    async cadastroEmpresaContaBancaria(req, res) {
+        const {
+            nickname,
+            email,
+            senha,
+            biografia
+        } = req.body
+
+        let imagemPerfil
+        let imagemFundo
+
+        if (req.files.imagemPerfil == undefined) {
+            imagemPerfil = null
+        } else {
+            imagemPerfil = req.files.imagemPerfil[0].path
+        }
+
+        if (req.files.imagemFundo == undefined) {
+            imagemFundo = null
+        } else {
+            imagemFundo = req.files.imagemFundo[0].path
+        }
+
+        const perfil = await Perfil.create({
+            nickname,
+            email,
+            senha,
+            imagemPerfil,
+            imagemFundo,
+            biografia
+        })
+
+        const tblPerfilIdPerfil = perfil.idPerfil
+
+        //Gravar empresa
+
+        const {
+            cnpj
+        } = req.body
+
+        const empresa = await Empresa.create({
+            cnpj,
+            tblPerfilIdPerfil
+        })
+
+        //Gravar conta bancária de empresa
+
+        const {
+            nomeTipo
+        } = req.body
+
+        const tipoConta = await TipoConta.create({
+            nomeTipo
+        })
+
+        const tblTipoContumIdTipoConta = tipoConta.idTipoConta
+
+
+        const {
+            nomeBanco
+        } = req.body
+
+        const bancoConta = await BancoConta.create({
+            nomeBanco
+        })
+
+        const tblBancoContumIdBancoConta = bancoConta.idBancoConta
+
+
+        const {
+            agencia,
+            numeroConta,
+            digito
+        } = req.body
+        const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
+
+        const contaEmpresa = await ContaEmpresa.create({
+            agencia,
+            numeroConta,
+            digito,
+            tblEmpresaIdEmpresa,
+            tblTipoContumIdTipoConta,
+            tblBancoContumIdBancoConta
+        })
+
+        return res.status(201).json({
+            message: 'Cadastro realizado com sucesso!'
+        })
+    }
+
     async listar(req, res) {
         const perfil = await Perfil.findAll()
 
@@ -235,7 +330,7 @@ class PerfilController {
 
         if (req.files.imagemPerfil != null) {
             imagemPerfil = req.files.imagemPerfil[0].path
-        } 
+        }
 
         if (req.files.imagemFundo != null) {
             imagemFundo = req.files.imagemFundo[0].path
@@ -253,7 +348,7 @@ class PerfilController {
                 idPerfil: idPerfil
             }
         }).then(
-            ()=>{
+            () => {
                 res.send('Dados alterados com sucesso!');
             }
         );
@@ -268,49 +363,426 @@ class PerfilController {
             nickname,
             email,
             senha,
-            biografia,
-            imagemPerfil,
-            imagemFundo
+            biografia
         } = req.body
 
-        if (req.files.imagemPerfil != null) {
-            imagemPerfil = req.files.imagemPerfil[0].path
-        } 
+        //Caso queira alterar somente a imagem de fundo
+        if (req.files.imagemFundo != undefined && req.files.imagemPerfil == undefined) {
 
-        if (req.files.imagemFundo != null) {
-            imagemFundo = req.files.imagemFundo[0].path
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemFundo = Perfil.imagemFundo
+
+                if(imagemFundo != null){
+                    fs.unlink(imagemFundo, (error) => {
+
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
+                imagemFundo = req.files.imagemFundo[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemFundo
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    nome,
+                    dataNasc
+                } = req.body
+
+                UsuarioComum.update({
+                    nome,
+                    dataNasc
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+
+        }
+        //Caso queira alterar somente a foto de perfil
+        else if (req.files.imagemPerfil != undefined && req.files.imagemFundo == undefined) {
+
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemPerfil = Perfil.imagemPerfil
+
+                if(imagemPerfil != null){
+                    fs.unlink(imagemPerfil, (error) => {
+
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
+                imagemPerfil = req.files.imagemPerfil[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemPerfil
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    nome,
+                    dataNasc
+                } = req.body
+
+                UsuarioComum.update({
+                    nome,
+                    dataNasc
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+        }
+        //Caso queira editar as duas imagens
+        else if(req.files.imagemPerfil != undefined && req.files.imagemFundo != undefined){
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemPerfil = Perfil.imagemPerfil
+                let imagemFundo = Perfil.imagemFundo
+
+                if(imagemPerfil != null){
+                    fs.unlink(imagemPerfil, (error) => {
+
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de perfil excluída com sucesso!');
+                        }
+    
+                    })
+                }              
+
+                if(imagemFundo != null){
+                    fs.unlink(imagemFundo, (error) => {
+
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
+
+                imagemPerfil = req.files.imagemPerfil[0].path
+
+                imagemFundo = req.files.imagemFundo[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemPerfil,
+                    imagemFundo
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    cnpj
+                } = req.body
+
+                Empresa.update({
+                    cnpj
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+        }
+        //Caso não queira alterar nenhuma imagem
+        else {
+            Perfil.update({
+                nickname,
+                email,
+                senha,
+                biografia
+            }, {
+                where: {
+                    idPerfil: idPerfil
+                }
+            })
+
+            const {
+                nome,
+                dataNasc
+            } = req.body
+
+            UsuarioComum.update({
+                nome,
+                dataNasc
+            }, {
+                where: {
+                    tblPerfilIdPerfil: idPerfil
+                }
+            }).then(
+                () => {
+                    res.send('Perfil editado')
+                }
+            )
         }
 
-        Perfil.update({
+    }
+
+    async editarPerfilEmpresa(req, res) {
+
+        const idPerfil = req.params.idPerfil
+
+        let {
             nickname,
             email,
             senha,
-            biografia,
-            imagemPerfil,
-            imagemFundo
-        }, {
-            where: {
-                idPerfil: idPerfil
-            }
-        })
-
-        const {
-            nome,
-            dataNasc
+            biografia
         } = req.body
 
-        UsuarioComum.update({
-            nome,
-            dataNasc
-        }, {
-            where: {
-                tblPerfilIdPerfil: idPerfil
-            }
-        }).then(
-            () => {
-                res.send('Perfil editado')
-            }
-        )
+        //Caso queira alterar somente a imagem de fundo
+        if (req.files.imagemFundo != undefined && req.files.imagemPerfil == undefined) {
+
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemFundo = Perfil.imagemFundo
+
+                if(imagemFundo != null){
+                    fs.unlink(imagemFundo, (error) => {
+
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
+                imagemFundo = req.files.imagemFundo[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemFundo
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    cnpj
+                } = req.body
+
+                Empresa.update({
+                    cnpj
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+
+        }
+        //Caso queira alterar somente a foto de perfil
+        else if (req.files.imagemPerfil != undefined && req.files.imagemFundo == undefined) {
+
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemPerfil = Perfil.imagemPerfil
+
+                if(imagemPerfil != null){
+                    fs.unlink(imagemPerfil, (error) => {
+
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
+                imagemPerfil = req.files.imagemPerfil[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemPerfil
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    cnpj
+                } = req.body
+
+                Empresa.update({
+                    cnpj
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+        } 
+        //Caso queira editar as duas imagens
+        else if (req.files.imagemPerfil != undefined && req.files.imagemFundo != undefined) {
+            Perfil.findByPk(idPerfil).then((Perfil) => {
+
+                let imagemPerfil = Perfil.imagemPerfil
+                let imagemFundo = Perfil.imagemFundo
+
+                if(imagemPerfil != null){
+                    fs.unlink(imagemPerfil, (error) => {
+
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de perfil excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
+                if(imagemFundo != null){
+                    fs.unlink(imagemFundo, (error) => {
+
+                        if (error) {
+                            console.log('Erro ao excluir a imagem: ' + error);
+                        } else {
+                            console.log('Imagem de fundo excluída com sucesso!');
+                        }
+    
+                    })
+                }
+                
+                imagemPerfil = req.files.imagemPerfil[0].path
+
+                imagemFundo = req.files.imagemFundo[0].path
+
+                Perfil.update({
+                    nickname,
+                    email,
+                    senha,
+                    biografia,
+                    imagemPerfil,
+                    imagemFundo
+                }, {
+                    where: {
+                        idPerfil: idPerfil
+                    }
+                })
+
+                const {
+                    cnpj
+                } = req.body
+
+                Empresa.update({
+                    cnpj
+                }, {
+                    where: {
+                        tblPerfilIdPerfil: idPerfil
+                    }
+                }).then(
+                    () => {
+                        res.send('Perfil editado')
+                    }
+                )
+
+            })
+        }
+        //Caso não queira alterar nenhuma imagem
+        else {
+            Perfil.update({
+                nickname,
+                email,
+                senha,
+                biografia
+            }, {
+                where: {
+                    idPerfil: idPerfil
+                }
+            })
+
+            const {
+                cnpj
+            } = req.body
+
+            Empresa.update({
+                cnpj
+            }, {
+                where: {
+                    tblPerfilIdPerfil: idPerfil
+                }
+            }).then(
+                () => {
+                    res.send('Perfil editado')
+                }
+            )
+        }
 
     }
 

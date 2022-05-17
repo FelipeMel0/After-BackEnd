@@ -31,9 +31,11 @@ routes.post('/perfil/cadastrarPerfilUsuarioComumEndereco', upload.fields([{name:
 routes.post('/perfil/cadastrarPerfilEmpresa', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresa)
 routes.get('/perfil/listarPerfis', PerfilController.listar)
 routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
-routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
+// routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
 routes.put('/perfil/editarPerfilUsuarioComum/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilUsuarioComum)
+routes.put('/perfil/editarPerfilEmpresa/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilEmpresa)
 routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
+routes.post('/perfil/cadastrarPerfilEmpresaContaBancaria', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaContaBancaria) //
 
 //Rotas de Usuário Comum
 const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController')
@@ -78,6 +80,7 @@ const Empresa = require("./controllers/Empresa/EmpresaController")
 
 routes.post("/empresa/cadastrarEmpresa/:tblPerfilIdPerfil", Empresa.cadastro)
 routes.get("/empresa/listarEmpresas", Empresa.listar)
+routes.get("/empresa/acharEmpresaPorId/:idEmpresa", Empresa.listarEmpresaPorId)
 routes.delete("/empresa/deletarEmpresa/:idEmpresa", Empresa.deletar)
 routes.put("/empresa/editarEmpresa/:idEmpresa", Empresa.editar)
 
@@ -131,13 +134,14 @@ routes.delete("/intermEventoCelebridade/deletarIntermediaria/:idIntermEventoCele
 
 const Evento = require("./controllers/Evento/EventoController")
 
-routes.post("/evento/cadastrarEvento/:tblEmpresaIdEmpresa", Evento.cadastro)
+// routes.post("/evento/cadastrarEvento/:tblEmpresaIdEmpresa", Evento.cadastro)
 routes.get("/evento/listarEvento", Evento.listar)
 routes.get("/evento/acharEventoPorId/:tblEmpresaIdEmpresa", Evento.acharPorId)
 routes.get("/evento/acharEventoIdEvento/:idEvento", Evento.acharIdEvento)
 routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
 routes.put("/evento/editarEvento/:idEvento", Evento.editar)
-routes.post("/evento/cadastrarEventoEndereco/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}]), Evento.cadastroEventoEndereco)
+routes.post("/evento/cadastrarEventoEndereco/:tblEmpresaIdEmpresa", Evento.cadastroEventoEndereco)
+routes.post("/evento/cadastrarEventoCompleto/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}, {name: 'imagem', maxCount: 5}]), Evento.cadastroEventoCompleto)
 
 const TipoEvento = require("./controllers/Evento/TipoEventoController")
 
@@ -180,6 +184,9 @@ routes.delete("/intermEventoAssunto/deletarIntermediaria/:idIntermEventoAssunto"
 const ImagensEvento = require('./controllers/Evento/ImagensEventoController')
 
 routes.post("/imagensEvento/cadastrarImagensEvento/:tblEventoIdEvento", upload.fields([{name: 'imagem', maxCount: 5}]), ImagensEvento.cadastro)
+routes.get("/imagensEvento/listarImagens", ImagensEvento.listar)
+routes.get("/imagensEvento/listarImagensIdEvento/:tblEventoIdEvento", ImagensEvento.listarPorIdEvento)
+routes.delete("/imagensEvento/deletarImagemEvento/:idImagensEvento", ImagensEvento.deletar)
 
 //Rotas de interação 
 
@@ -195,7 +202,31 @@ const EventosCurtidos = require('./controllers/Evento/Interação/EventosCurtido
 routes.post("/interacao/curtirEvento/:tblPerfilIdPerfil/:tblEventoIdEvento", EventosCurtidos.curtir)
 routes.get("/interacao/listarCurtidas", EventosCurtidos.listarCurtidas)
 routes.get("/interacao/listarCurtidasPorIdEvento/:tblEventoIdEvento", EventosCurtidos.listarCurtidasPorIdEvento)
+routes.get("/interacao/listarCurtidasPorIdPerfil/:tblPerfilIdPerfil", EventosCurtidos.listarCurtidasPorIdPerfil)
 routes.delete("/interacao/deletarCurtida/:idEventosCurtidos", EventosCurtidos.deletarCurtida)
+
+
+const SeguirEmpresaUsuario = require('./controllers/Seguir/SeguirEmpresaUsuarioController')
+
+routes.post("/seguirEmpresaUsuario/comecarSeguir/:tblEmpresaIdEmpresa/:tblUsuarioComumIdUsuarioComum", SeguirEmpresaUsuario.seguir)
+routes.get("/seguirEmpresaUsuario/listarSeguidoresEmpresa/:tblEmpresaIdEmpresa", SeguirEmpresaUsuario.listarSeguidoresEmpresa)
+routes.get("/seguirEmpresaUsuario/listarSeguidoresUsuarioComum/:tblUsuarioComumIdUsuarioComum", SeguirEmpresaUsuario.listarSeguidoresUsuarioComum)
+routes.delete("/seguirEmpresaUsuario/deixarDeSeguir/:idSeguirEmpresaUsuario", SeguirEmpresaUsuario.deixarDeSeguir)
+
+const SeguirUsuarioCelebridade = require('./controllers/Seguir/SeguirUsuarioCelebridadeController')
+
+routes.post("/seguirUsuarioCelebridade/comecarSeguir/:tblCelebridadeIdCelebridade/:tblUsuarioComumIdUsuarioComum", SeguirUsuarioCelebridade.seguir)
+routes.get("/seguirUsuarioCelebridade/listarSeguidoresCelebridade/:tblCelebridadeIdCelebridade", SeguirUsuarioCelebridade.listarSeguidoresCelebridade)
+routes.get("/seguirUsuarioCelebridade/listarSeguidoresUsuarioComum/:tblUsuarioComumIdUsuarioComum", SeguirUsuarioCelebridade.listarSeguidoresUsuarioComum)
+routes.delete("/seguirUsuarioCelebridade/deixarDeSeguir/:idSeguirUsuarioCelebridade", SeguirUsuarioCelebridade.deixarDeSeguir)
+
+
+const SeguirEmpresaCelebridade = require('./controllers/Seguir/SeguirEmpresaCelebridadeController')
+
+routes.post("/seguirEmpresaCelebridade/comecarSeguir/:tblEmpresaIdEmpresa/:tblCelebridadeIdCelebridade", SeguirEmpresaCelebridade.seguir)
+routes.get("/seguirEmpresaCelebridade/listarSeguidoresEmpresa/:tblEmpresaIdEmpresa", SeguirEmpresaCelebridade.listarSeguidoresEmpresa)
+routes.get("/seguirEmpresaCelebridade/listarSeguidoresCelebridade/:tblCelebridadeIdCelebridade", SeguirEmpresaCelebridade.listarSeguidoresCelebridade)
+routes.delete("/seguirEmpresaCelebridade/deixarDeSeguir/:idSeguirEmpresaCelebridade", SeguirEmpresaCelebridade.deixarDeSeguir)
 
 //Ingresso
 
