@@ -141,6 +141,65 @@ class PerfilController {
 
     }
 
+    //Cadastrando usuário comum sem fotos de perfil ou de fundo
+
+    async cadastroUsuarioComumEnderecoSemFoto(req, res) {
+        const {
+            nickname,
+            email,
+            senha,
+            biografia,
+            imagemPerfil,
+            imagemFundo
+        } = req.body
+
+        const perfil = await Perfil.create({
+            nickname,
+            email,
+            senha,
+            imagemPerfil,
+            imagemFundo,
+            biografia
+        })
+
+        const tblPerfilIdPerfil = perfil.idPerfil
+
+        //Gravar usuário
+
+        const {
+            nome,
+            dataNasc
+        } = req.body
+
+        const usuarioComum = await UsuarioComum.create({
+            nome,
+            dataNasc,
+            tblPerfilIdPerfil
+        })
+
+        const tblUsuarioComumIdUsuarioComum = usuarioComum.idUsuarioComum
+
+        //Gravar endereço
+
+        const {
+            cep,
+            cidade,
+            estado
+        } = req.body
+
+        const endereco = await Endereco.create({
+            cep,
+            cidade,
+            estado,
+            tblUsuarioComumIdUsuarioComum
+        })
+
+        return res.status(201).json({
+            message: 'Cadastro realizado com sucesso!'
+        })
+
+    }
+
     async cadastroEmpresa(req, res) {
         const {
             nickname,
@@ -163,6 +222,45 @@ class PerfilController {
         } else {
             imagemFundo = req.files.imagemFundo[0].path
         }
+
+        const perfil = await Perfil.create({
+            nickname,
+            email,
+            senha,
+            imagemPerfil,
+            imagemFundo,
+            biografia
+        })
+
+        const tblPerfilIdPerfil = perfil.idPerfil
+
+        //Gravar empresa
+
+        const {
+            cnpj
+        } = req.body
+
+        const empresa = await Empresa.create({
+            cnpj,
+            tblPerfilIdPerfil
+        })
+
+        return res.status(201).json({
+            message: 'Cadastro realizado com sucesso!'
+        })
+    }
+
+    //Cadastrar empresa sem fotos de perfil ou de fundo
+
+    async cadastroEmpresaSemFoto(req, res) {
+        const {
+            nickname,
+            email,
+            senha,
+            biografia,
+            imagemPerfil,
+            imagemFundo
+        } = req.body
 
         const perfil = await Perfil.create({
             nickname,
@@ -265,6 +363,136 @@ class PerfilController {
             numeroConta,
             digito
         } = req.body
+        const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
+
+        const contaEmpresa = await ContaEmpresa.create({
+            agencia,
+            numeroConta,
+            digito,
+            tblEmpresaIdEmpresa,
+            tblTipoContumIdTipoConta,
+            tblBancoContumIdBancoConta
+        })
+
+        return res.status(201).json({
+            message: 'Cadastro realizado com sucesso!'
+        })
+    }
+
+    //Cadastrando conta bancária passando tipo e banco no body da requisição
+    async cadastroEmpresaConta(req, res) {
+        const {
+            nickname,
+            email,
+            senha,
+            biografia
+        } = req.body
+
+        let imagemPerfil
+        let imagemFundo
+
+        if (req.files.imagemPerfil == undefined) {
+            imagemPerfil = null
+        } else {
+            imagemPerfil = req.files.imagemPerfil[0].path
+        }
+
+        if (req.files.imagemFundo == undefined) {
+            imagemFundo = null
+        } else {
+            imagemFundo = req.files.imagemFundo[0].path
+        }
+
+        const perfil = await Perfil.create({
+            nickname,
+            email,
+            senha,
+            imagemPerfil,
+            imagemFundo,
+            biografia
+        })
+
+        const tblPerfilIdPerfil = perfil.idPerfil
+
+        //Gravar empresa
+
+        const {
+            cnpj
+        } = req.body
+
+        const empresa = await Empresa.create({
+            cnpj,
+            tblPerfilIdPerfil
+        })
+
+        const tblEmpresaIdEmpresa = empresa.idEmpresa
+
+        //Gravar conta bancária de empresa
+
+        const {
+            agencia,
+            numeroConta,
+            digito,
+            tblTipoContumIdTipoConta,
+            tblBancoContumIdBancoConta
+        } = req.body
+
+        const contaEmpresa = await ContaEmpresa.create({
+            agencia,
+            numeroConta,
+            digito,
+            tblEmpresaIdEmpresa,
+            tblTipoContumIdTipoConta,
+            tblBancoContumIdBancoConta
+        })
+
+        return res.status(201).json({
+            message: 'Cadastro realizado com sucesso!'
+        })
+    }
+
+    async cadastroEmpresaContaBancariaSemFoto(req, res) {
+        const {
+            nickname,
+            email,
+            senha,
+            biografia,
+            imagemPerfil,
+            imagemFundo
+        } = req.body
+
+        const perfil = await Perfil.create({
+            nickname,
+            email,
+            senha,
+            imagemPerfil,
+            imagemFundo,
+            biografia
+        })
+
+        const tblPerfilIdPerfil = perfil.idPerfil
+
+        //Gravar empresa
+
+        const {
+            cnpj
+        } = req.body
+
+        const empresa = await Empresa.create({
+            cnpj,
+            tblPerfilIdPerfil
+        })
+
+        //Gravar conta bancária de empresa
+
+        const {
+            agencia,
+            numeroConta,
+            digito,
+            tblTipoContumIdTipoConta,
+            tblBancoContumIdBancoConta
+        } = req.body
+
         const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
 
         const contaEmpresa = await ContaEmpresa.create({

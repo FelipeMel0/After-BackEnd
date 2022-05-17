@@ -10,6 +10,7 @@ const IntermEventoAssunto = require("../../models/evento/IntermEventoAssunto")
 const ImagensEvento = require("../../models/evento/ImagensEvento")
 const Lote = require("../../models/evento/ingresso/Lote")
 const VariedadeIngressoLote = require("../../models/evento/ingresso/VariedadeIngressoLote")
+const UsuarioComum = require("../../models/usuarioComum/UsuarioComum")
 
 class EventoController {
 
@@ -249,8 +250,17 @@ class EventoController {
                 model: IntermEventoCelebridade,
                 include: [{
                     model: Celebridade,
+                    attributes: ['idCelebridade'],
                     include: [{
                         model: VerificacaoUsuario,
+                        attributes: ['nickname'],
+                        include: [{
+                            model: UsuarioComum,
+                            include:[{
+                                model: Perfil,
+                                attributes: ['imagemPerfil']
+                            }]
+                        }]
                     }]
                 }]
             }, {
@@ -281,8 +291,17 @@ class EventoController {
                     model: IntermEventoCelebridade,
                     include: [{
                         model: Celebridade,
+                        attributes: ['idCelebridade'],
                         include: [{
                             model: VerificacaoUsuario,
+                            attributes: ['nickname'],
+                            include: [{
+                                model: UsuarioComum,
+                                include:[{
+                                    model: Perfil,
+                                    attributes: ['imagemPerfil']
+                                }]
+                            }]
                         }]
                     }]
                 }, {
@@ -310,8 +329,17 @@ class EventoController {
                     model: IntermEventoCelebridade,
                     include: [{
                         model: Celebridade,
+                        attributes: ['idCelebridade'],
                         include: [{
                             model: VerificacaoUsuario,
+                            attributes: ['nickname'],
+                            include: [{
+                                model: UsuarioComum,
+                                include:[{
+                                    model: Perfil,
+                                    attributes: ['imagemPerfil']
+                                }]
+                            }]
                         }]
                     }]
                 }, {
