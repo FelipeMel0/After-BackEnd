@@ -13,6 +13,12 @@ const VerificacaoUsuario = db.sequelize.define('tblVerificacaoUsuario', {
         type: db.Sequelize.BOOLEAN,
         allowNull: false
     },
+
+    // dataHoraSolicitacao: {
+    //     type: db.Sequelize.DATE,
+    //     allowNull: false
+    // },
+
     nickname:{
         type: db.Sequelize.STRING(45),
         allowNull: false
@@ -28,11 +34,22 @@ const VerificacaoUsuario = db.sequelize.define('tblVerificacaoUsuario', {
     justificativaSolicitacao: {
         type: db.Sequelize.TEXT,
         allowNull: false
+
     },
     justificativaResposta: {
         type: db.Sequelize.TEXT,
         allowNull: true
+
     }
+    // ,
+    // dataHoraResposta: {
+    //     type: db.Sequelize.DATE,
+    //     allowNull: true
+    // },
+    // justificativaResposta: {
+    //     type: db.Sequelize.TEXT,
+    //     allowNull: true
+    // }
 })
 
 UsuarioComum.hasMany(VerificacaoUsuario)
