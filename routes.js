@@ -37,6 +37,10 @@ routes.put('/perfil/editarPerfilEmpresa/:idPerfil', upload.fields([{name: 'image
 routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
 routes.post('/perfil/cadastrarPerfilEmpresaContaBancaria', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaContaBancaria) //
 
+routes.post('/perfil/cadastrarPerfilUsuarioComumEnderecoSemFoto', PerfilController.cadastroUsuarioComumEnderecoSemFoto)
+routes.post('/perfil/cadastrarEmpresaContaBancariaSemFoto', PerfilController.cadastroEmpresaContaBancariaSemFoto)
+routes.post('/perfil/cadastrarEmpresaSemFoto', PerfilController.cadastroEmpresaSemFoto)
+
 //Rotas de Usuário Comum
 const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController')
 
