@@ -28,6 +28,20 @@
 
     }
 
+    async acharPorId(req, res) {
+
+        const idVerificacaoUsuario = req.params.idVerificacaoUsuario
+
+        const verificacaoUsuario = await VerificacaoUsuario.findAll({
+            where: {
+                idVerificacaoUsuario: idVerificacaoUsuario
+            }
+        })
+
+        return res.json(verificacaoUsuario)
+
+    }
+
     async responder(req, res) {
         const idVerificacaoUsuario = req.params.idVerificacaoUsuario
 

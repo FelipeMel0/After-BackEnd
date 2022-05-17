@@ -1,17 +1,38 @@
 const {Router} = require('express')
-const { route } = require('express/lib/application')
 
 const routes = new Router()
+const multer = require('multer')
 
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './uploads/')
+    },
+    filename: function(req, file, cb){
+        cb(null, Date.now() + file.originalname)
+    }
+})
+
+const fileFilter = (req, file, cb) => {
+
+    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif'){
+        cb(null, true)
+    } else {
+        cb(null, false)
+    }
+
+}
+
+const upload = multer({storage: storage}, {fileFilter: fileFilter})
 //Rotas de Perfil
 const PerfilController = require('./controllers/PerfilController')
 
-routes.post('/perfil/cadastrarPerfilUsuarioComum', PerfilController.cadastroUsuarioComum)
-routes.post('/perfil/cadastrarPerfilUsuarioComumEndereco', PerfilController.cadastroUsuarioComumEndereco)
-routes.post('/perfil/cadastrarPerfilEmpresa', PerfilController.cadastroEmpresa)
+routes.post('/perfil/cadastrarPerfilUsuarioComum', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroUsuarioComum)
+routes.post('/perfil/cadastrarPerfilUsuarioComumEndereco', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]),PerfilController.cadastroUsuarioComumEndereco)
+routes.post('/perfil/cadastrarPerfilEmpresa', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresa)
 routes.get('/perfil/listarPerfis', PerfilController.listar)
 routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
+routes.put('/perfil/editarPerfilUsuarioComum/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilUsuarioComum)
 routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
 
 //Rotas de Usuário Comum
@@ -19,6 +40,8 @@ const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController'
 
 routes.post("/usuarioComum/cadastrarUsuario/:tblPerfilIdPerfil", UsuarioComum.cadastro)
 routes.get("/usuarioComum/listarUsuarios", UsuarioComum.listar)
+routes.get("/usuarioComum/listarPerfilUsuarios", UsuarioComum.listarUsuarioComumPerfil)
+routes.get("/usuarioComum/acharPerfilUsuario/:idUsuarioComum", UsuarioComum.listarUsuarioComumPerfilPorId)
 routes.delete("/usuarioComum/deletarUsuario/:idUsuarioComum", UsuarioComum.deletar)
 routes.put("/usuarioComum/editarUsuario/:idUsuarioComum", UsuarioComum.editar)
 
@@ -48,6 +71,7 @@ const VerificacaoUsuario = require("./controllers/UsuarioComum/VerificacaoUsuari
 routes.post("/verificacaoUsuario/cadastrarVerificacao/:tblUsuarioComumIdUsuarioComum", VerificacaoUsuario.cadastro)
 routes.get("/verificacaoUsuario/listarVerificacoes", VerificacaoUsuario.listar)
 routes.put("/verificacaoUsuario/responderVerificacao/:idVerificacaoUsuario", VerificacaoUsuario.responder)
+routes.get("/verificacaoUsuario/acharVerificacaoPorId/:idVerificacaoUsuario", VerificacaoUsuario.acharPorId)
 
 //Rotas de Empresas
 const Empresa = require("./controllers/Empresa/EmpresaController")
@@ -80,6 +104,8 @@ const ContaEmpresa = require("./controllers/Empresa/contaEmpresaController/Conta
 routes.post("/contaEmpresa/cadastrarContaEmpresa/:tblEmpresaIdEmpresa/:tblTipoContumIdTipoConta/:tblBancoContumIdBancoConta", ContaEmpresa.cadastro)
 routes.get("/contaEmpresa/listarContasEmpresa", ContaEmpresa.listar)
 routes.delete("/contaEmpresa/deletarContaEmpresa/:idContaEmpresa", ContaEmpresa.deletar)
+routes.post("/contaEmpresa/cadastrarContaCompleta/:tblEmpresaIdEmpresa", ContaEmpresa.cadastroCompleto)
+routes.get("/contaEmpresa/listarContasPorIdEmpresa/:tblEmpresaIdEmpresa", ContaEmpresa.listarContasDeEmpresa)
 
 //Rotas de Celebridade
 
@@ -108,8 +134,10 @@ const Evento = require("./controllers/Evento/EventoController")
 routes.post("/evento/cadastrarEvento/:tblEmpresaIdEmpresa", Evento.cadastro)
 routes.get("/evento/listarEvento", Evento.listar)
 routes.get("/evento/acharEventoPorId/:tblEmpresaIdEmpresa", Evento.acharPorId)
+routes.get("/evento/acharEventoIdEvento/:idEvento", Evento.acharIdEvento)
 routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
 routes.put("/evento/editarEvento/:idEvento", Evento.editar)
+routes.post("/evento/cadastrarEventoEndereco/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}]), Evento.cadastroEventoEndereco)
 
 const TipoEvento = require("./controllers/Evento/TipoEventoController")
 
@@ -128,6 +156,46 @@ const Categoria = require("./controllers/Evento/CategoriaController")
 routes.post("/categoria/cadastrarCategoria", Categoria.cadastro)
 routes.get("/categoria/listarCategorias", Categoria.listar)
 routes.delete("/categoria/deletarCategoria/:idCategoria", Categoria.deletar)
+
+const EnderecoEvento = require("./controllers/Evento/EnderecoEventoController")
+
+routes.post("/enderecoEvento/cadastrarEnderecoEvento/:tblEventoIdEvento", EnderecoEvento.cadastro)
+routes.get("/enderecoEvento/listarEnderecoEvento", EnderecoEvento.listar)
+routes.delete("/enderecoEvento/deletarEnderecoEvento/:idEnderecoEvento", EnderecoEvento.deletar)
+routes.put("/enderecoEvento/editarEnderecoEvento/:idEnderecoEvento", EnderecoEvento.editar)
+
+const Assunto = require("./controllers/Evento/AssuntoController")
+
+routes.post("/assunto/cadastrarAssunto/:tblCategoriumIdCategoria", Assunto.cadastro)
+routes.get("/assunto/listarAssuntos", Assunto.listar)
+routes.get("/assunto/listarPorCategoria/:tblCategoriumIdCategoria", Assunto.listarPorCategoria)
+routes.delete("/assunto/deletarAssunto/:idAssunto", Assunto.deletar)
+
+const IntermEventoAssunto = require('./controllers/Evento/IntermEventoAssunto')
+
+routes.post("/intermEventoAssunto/cadastrarIntermEventoAssunto/:tblAssuntoIdAssunto/:tblEventoIdEvento", IntermEventoAssunto.cadastro)
+routes.get("/intermEventoAssunto/listarIntermediarias", IntermEventoAssunto.listar)
+routes.delete("/intermEventoAssunto/deletarIntermediaria/:idIntermEventoAssunto", IntermEventoAssunto.deletar)
+
+const ImagensEvento = require('./controllers/Evento/ImagensEventoController')
+
+routes.post("/imagensEvento/cadastrarImagensEvento/:tblEventoIdEvento", upload.fields([{name: 'imagem', maxCount: 5}]), ImagensEvento.cadastro)
+
+//Rotas de interação 
+
+const Comentario = require('./controllers/Evento/Interação/ComentarioController')
+
+routes.post("/comentario/criarComentario/:tblPerfilIdPerfil/:tblEventoIdEvento", Comentario.cadastro)
+routes.get("/comentario/listarComentarios", Comentario.listar)
+routes.get("/comentario/listarComentarioPorIdEvento/:tblEventoIdEvento", Comentario.listarComentariosPorIdEvento)
+routes.delete("/comentario/deletarComentario/:idComentario", Comentario.deletar)
+
+const EventosCurtidos = require('./controllers/Evento/Interação/EventosCurtidosController')
+
+routes.post("/interacao/curtirEvento/:tblPerfilIdPerfil/:tblEventoIdEvento", EventosCurtidos.curtir)
+routes.get("/interacao/listarCurtidas", EventosCurtidos.listarCurtidas)
+routes.get("/interacao/listarCurtidasPorIdEvento/:tblEventoIdEvento", EventosCurtidos.listarCurtidasPorIdEvento)
+routes.delete("/interacao/deletarCurtida/:idEventosCurtidos", EventosCurtidos.deletarCurtida)
 
 //Ingresso
 

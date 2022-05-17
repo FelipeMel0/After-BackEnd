@@ -3,6 +3,9 @@ const Evento = require("../../models/evento/Evento")
 const IntermEventoCelebridade = require("../../models/celebridade/IntermediariaEventoCelebridade")
 const VerificacaoUsuario = require("../../models/usuarioComum/VerificacaoUsuario")
 const Celebridade = require("../../models/celebridade/Celebridade")
+const EnderecoEvento = require("../../models/evento/EnderecoEvento")
+const Empresa = require("../../models/empresa/Empresa")
+const Perfil = require("../../models/perfil/Perfil")
 
 class EventoController {
 
@@ -43,9 +46,84 @@ class EventoController {
 
     }
 
+    async cadastroEventoEndereco(req, res) {
+
+        const {
+            titulo,
+            descricao,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa
+        } = req.body
+
+        const capa = req.files.capa[0].path
+
+        const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
+
+        const evento = await Evento.create({
+            titulo,
+            descricao,
+            capa,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa,
+            tblEmpresaIdEmpresa
+        })
+
+        const tblEventoIdEvento = evento.idEvento
+
+        const {
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            numero
+        } = req.body
+
+        const enderecoEvento = await EnderecoEvento.create({
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            numero,
+            tblEventoIdEvento
+        })
+
+        return res.status(201).json({
+            "message": "Cadastro feito com sucesso!"
+        })
+
+    }
+
     async listar(req, res) {
 
-        const evento = await Evento.findAll()
+        const evento = await Evento.findAll({
+            include: [{
+                model: IntermEventoCelebridade,
+                include: [{
+                    model: Celebridade,
+                    include: [{
+                        model: VerificacaoUsuario,
+                    }]
+                }]
+            }, {
+                model: Categoria
+            }],
+        })
 
         return res.json(evento)
 
@@ -58,29 +136,53 @@ class EventoController {
         } = req.params
 
         var evento = Evento.findAll({
-            where: {
-                tblEmpresaIdEmpresa: tblEmpresaIdEmpresa
-            },
+                where: {
+                    tblEmpresaIdEmpresa: tblEmpresaIdEmpresa
+                },
+                include: [{
+                    model: IntermEventoCelebridade,
+                    include: [{
+                        model: Celebridade,
+                        include: [{
+                            model: VerificacaoUsuario,
+                        }]
+                    }]
+                }, {
+                    model: Categoria
+                }],
+            })
+            .then((eventoId) => {
+                res.send(eventoId)
+            })
+
+    }
+
+    async acharIdEvento(req, res) {
+        const {
+            idEvento
+        } = req.params
+
+        const evento = Evento.findByPk(idEvento, {
             include: [{
                 model: IntermEventoCelebridade,
-                as: 'tblIntermEventoCelebridades',
                 include: [{
                     model: Celebridade,
-                    as: 'tblCelebridade',
                     include: [{
                         model: VerificacaoUsuario,
-                        as: 'tblVerificacaoUsuario'
                     }]
                 }]
-            },{
-                model: Categoria
-            }],
-        })
-        .then((eventoId)=>{
+            }, {
+                model: EnderecoEvento
+            },
+        {
+           model: Empresa,
+           include: [{
+               model: Perfil
+           }]
+        }]
+        }).then((eventoId) => {
             res.send(eventoId)
         })
-
-
     }
 
     async deletar(req, res) {
