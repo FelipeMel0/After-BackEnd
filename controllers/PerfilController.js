@@ -11,6 +11,7 @@ const TipoConta = require('../models/empresa/contaEmpresa/TipoConta')
 
 const fs = require('fs')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
@@ -93,7 +94,17 @@ class PerfilController {
             imagemFundo = req.files.imagemFundo[0].path
         }
 
-        console.log(req.file)
+        const usuarioExiste = await Perfil.findOne({
+            where: {
+                email: email
+            }
+        })
+
+        if(usuarioExiste){
+            return res.status(422).json({
+                msg: "Esse email já está sendo utilizado."
+            })
+        }
 
         const perfil = await Perfil.create({
             nickname,
