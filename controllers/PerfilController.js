@@ -10,6 +10,7 @@ const ContaEmpresa = require('../models/empresa/contaEmpresa/ContaEmpresa')
 const TipoConta = require('../models/empresa/contaEmpresa/TipoConta')
 
 const fs = require('fs')
+const jwt = require('jsonwebtoken')
 
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
@@ -543,6 +544,55 @@ class PerfilController {
 
     }
 
+    async login(req, res) {
+        const {
+            email,
+            senha
+        } = req.body
+
+        const perfil = await Perfil.findAll({
+            where: {
+                email: email
+            }
+        })
+
+        // if(!perfil.length){
+        //     return res.status(400).send({
+        //         msg: "Usuário não encontrado"
+        //     })
+        // }
+
+        if (perfil[0] != undefined) {
+
+            if (req.body.senha == perfil[0].senha) {
+
+                const token = jwt.sign({
+                    email: perfil[0].email,
+                    idPerfil: perfil[0].idPerfil
+                }, 'SECRETKEY')
+
+                return res.status(200).send({
+                    msg: "Entrou na sua conta com sucesso",
+                    token,
+                    user: perfil[0]
+                })
+
+            } else {
+
+                return res.status(401).send({
+                    msg: "Email ou senha incorreto"
+                })
+
+            }
+
+        } else {
+            return res.status(400).send({
+                msg: "Usuário não encontrado"
+            })
+        }
+
+    }
+
     async editar(req, res) {
 
         const idPerfil = req.params.idPerfil
@@ -601,7 +651,7 @@ class PerfilController {
 
                 let imagemFundo = Perfil.imagemFundo
 
-                if(imagemFundo != null){
+                if (imagemFundo != null) {
                     fs.unlink(imagemFundo, (error) => {
 
                         if (error) {
@@ -609,10 +659,10 @@ class PerfilController {
                         } else {
                             console.log('Imagem de fundo excluída com sucesso!');
                         }
-    
+
                     })
                 }
-                
+
                 imagemFundo = req.files.imagemFundo[0].path
 
                 Perfil.update({
@@ -655,7 +705,7 @@ class PerfilController {
 
                 let imagemPerfil = Perfil.imagemPerfil
 
-                if(imagemPerfil != null){
+                if (imagemPerfil != null) {
                     fs.unlink(imagemPerfil, (error) => {
 
                         if (error) {
@@ -663,10 +713,10 @@ class PerfilController {
                         } else {
                             console.log('Imagem de fundo excluída com sucesso!');
                         }
-    
+
                     })
                 }
-                
+
                 imagemPerfil = req.files.imagemPerfil[0].path
 
                 Perfil.update({
@@ -702,13 +752,13 @@ class PerfilController {
             })
         }
         //Caso queira editar as duas imagens
-        else if(req.files.imagemPerfil != undefined && req.files.imagemFundo != undefined){
+        else if (req.files.imagemPerfil != undefined && req.files.imagemFundo != undefined) {
             Perfil.findByPk(idPerfil).then((Perfil) => {
 
                 let imagemPerfil = Perfil.imagemPerfil
                 let imagemFundo = Perfil.imagemFundo
 
-                if(imagemPerfil != null){
+                if (imagemPerfil != null) {
                     fs.unlink(imagemPerfil, (error) => {
 
                         if (error) {
@@ -716,11 +766,11 @@ class PerfilController {
                         } else {
                             console.log('Imagem de perfil excluída com sucesso!');
                         }
-    
-                    })
-                }              
 
-                if(imagemFundo != null){
+                    })
+                }
+
+                if (imagemFundo != null) {
                     fs.unlink(imagemFundo, (error) => {
 
                         if (error) {
@@ -728,10 +778,10 @@ class PerfilController {
                         } else {
                             console.log('Imagem de fundo excluída com sucesso!');
                         }
-    
+
                     })
                 }
-                
+
 
                 imagemPerfil = req.files.imagemPerfil[0].path
 
@@ -820,7 +870,7 @@ class PerfilController {
 
                 let imagemFundo = Perfil.imagemFundo
 
-                if(imagemFundo != null){
+                if (imagemFundo != null) {
                     fs.unlink(imagemFundo, (error) => {
 
                         if (error) {
@@ -828,10 +878,10 @@ class PerfilController {
                         } else {
                             console.log('Imagem de fundo excluída com sucesso!');
                         }
-    
+
                     })
                 }
-                
+
                 imagemFundo = req.files.imagemFundo[0].path
 
                 Perfil.update({
@@ -872,7 +922,7 @@ class PerfilController {
 
                 let imagemPerfil = Perfil.imagemPerfil
 
-                if(imagemPerfil != null){
+                if (imagemPerfil != null) {
                     fs.unlink(imagemPerfil, (error) => {
 
                         if (error) {
@@ -880,10 +930,10 @@ class PerfilController {
                         } else {
                             console.log('Imagem de fundo excluída com sucesso!');
                         }
-    
+
                     })
                 }
-                
+
                 imagemPerfil = req.files.imagemPerfil[0].path
 
                 Perfil.update({
@@ -915,7 +965,7 @@ class PerfilController {
                 )
 
             })
-        } 
+        }
         //Caso queira editar as duas imagens
         else if (req.files.imagemPerfil != undefined && req.files.imagemFundo != undefined) {
             Perfil.findByPk(idPerfil).then((Perfil) => {
@@ -923,7 +973,7 @@ class PerfilController {
                 let imagemPerfil = Perfil.imagemPerfil
                 let imagemFundo = Perfil.imagemFundo
 
-                if(imagemPerfil != null){
+                if (imagemPerfil != null) {
                     fs.unlink(imagemPerfil, (error) => {
 
                         if (error) {
@@ -931,11 +981,11 @@ class PerfilController {
                         } else {
                             console.log('Imagem de perfil excluída com sucesso!');
                         }
-    
+
                     })
                 }
-                
-                if(imagemFundo != null){
+
+                if (imagemFundo != null) {
                     fs.unlink(imagemFundo, (error) => {
 
                         if (error) {
@@ -943,10 +993,10 @@ class PerfilController {
                         } else {
                             console.log('Imagem de fundo excluída com sucesso!');
                         }
-    
+
                     })
                 }
-                
+
                 imagemPerfil = req.files.imagemPerfil[0].path
 
                 imagemFundo = req.files.imagemFundo[0].path

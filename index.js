@@ -3,6 +3,8 @@ const app = express()
 const cors = require('cors')
 const routes = require('./routes')
 const bodyParser = require('body-parser')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 app.use(express.json())
 

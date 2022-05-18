@@ -2,6 +2,7 @@ const {Router} = require('express')
 
 const routes = new Router()
 const multer = require('multer')
+const PerfilMiddleware = require('./middleware/PerfilMiddleware')
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -42,6 +43,13 @@ routes.post('/perfil/cadastrarEmpresaContaBancariaSemFoto', PerfilController.cad
 routes.post('/perfil/cadastrarEmpresaSemFoto', PerfilController.cadastroEmpresaSemFoto)
 
 routes.post('/perfil/cadastrarPerfilEmpresaComConta', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaConta)
+
+routes.post('/perfil/login', PerfilController.login)
+
+routes.get('/rotaSecreta', PerfilMiddleware.isLoggedIn, (req, res, next) => {
+    console.log(req.userData);
+    res.send('Esse conteúdo é secreto. Só vê quem está logado.');
+  });
 
 //Rotas de Usuário Comum
 const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController')
