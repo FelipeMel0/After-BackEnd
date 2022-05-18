@@ -100,7 +100,7 @@ class PerfilController {
             }
         })
 
-        if(usuarioExiste){
+        if (usuarioExiste) {
             return res.status(422).json({
                 msg: "Esse email já está sendo utilizado."
             })
@@ -543,15 +543,45 @@ class PerfilController {
 
         const idPerfil = req.params.idPerfil
 
-        Perfil.destroy({
-            where: {
-                idPerfil: idPerfil
-            }
-        }).then(
-            () => {
-                res.send('Perfil excluído')
-            }
-        )
+        Perfil.findByPk(idPerfil).then((Perfil) => {
+            
+            let imagemPerfil = Perfil.imagemPerfil
+            let imagemFundo = Perfil.imagemFundo
+
+            Perfil.destroy({
+                where: {
+                    idPerfil: idPerfil
+                }
+            }).then(
+                () => {
+                    if (imagemPerfil != null) {
+                        fs.unlink(imagemPerfil, (error) => {
+
+                            if (error) {
+                                console.log('Erro ao excluir a imagem: ' + error);
+                            } else {
+                                console.log('Imagem de perfil excluída com sucesso!');
+                            }
+
+                        })
+                    }
+
+                    if (imagemFundo != null) {
+                        fs.unlink(imagemFundo, (error) => {
+
+                            if (error) {
+                                console.log('Erro ao excluir a imagem: ' + error);
+                            } else {
+                                console.log('Imagem de fundo excluída com sucesso!');
+                            }
+
+                        })
+                    }
+
+                    res.send('Perfil excluído')
+                }
+            )
+        })
 
     }
 
