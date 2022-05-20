@@ -81,6 +81,7 @@ routes.post("/endereco/cadastrarEndereco/:tblUsuarioComumIdUsuarioComum", Endere
 routes.get("/endereco/listarEnderecos", Endereco.listar)
 routes.delete("/endereco/deletarEndereco/:idEndereco", Endereco.deletar)
 routes.put("/endereco/editarEndereco/:idEndereco", Endereco.editar)
+routes.get("/endereco/listarEnderecoPorIdUsuario/:tblUsuarioComumIdUsuarioComum", Endereco.listarPorId)
 
 const VerificacaoUsuario = require("./controllers/UsuarioComum/VerificacaoUsuarioController")
 

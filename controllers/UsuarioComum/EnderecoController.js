@@ -26,6 +26,20 @@ class EnderecoController{
 
     }
 
+    async listarPorId(req, res){
+
+        const tblUsuarioComumIdUsuarioComum = req.params.tblUsuarioComumIdUsuarioComum
+
+        const endereco = await Endereco.findAll({
+            where: {
+                tblUsuarioComumIdUsuarioComum: tblUsuarioComumIdUsuarioComum
+            }
+        })
+
+        return res.json(endereco)
+
+    }
+
     async deletar(req, res) {
 
         const idEndereco = req.params.idEndereco

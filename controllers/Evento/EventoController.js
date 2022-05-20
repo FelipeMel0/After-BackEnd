@@ -182,45 +182,55 @@ class EventoController {
         // const primeiraImagem = req.files.imagem[0].path 
 
         if (req.files.imagem != null || req.files.imagem != undefined) {
-            const primeiraImagem = req.files.imagem[0].path
-            const imagemEvento = await ImagensEvento.create({
-                imagem: primeiraImagem,
-                tblEventoIdEvento
-            })
+            if(req.files.imagem[0] != undefined){
+                const primeiraImagem = req.files.imagem[0].path
+                const imagemEvento = await ImagensEvento.create({
+                    imagem: primeiraImagem,
+                    tblEventoIdEvento
+                })
+            }         
         }
 
         // const segundaImagem = req.files.imagem[1].path
 
         if (req.files.imagem != null || req.files.imagem != undefined) {
-            const segundaImagem = req.files.imagem[1].path
-            const imagemEvento = await ImagensEvento.create({
-                imagem: segundaImagem,
-                tblEventoIdEvento
-            })
+            if(req.files.imagem[1] != undefined){
+                const segundaImagem = req.files.imagem[1].path
+                const imagemEvento = await ImagensEvento.create({
+                    imagem: segundaImagem,
+                    tblEventoIdEvento
+                })
+            }    
         }
 
         if (req.files.imagem != null || req.files.imagem != undefined) {
-            const terceiraImagem = req.files.imagem[2].path
-            const imagemEvento = await ImagensEvento.create({
-                imagem: terceiraImagem,
-                tblEventoIdEvento
-            })
+            if(req.files.imagem[2] != undefined){
+                const terceiraImagem = req.files.imagem[2].path
+                const imagemEvento = await ImagensEvento.create({
+                    imagem: terceiraImagem,
+                    tblEventoIdEvento
+                })
+            }      
         }
 
         if (req.files.imagem != null || req.files.imagem != undefined) {
-            const quartaImagem = req.files.imagem[3].path
-            const imagemEvento = await ImagensEvento.create({
-                imagem: quartaImagem,
-                tblEventoIdEvento
-            })
+            if(req.files.imagem[3] != undefined){
+                const quartaImagem = req.files.imagem[3].path
+                const imagemEvento = await ImagensEvento.create({
+                    imagem: quartaImagem,
+                    tblEventoIdEvento
+                })
+            }   
         }
 
         if (req.files.imagem != null || req.files.imagem != undefined) {
-            const quintaImagem = req.files.imagem[4].path
-            const imagemEvento = await ImagensEvento.create({
-                imagem: quintaImagem,
-                tblEventoIdEvento
-            })
+            if(req.files.imagem[4] != undefined){
+                const quintaImagem = req.files.imagem[4].path
+                const imagemEvento = await ImagensEvento.create({
+                    imagem: quintaImagem,
+                    tblEventoIdEvento
+                })
+            }     
         }
 
         const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
