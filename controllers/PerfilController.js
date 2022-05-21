@@ -11,7 +11,6 @@ const TipoConta = require('../models/empresa/contaEmpresa/TipoConta')
 
 const fs = require('fs')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
 
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
@@ -612,6 +611,8 @@ class PerfilController {
                     idPerfil: perfil[0].idPerfil
                 }, 'SECRETKEY')
 
+                // localStorage.setItem("token", "Bearer " + res.data.token)
+
                 return res.status(200).send({
                     msg: "Entrou na sua conta com sucesso",
                     token,
@@ -632,6 +633,12 @@ class PerfilController {
             })
         }
 
+    }
+
+    async estaLogado(req, res, next){
+        return res.status(200).send({
+            msg: "Vc realmente está logado"
+        })
     }
 
     async editar(req, res) {

@@ -45,6 +45,7 @@ routes.post('/perfil/cadastrarEmpresaSemFoto', PerfilController.cadastroEmpresaS
 routes.post('/perfil/cadastrarPerfilEmpresaComConta', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaConta)
 
 routes.post('/perfil/login', PerfilController.login)
+routes.get('/perfil/estaLogado', PerfilMiddleware.isLoggedIn, PerfilController.estaLogado)
 
 routes.get('/rotaSecreta', PerfilMiddleware.isLoggedIn, (req, res, next) => {
     console.log(req.userData);
