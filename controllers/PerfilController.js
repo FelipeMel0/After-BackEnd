@@ -11,6 +11,7 @@ const TipoConta = require('../models/empresa/contaEmpresa/TipoConta')
 
 const fs = require('fs')
 const jwt = require('jsonwebtoken')
+const PerfilMiddleware = require('../middleware/PerfilMiddleware')
 
 class PerfilController {
     async cadastroUsuarioComum(req, res) {
@@ -608,7 +609,11 @@ class PerfilController {
 
                 const token = jwt.sign({
                     email: perfil[0].email,
-                    idPerfil: perfil[0].idPerfil
+                    idPerfil: perfil[0].idPerfil,
+                    nickname: perfil[0].nickname,
+                    imagemPerfil: perfil[0].imagemPerfil,
+                    imagemFundo: perfil[0].imagemFundo,
+                    biografia: perfil[0].biografia
                 }, 'SECRETKEY')
 
                 // localStorage.setItem("token", "Bearer " + res.data.token)
@@ -636,8 +641,11 @@ class PerfilController {
     }
 
     async estaLogado(req, res, next){
+
+        var decoded = req.userData
+
         return res.status(200).send({
-            msg: "Vc realmente está logado"
+            msg: "Vc realmente está logado", "Usuário": decoded
         })
     }
 

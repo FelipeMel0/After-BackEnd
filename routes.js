@@ -35,7 +35,7 @@ routes.delete('/perfil/deletarPerfil/:idPerfil', PerfilController.deletar)
 // routes.put('/perfil/editarPerfil/:idPerfil', PerfilController.editar)
 routes.put('/perfil/editarPerfilUsuarioComum/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilUsuarioComum)
 routes.put('/perfil/editarPerfilEmpresa/:idPerfil', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.editarPerfilEmpresa)
-routes.get('/perfil/acharPerfil/:idPerfil', PerfilController.acharPorId)
+routes.get('/perfil/acharPerfil/:idPerfil', PerfilMiddleware.isLoggedIn,PerfilController.acharPorId)
 routes.post('/perfil/cadastrarPerfilEmpresaContaBancaria', upload.fields([{name: 'imagemPerfil', maxCount: 1}, {name: 'imagemFundo', maxCount: 1}]), PerfilController.cadastroEmpresaContaBancaria)
 
 routes.post('/perfil/cadastrarPerfilUsuarioComumEnderecoSemFoto', PerfilController.cadastroUsuarioComumEnderecoSemFoto)
