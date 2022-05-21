@@ -9,17 +9,18 @@ module.exports = {
                 token,
                 'SECRETKEY'
             );
+            
             req.userData = decoded;
 
-            console.log(decoded)
+            // console.log(decoded)
 
-            var idPerfil = decoded.idPerfil
+            // var idPerfil = decoded.idPerfil
 
-            var perfil = Perfil.findOne({
-                where: {
-                    idPerfil: idPerfil
-                }
-            })
+            // var perfil = Perfil.findOne({
+            //     where: {
+            //         idPerfil: idPerfil
+            //     }
+            // })
 
             // console.log("AQUI ESTÁ: " + res.json(perfil.nickname))
             next();

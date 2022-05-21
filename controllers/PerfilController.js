@@ -529,13 +529,25 @@ class PerfilController {
 
     async acharPorId(req, res) {
 
-        const {
-            idPerfil
-        } = req.params
-
-        const perfil = Perfil.findByPk(idPerfil).then((perfilId) => {
-            res.send(perfilId)
+        const perfil = await Perfil.findAll({
+            where: {
+                idPerfil: req.params.idPerfil
+            }
         })
+
+        return res.json(perfil)
+
+    }
+
+    async acharPerfilLogado(req, res) {
+
+        const perfil = await Perfil.findAll({
+            where: {
+                idPerfil: req.userData.idPerfil
+            }
+        })
+
+        return res.json(perfil)
 
     }
 
