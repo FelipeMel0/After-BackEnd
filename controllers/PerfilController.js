@@ -544,7 +544,13 @@ class PerfilController {
         const perfil = await Perfil.findAll({
             where: {
                 idPerfil: req.userData.idPerfil
-            }
+            },
+            include: [{
+                model: Empresa
+            }, {
+                model: UsuarioComum
+            }]
+
         })
 
         return res.json(perfil)
