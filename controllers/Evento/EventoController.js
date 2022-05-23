@@ -12,6 +12,8 @@ const Lote = require("../../models/evento/ingresso/Lote")
 const VariedadeIngressoLote = require("../../models/evento/ingresso/VariedadeIngressoLote")
 const UsuarioComum = require("../../models/usuarioComum/UsuarioComum")
 
+const fs = require('fs')
+
 class EventoController {
 
     async cadastro(req, res) {
@@ -242,6 +244,84 @@ class EventoController {
                 tblEventoIdEvento
             })
         }
+
+        return res.status(201).json({
+            "message": "Cadastro feito com sucesso!"
+        })
+
+    }
+
+    async cadastroEventoCompletoMobile(req, res) {
+
+        const {
+            titulo,
+            descricao,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa
+        } = req.body
+
+        let buffer = new Buffer.from(req.body.capa[0], 'base64')
+        let capa = './uploads/' + Date.now().toString() + 'capa.jpg'
+
+        fs.writeFileSync(capa, buffer, 'base64', (error)=>{
+
+            if(error) console.log(error)
+    
+        })
+        // const capa = req.files.capa[0].path
+
+        const tblEmpresaIdEmpresa = req.params.tblEmpresaIdEmpresa
+
+        const evento = await Evento.create({
+            titulo,
+            descricao,
+            capa,
+            dataInicio,
+            dataFim,
+            horaInicio,
+            horaFim,
+            tblFaixaEtariumIdFaixaEtaria,
+            tblTipoEventoIdTipoEvento,
+            tblCategoriumIdCategoria,
+            tblContaEmpresaIdContaEmpresa,
+            tblEmpresaIdEmpresa
+        })
+
+        const tblEventoIdEvento = evento.idEvento
+
+        const {
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            numero
+        } = req.body
+
+        const enderecoEvento = await EnderecoEvento.create({
+            cep,
+            logradouro,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            numero,
+            tblEventoIdEvento
+        })
+
+        const tblAssuntoIdAssunto = req.body.tblAssuntoIdAssunto
+
+        const assunto = await IntermEventoAssunto.create({
+            tblAssuntoIdAssunto,
+            tblEventoIdEvento
+        })
 
         return res.status(201).json({
             "message": "Cadastro feito com sucesso!"

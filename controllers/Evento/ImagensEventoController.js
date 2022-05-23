@@ -1,3 +1,4 @@
+const db = require('../../models/database/db')
 const ImagensEvento = require('../../models/evento/ImagensEvento')
 
 

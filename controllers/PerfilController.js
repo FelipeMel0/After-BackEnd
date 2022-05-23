@@ -77,8 +77,7 @@ class PerfilController {
             senha,
             biografia
         } = req.body
-        // const imagemPerfil = req.files.imagemPerfil[0].path
-        // const imagemFundo = req.files.imagemFundo[0].path
+
         let imagemPerfil
         let imagemFundo
 
@@ -113,6 +112,98 @@ class PerfilController {
             imagemPerfil,
             imagemFundo,
             biografia
+        })
+
+        const tblPerfilIdPerfil = perfil.idPerfil
+
+        //Gravar usuário
+
+        const {
+            nome,
+            dataNasc
+        } = req.body
+
+        const usuarioComum = await UsuarioComum.create({
+            nome,
+            dataNasc,
+            tblPerfilIdPerfil
+        })
+
+        const tblUsuarioComumIdUsuarioComum = usuarioComum.idUsuarioComum
+
+        //Gravar endereço
+
+        const {
+            cep,
+            cidade,
+            estado
+        } = req.body
+
+        const endereco = await Endereco.create({
+            cep,
+            cidade,
+            estado,
+            tblUsuarioComumIdUsuarioComum
+        })
+
+        return res.status(201).json({
+            message: 'Cadastro realizado com sucesso!'
+        })
+
+    }
+
+    async cadastroUsuarioComumEnderecoMobile(req, res) {
+        const {
+            nickname,
+            email,
+            senha,
+            biografia
+        } = req.body
+
+        let imagemPerfil
+        let imagemFundo
+
+        if (req.body.imagemPerfil == undefined) {
+            imagemPerfil = null
+        } else { 
+            let buffer = new Buffer.from(req.body.imagemPerfil[0], 'base64')
+            imagemPerfil = './uploads/' + Date.now().toString() + 'perfil.jpg'
+
+            fs.writeFileSync(imagemPerfil, buffer, 'base64', (error)=>{
+                if(error) console.log(error)
+            })
+        }
+
+        if (req.body.imagemFundo == undefined) {
+            imagemFundo = null
+        } else {
+            let buffer = new Buffer.from(req.body.imagemFundo[0], 'base64')
+            imagemFundo = './uploads/' + Date.now().toString() + 'fundo.jpg'
+
+            fs.writeFileSync(imagemFundo, buffer, 'base64', (error)=>{
+                if(error) console.log(error)
+            })
+        }
+
+        // const usuarioExiste = await Perfil.findOne({
+        //     where: {
+        //         email
+        //     }
+        // })
+
+        // if (usuarioExiste) {
+        //     return res.status(422).json({
+        //         msg: "Esse email já está sendo utilizado."
+        //     })
+        // }
+
+        const perfil = await Perfil.create({
+            nickname: nickname,
+            email: email,
+            senha: senha,
+            imagemPerfil: imagemPerfil,
+            imagemFundo: imagemFundo,
+            biografia: biografia
         })
 
         const tblPerfilIdPerfil = perfil.idPerfil

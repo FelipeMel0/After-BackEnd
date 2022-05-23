@@ -53,6 +53,9 @@ routes.get('/rotaSecreta', PerfilMiddleware.isLoggedIn, (req, res, next) => {
     res.send('Esse conteúdo é secreto. Só vê quem está logado.');
   });
 
+//Para mobile
+routes.post('/perfil/cadastrarUsuarioComumEnderecoMobile', PerfilController.cadastroUsuarioComumEnderecoMobile)
+
 //Rotas de Usuário Comum
 const UsuarioComum = require('./controllers/UsuarioComum/UsuarioComumController')
 
@@ -160,6 +163,9 @@ routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
 routes.put("/evento/editarEvento/:idEvento", Evento.editar)
 routes.post("/evento/cadastrarEventoEndereco/:tblEmpresaIdEmpresa", Evento.cadastroEventoEndereco)
 routes.post("/evento/cadastrarEventoCompleto/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}, {name: 'imagem', maxCount: 5}]), Evento.cadastroEventoCompleto)
+
+//Para mobile
+routes.post("/evento/cadastrarEventoCompletoMobile", Evento.cadastroEventoCompletoMobile)
 
 const TipoEvento = require("./controllers/Evento/TipoEventoController")
 
