@@ -13,6 +13,9 @@ const VariedadeIngressoLote = require("../../models/evento/ingresso/VariedadeIng
 const UsuarioComum = require("../../models/usuarioComum/UsuarioComum")
 
 const fs = require('fs')
+const FaixaEtaria = require("../../models/evento/FaixaEtaria")
+const TipoEvento = require("../../models/evento/TipoEvento")
+const ContaEmpresa = require("../../models/empresa/contaEmpresa/ContaEmpresa")
 
 class EventoController {
 
@@ -354,13 +357,23 @@ class EventoController {
                     }]
                 }]
             }, {
-                model: Categoria
+                model: Categoria,
+                attributes: ['nomeCategoria']
             }, {
                 model: Empresa,
                 include: [{
                     model: Perfil
                 }]
-            }],
+            }, {
+                model: FaixaEtaria,
+                attributes: ['idade']
+            }, {
+                model: TipoEvento,
+                attributes: ['tipo']
+            }, {
+                model: ContaEmpresa
+            }
+        ],
         })
 
         return res.json(evento)
