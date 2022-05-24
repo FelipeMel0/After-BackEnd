@@ -229,6 +229,10 @@ routes.get("/interacao/listarCurtidasPorIdEvento/:tblEventoIdEvento", EventosCur
 routes.get("/interacao/listarCurtidasPorIdPerfil/:tblPerfilIdPerfil", EventosCurtidos.listarCurtidasPorIdPerfil)
 routes.delete("/interacao/deletarCurtida/:idEventosCurtidos", EventosCurtidos.deletarCurtida)
 
+const PesquisarEvento = require('./controllers/Evento/Interação/PesquisarEventoController')
+
+routes.get("/pesquisar/pesquisarEvento", PesquisarEvento.pesquisar)
+
 
 const SeguirEmpresaUsuario = require('./controllers/Seguir/SeguirEmpresaUsuarioController')
 
