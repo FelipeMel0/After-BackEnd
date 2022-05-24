@@ -316,16 +316,18 @@ class PerfilController {
         let imagemPerfil
         let imagemFundo
 
-        if (req.files.imagemPerfil == undefined) {
-            imagemPerfil = null
-        } else {
-            imagemPerfil = req.files.imagemPerfil[0].path
-        }
-
-        if (req.files.imagemFundo == undefined) {
-            imagemFundo = null
-        } else {
-            imagemFundo = req.files.imagemFundo[0].path
+        if(req.files != undefined){
+            if (req.files.imagemPerfil == undefined) {
+                imagemPerfil = null
+            } else {
+                imagemPerfil = req.files.imagemPerfil[0].path
+            }
+    
+            if (req.files.imagemFundo == undefined) {
+                imagemFundo = null
+            } else {
+                imagemFundo = req.files.imagemFundo[0].path
+            }
         }
 
         const perfil = await Perfil.create({
@@ -405,16 +407,18 @@ class PerfilController {
         let imagemPerfil
         let imagemFundo
 
-        if (req.files.imagemPerfil == undefined) {
-            imagemPerfil = null
-        } else {
-            imagemPerfil = req.files.imagemPerfil[0].path
-        }
-
-        if (req.files.imagemFundo == undefined) {
-            imagemFundo = null
-        } else {
-            imagemFundo = req.files.imagemFundo[0].path
+        if(req.files != undefined){
+            if (req.files.imagemPerfil == undefined) {
+                imagemPerfil = null
+            } else {
+                imagemPerfil = req.files.imagemPerfil[0].path
+            }
+    
+            if (req.files.imagemFundo == undefined) {
+                imagemFundo = null
+            } else {
+                imagemFundo = req.files.imagemFundo[0].path
+            }
         }
 
         const perfil = await Perfil.create({
@@ -496,16 +500,18 @@ class PerfilController {
         let imagemPerfil
         let imagemFundo
 
-        if (req.files.imagemPerfil == undefined) {
-            imagemPerfil = null
-        } else {
-            imagemPerfil = req.files.imagemPerfil[0].path
-        }
-
-        if (req.files.imagemFundo == undefined) {
-            imagemFundo = null
-        } else {
-            imagemFundo = req.files.imagemFundo[0].path
+        if(req.files != undefined){
+            if (req.files.imagemPerfil == undefined) {
+                imagemPerfil = null
+            } else {
+                imagemPerfil = req.files.imagemPerfil[0].path
+            }
+    
+            if (req.files.imagemFundo == undefined) {
+                imagemFundo = null
+            } else {
+                imagemFundo = req.files.imagemFundo[0].path
+            }
         }
 
         const perfil = await Perfil.create({
