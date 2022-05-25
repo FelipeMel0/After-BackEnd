@@ -20,10 +20,10 @@ const Perfil = db.sequelize.define('tblPerfils', {
         allowNull: false
     },
     imagemPerfil: {
-        type: db.Sequelize.TEXT
+        type: db.Sequelize.STRING(700)
     },
     imagemFundo: {
-        type: db.Sequelize.TEXT
+        type: db.Sequelize.STRING(700)
     },
     biografia: {
         type: db.Sequelize.STRING(200)
