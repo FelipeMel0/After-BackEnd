@@ -1,6 +1,6 @@
 const db = require('../../models/database/db')
 const ImagensEvento = require('../../models/evento/ImagensEvento')
-
+const fs = require('fs')
 
 class ImagensEventoController {
 
@@ -45,13 +45,33 @@ class ImagensEventoController {
 
         const idImagensEvento = req.params.idImagensEvento
 
-        ImagensEvento.destroy(
-            {where: {idImagensEvento: idImagensEvento}}
-        ).then(
-            () => {
-                res.send('Imagem de evento excluída')
-            }
-        )
+        ImagensEvento.findByPk(idImagensEvento).then((ImagensEvento) => {
+            
+            let imagem = ImagensEvento.imagem
+
+            ImagensEvento.destroy({
+                where: {
+                    idImagensEvento: idImagensEvento
+                }
+            }).then(
+                () => {
+                    if (imagem != null) {
+                        fs.unlink(imagem, (error) => {
+
+                            if (error) {
+                                console.log('Erro ao excluir a imagem: ' + error);
+                            } else {
+                                console.log('Imagem excluída com sucesso!');
+                            }
+
+                        })
+                    }
+
+                    res.send('Imagem excluída')
+
+                }
+            )
+        })
 
     }
 

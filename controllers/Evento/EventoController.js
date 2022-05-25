@@ -469,15 +469,34 @@ class EventoController {
 
         const idEvento = req.params.idEvento
 
-        Evento.destroy({
-            where: {
-                idEvento: idEvento
-            }
-        }).then(
-            () => {
-                res.send('Evento excluído')
-            }
-        )
+        Evento.findByPk(idEvento).then((Evento) => {
+            
+            let capa = Evento.capa
+
+            Evento.destroy({
+                where: {
+                    idEvento: idEvento
+                }
+            }).then(
+                () => {
+                    if (capa != null) {
+                        fs.unlink(capa, (error) => {
+
+                            if (error) {
+                                console.log('Erro ao excluir a imagem: ' + error);
+                            } else {
+                                console.log('Imagem de capa excluída com sucesso!');
+                            }
+
+                        })
+                    }
+
+                    res.send('Evento excluído')
+
+                }
+            )
+        })
+
 
     }
 
