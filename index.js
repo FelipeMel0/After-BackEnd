@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 
 app.use(express.json())
+// app.use(express.urlencoded({extended: true, limit:'5MB'}))
 
 app.use(routes)
 

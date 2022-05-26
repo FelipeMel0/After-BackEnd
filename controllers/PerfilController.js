@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken')
 const PerfilMiddleware = require('../middleware/PerfilMiddleware')
 
 class PerfilController {
+
     async cadastroUsuarioComum(req, res) {
 
         const {
@@ -155,6 +156,10 @@ class PerfilController {
     }
 
     async cadastroUsuarioComumEnderecoMobile(req, res) {
+
+        console.log("TESTE");
+        console.log(req.body);
+        res.status(200);
         const {
             nickname,
             email,
@@ -187,17 +192,17 @@ class PerfilController {
             })
         }
 
-        // const usuarioExiste = await Perfil.findOne({
-        //     where: {
-        //         email
-        //     }
-        // })
+        const usuarioExiste = await Perfil.findOne({
+            where: {
+                email
+            }
+        })
 
-        // if (usuarioExiste) {
-        //     return res.status(422).json({
-        //         msg: "Esse email já está sendo utilizado."
-        //     })
-        // }
+        if (usuarioExiste) {
+            return res.status(422).json({
+                msg: "Esse email já está sendo utilizado."
+            })
+        }
 
         const perfil = await Perfil.create({
             nickname: nickname,
