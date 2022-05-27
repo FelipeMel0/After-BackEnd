@@ -427,42 +427,49 @@ class EventoController {
             idEvento
         } = req.params
 
-        const evento = Evento.findByPk(idEvento, {
+
+        const evento = Evento.findAll({
+            where:{
+                idEvento: req.params.idEvento
+            },
             include: [{
-                    model: IntermEventoCelebridade,
-                    include: [{
-                        model: Celebridade,
-                        attributes: ['idCelebridade'],
-                        include: [{
-                            model: VerificacaoUsuario,
-                            attributes: ['nickname'],
+                            model: IntermEventoCelebridade,
                             include: [{
-                                model: UsuarioComum,
-                                include:[{
-                                    model: Perfil,
-                                    attributes: ['imagemPerfil']
+                                model: Celebridade,
+                                attributes: ['idCelebridade'],
+                                include: [{
+                                    model: VerificacaoUsuario,
+                                    attributes: ['nickname'],
+                                    include: [{
+                                        model: UsuarioComum,
+                                        include:[{
+                                            model: Perfil,
+                                            attributes: ['imagemPerfil']
+                                        }]
+                                    }]
                                 }]
                             }]
-                        }]
-                    }]
-                }, {
-                    model: EnderecoEvento
-                },
-                {
-                    model: Empresa,
-                    include: [{
-                        model: Perfil
-                    }]
-                }, {
-                    model: Lote,
-                    include: [{
-                        model: VariedadeIngressoLote
-                    }]
-                }
-            ]
+                        }, 
+                        {
+                            model: EnderecoEvento
+                        },
+                        {
+                            model: Empresa,
+                            include: [{
+                                model: Perfil
+                            }]
+                        },
+                        {
+                            model: Lote,
+                            include: [{
+                                model: VariedadeIngressoLote
+                            }]
+                        }
+                    ]
         }).then((eventoId) => {
-            res.send(eventoId)
-        })
+                res.send(eventoId)
+            })
+        
     }
 
     async deletar(req, res) {
