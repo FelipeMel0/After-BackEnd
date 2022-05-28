@@ -39,6 +39,9 @@ class ComentarioController {
         const comentario = await Comentario.findAll({
             where: {
                 tblEventoIdEvento: tblEventoIdEvento
+            },
+            include:{
+                model: Perfil
             }
         })
 
