@@ -16,7 +16,7 @@ const Perfil = db.sequelize.define('tblPerfils', {
         allowNull: false
     },
     senha: {
-        type: db.Sequelize.STRING(45),
+        type: db.Sequelize.STRING(60),
         allowNull: false
     },
     imagemPerfil: {
