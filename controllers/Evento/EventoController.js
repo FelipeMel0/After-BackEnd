@@ -16,6 +16,7 @@ const fs = require('fs')
 const FaixaEtaria = require("../../models/evento/FaixaEtaria")
 const TipoEvento = require("../../models/evento/TipoEvento")
 const ContaEmpresa = require("../../models/empresa/contaEmpresa/ContaEmpresa")
+const Assunto = require("../../models/evento/Assunto")
 
 class EventoController {
 
@@ -464,6 +465,24 @@ class EventoController {
                             include: [{
                                 model: VariedadeIngressoLote
                             }]
+                        },
+                        {
+                            model: TipoEvento
+                        },
+                        {
+                            model: Categoria
+                        },
+                        {
+                            model: IntermEventoAssunto,
+                            include: [{
+                                model: Assunto
+                            }]
+                        },
+                        {
+                            model: ContaEmpresa
+                        },
+                        {
+                            model: FaixaEtaria
                         }
                     ]
         }).then((eventoId) => {
