@@ -162,7 +162,7 @@ routes.get("/evento/acharEventoIdEvento/:idEvento", Evento.acharIdEvento)
 routes.delete("/evento/deletarEvento/:idEvento", Evento.deletar)
 routes.put("/evento/editarEvento/:idEvento", Evento.editar)
 routes.post("/evento/cadastrarEventoEndereco/:tblEmpresaIdEmpresa", Evento.cadastroEventoEndereco)
-routes.post("/evento/cadastrarEventoCompleto/:tblEmpresaIdEmpresa", upload.fields([{name: 'capa', maxCount: 1}, {name: 'imagem', maxCount: 5}]), Evento.cadastroEventoCompleto)
+routes.post("/evento/cadastrarEventoCompleto/:tblEmpresaIdEmpresa", PerfilMiddleware.isLoggedIn, upload.fields([{name: 'capa', maxCount: 1}, {name: 'imagem', maxCount: 5}]), Evento.cadastroEventoCompleto)
 routes.get("/evento/listarEventoIdEvento/:idEvento", PerfilMiddleware.isLoggedIn, Evento.acharIdEvento)
 
 //Para mobile

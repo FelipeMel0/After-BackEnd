@@ -238,19 +238,22 @@ class EventoController {
             }     
         }
 
-        const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
+        // const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
 
-        if (tblCelebridadeIdCelebridade != null || tblCelebridadeIdCelebridade != undefined || tblCelebridadeIdCelebridade != "" || tblCelebridadeIdCelebridade != 0) {
-            // const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
-            const celebridade = await IntermEventoCelebridade.create({
-                tblCelebridadeIdCelebridade,
-                tblEventoIdEvento
-            })
-        }
+        // if (tblCelebridadeIdCelebridade != null || tblCelebridadeIdCelebridade != undefined || tblCelebridadeIdCelebridade != "" || tblCelebridadeIdCelebridade != 0) {
+        //     // const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
+        //     const celebridade = await IntermEventoCelebridade.create({
+        //         tblCelebridadeIdCelebridade,
+        //         tblEventoIdEvento
+        //     })
+        // }
 
         return res.status(201).json({
-            "message": "Cadastro feito com sucesso!"
+            "idEvento": tblEventoIdEvento
         })
+        // return res.send({
+        //     tblEventoIdEvento
+        // })
 
     }
 
@@ -464,6 +467,9 @@ class EventoController {
                             include: [{
                                 model: VariedadeIngressoLote
                             }]
+                        }, {
+                            model: FaixaEtaria,
+                            attributes: ['idade']
                         }
                     ]
         }).then((eventoId) => {
