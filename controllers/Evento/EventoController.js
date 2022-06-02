@@ -16,6 +16,8 @@ const fs = require('fs')
 const FaixaEtaria = require("../../models/evento/FaixaEtaria")
 const TipoEvento = require("../../models/evento/TipoEvento")
 const ContaEmpresa = require("../../models/empresa/contaEmpresa/ContaEmpresa")
+const Assunto = require("../../models/evento/Assunto")
+const Comentario = require("../../models/evento/interação/Comentario")
 
 class EventoController {
 
@@ -238,19 +240,22 @@ class EventoController {
             }     
         }
 
-        const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
+        // const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
 
-        if (tblCelebridadeIdCelebridade != null || tblCelebridadeIdCelebridade != undefined || tblCelebridadeIdCelebridade != "" || tblCelebridadeIdCelebridade != 0) {
-            // const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
-            const celebridade = await IntermEventoCelebridade.create({
-                tblCelebridadeIdCelebridade,
-                tblEventoIdEvento
-            })
-        }
+        // if (tblCelebridadeIdCelebridade != null || tblCelebridadeIdCelebridade != undefined || tblCelebridadeIdCelebridade != "" || tblCelebridadeIdCelebridade != 0) {
+        //     // const tblCelebridadeIdCelebridade = req.body.tblCelebridadeIdCelebridade
+        //     const celebridade = await IntermEventoCelebridade.create({
+        //         tblCelebridadeIdCelebridade,
+        //         tblEventoIdEvento
+        //     })
+        // }
 
         return res.status(201).json({
-            "message": "Cadastro feito com sucesso!"
+            "idEvento": tblEventoIdEvento
         })
+        // return res.send({
+        //     tblEventoIdEvento
+        // })
 
     }
 
@@ -463,6 +468,34 @@ class EventoController {
                             model: Lote,
                             include: [{
                                 model: VariedadeIngressoLote
+                            }]
+                        }, 
+                        {
+                            model: FaixaEtaria,
+                            attributes: ['idade']
+                        },
+                        {
+                            model: TipoEvento
+                        },
+                        {
+                            model: Categoria
+                        },
+                        {
+                            model: IntermEventoAssunto,
+                            include: [{
+                                model: Assunto
+                            }]
+                        },
+                        {
+                            model: ContaEmpresa
+                        },
+                        {
+                            model: FaixaEtaria
+                        },
+                        {
+                            model: Comentario,
+                            include: [{
+                                model: Perfil
                             }]
                         }
                     ]
