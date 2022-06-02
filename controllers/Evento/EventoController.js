@@ -17,6 +17,7 @@ const FaixaEtaria = require("../../models/evento/FaixaEtaria")
 const TipoEvento = require("../../models/evento/TipoEvento")
 const ContaEmpresa = require("../../models/empresa/contaEmpresa/ContaEmpresa")
 const Assunto = require("../../models/evento/Assunto")
+const Comentario = require("../../models/evento/interação/Comentario")
 
 class EventoController {
 
@@ -468,9 +469,36 @@ class EventoController {
                             include: [{
                                 model: VariedadeIngressoLote
                             }]
+<<<<<<< Updated upstream
                         }, {
                             model: FaixaEtaria,
                             attributes: ['idade']
+=======
+                        },
+                        {
+                            model: TipoEvento
+                        },
+                        {
+                            model: Categoria
+                        },
+                        {
+                            model: IntermEventoAssunto,
+                            include: [{
+                                model: Assunto
+                            }]
+                        },
+                        {
+                            model: ContaEmpresa
+                        },
+                        {
+                            model: FaixaEtaria
+                        },
+                        {
+                            model: Comentario,
+                            include: [{
+                                model: Perfil
+                            }]
+>>>>>>> Stashed changes
                         }
                     ]
         }).then((eventoId) => {
