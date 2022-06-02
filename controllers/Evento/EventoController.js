@@ -469,11 +469,10 @@ class EventoController {
                             include: [{
                                 model: VariedadeIngressoLote
                             }]
-<<<<<<< Updated upstream
-                        }, {
+                        }, 
+                        {
                             model: FaixaEtaria,
                             attributes: ['idade']
-=======
                         },
                         {
                             model: TipoEvento
@@ -498,7 +497,6 @@ class EventoController {
                             include: [{
                                 model: Perfil
                             }]
->>>>>>> Stashed changes
                         }
                     ]
         }).then((eventoId) => {
