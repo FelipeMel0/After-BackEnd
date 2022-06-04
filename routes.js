@@ -2,6 +2,10 @@ const {Router} = require('express')
 
 const routes = new Router()
 const multer = require('multer')
+const cors = require('cors')
+
+routes.use(cors())
+
 const PerfilMiddleware = require('./middleware/PerfilMiddleware')
 
 const storage = multer.diskStorage({
