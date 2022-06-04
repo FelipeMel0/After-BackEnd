@@ -150,7 +150,7 @@ class PerfilController {
         })
 
         return res.status(201).json({
-            message: 'Cadastro realizado com sucesso!'
+            perfil
         })
 
     }
