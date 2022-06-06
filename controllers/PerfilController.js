@@ -626,7 +626,13 @@ class PerfilController {
     }
 
     async listar(req, res) {
-        const perfil = await Perfil.findAll()
+        const perfil = await Perfil.findAll({
+            include: [{
+                model: Empresa
+            },{
+                model: UsuarioComum
+            }]
+        })
 
         return res.json(perfil)
     }
