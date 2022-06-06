@@ -67,6 +67,57 @@ class PesquisarEventoController {
 
     }
 
+    async pesquisarGet(req, res) {
+
+        const op = Sequelize.Op
+        const titulo = req.params.titulo
+
+        const pesquisa = await Evento.findAll({
+            where: {
+                titulo: {
+                    [op.like]: `%${titulo}%`
+                }
+            },
+            include: [{
+                model: IntermEventoCelebridade,
+                include: [{
+                    model: Celebridade,
+                    attributes: ['idCelebridade'],
+                    include: [{
+                        model: VerificacaoUsuario,
+                        attributes: ['nickname'],
+                        include: [{
+                            model: UsuarioComum,
+                            include: [{
+                                model: Perfil,
+                                attributes: ['imagemPerfil']
+                            }]
+                        }]
+                    }]
+                }]
+            }, {
+                model: Categoria,
+                attributes: ['nomeCategoria']
+            }, {
+                model: Empresa,
+                include: [{
+                    model: Perfil
+                }]
+            }, {
+                model: FaixaEtaria,
+                attributes: ['idade']
+            }, {
+                model: TipoEvento,
+                attributes: ['tipo']
+            }, {
+                model: ContaEmpresa
+            }],
+        })
+
+        return res.json(pesquisa)
+
+    }
+
 }
 
 module.exports = new PesquisarEventoController()

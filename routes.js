@@ -237,6 +237,7 @@ routes.delete("/interacao/deletarCurtida/:idEventosCurtidos", EventosCurtidos.de
 const PesquisarEvento = require('./controllers/Evento/Interação/PesquisarEventoController')
 
 routes.post("/pesquisar/pesquisarEvento", PesquisarEvento.pesquisar)
+routes.get("/pesquisar/pesquisarEventoGet/:titulo", PesquisarEvento.pesquisarGet)
 
 
 const SeguirEmpresaUsuario = require('./controllers/Seguir/SeguirEmpresaUsuarioController')
