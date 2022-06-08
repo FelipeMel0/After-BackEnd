@@ -414,12 +414,27 @@ class EventoController {
                     }]
                 }, {
                     model: Categoria
-                }, {
+                }, 
+                {
                     model: Empresa,
                     include:[{
                         model: Perfil
                     }]
-                }],
+                },
+                {
+                    model: TipoEvento
+                },
+                {
+                    model: FaixaEtaria
+                },
+                {
+                    model: IntermEventoAssunto,
+                    include:[{
+                        model: Assunto
+                    }]
+                }
+            
+            ],
             })
             .then((eventoId) => {
                 res.send(eventoId)
